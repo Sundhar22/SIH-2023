@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/ui/agency/agency_details.dart';
 
 class AgencyTile extends StatelessWidget {
   const AgencyTile({
@@ -11,9 +12,23 @@ class AgencyTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12),
       child: ListTile(
         contentPadding: const EdgeInsets.all(1),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const AgencyDetailsScreen(),
+            ),
+          );
+        },
         trailing: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const AgencyDetailsScreen(),
+              ),
+            );
+          },
           icon: const Icon(Icons.arrow_right),
           splashRadius: 10,
         ),

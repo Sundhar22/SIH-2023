@@ -26,6 +26,7 @@ class SearchScreen extends StatelessWidget {
                       child: TextField(
                         decoration:
                             InputDecoration(hintText: "Search Agencies"),
+                        autofocus: true,
                       ),
                     ),
                   ),
