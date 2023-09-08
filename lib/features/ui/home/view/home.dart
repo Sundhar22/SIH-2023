@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             GreetMessage(),
             WeatherAlerts(),
-            AgencyComponent(),
+            Expanded(child: AgencyComponent()),
           ],
         ),
       ),

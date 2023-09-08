@@ -4,7 +4,15 @@ import 'package:sih_2023/features/ui/agency/agency_details.dart';
 class AgencyTile extends StatelessWidget {
   const AgencyTile({
     super.key,
+    required this.agencyName,
+    required this.agencySpecialisation,
+    required this.agencyImage,
+    required this.agencyLocation,
+    required this.agencyAssociates,
   });
+
+  final String agencyName, agencySpecialisation, agencyImage, agencyLocation;
+  final List<String> agencyAssociates;
 
   @override
   Widget build(BuildContext context) {

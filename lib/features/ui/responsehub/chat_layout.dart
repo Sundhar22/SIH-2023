@@ -44,13 +44,10 @@ class ResponseHubChatLayout extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(color: Colors.black, fontSize: 18),
               ),
-              const SizedBox(height: 15),
-              const Text("Created on 2nd September 2023"),
-              const SizedBox(height: 15),
+              const Description(),
               LocationInfo(
                   cause: integratedReliefRoomCause,
                   location: integratedReliefLocation),
-              const SizedBox(height: 15),
               TextButton(
                 onPressed: () {},
                 child: const Text("View Scenario"),
@@ -58,6 +55,28 @@ class ResponseHubChatLayout extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class Description extends StatelessWidget {
+  const Description({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 15,
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.gps_fixed, color: Colors.red),
+          SizedBox(width: 5),
+          Text("Created on 2nd September 2023"),
+        ],
       ),
     );
   }
