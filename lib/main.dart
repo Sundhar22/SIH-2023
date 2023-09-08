@@ -17,16 +17,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurpleAccent,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurpleAccent,
+          ),
+          useMaterial3: true,
+          fontFamily: 'Poppins',
         ),
-        useMaterial3: true,
-        fontFamily: 'Poppins',
-      ),
-      home: Map()
-    );
+        home: Map());
   }
 }
