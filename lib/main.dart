@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sih_2023/features/ui/chat/chat.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
-import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -13,8 +11,6 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Poppins',
       ),
-      home: const HomeScreen(),
+      home: const ResponseHub(),
     );
   }
 }
