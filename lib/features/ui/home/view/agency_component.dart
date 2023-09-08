@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/functions/fetch_collection.dart';
+import 'package:sih_2023/features/functions/d.dart';
 import 'package:sih_2023/features/ui/home/view/agency_tile.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 
@@ -14,7 +14,7 @@ class AgencyComponent extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomTitleWidget(titleContent: "All Agencies"),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
           AgencyList(),
         ],
       ),
@@ -30,14 +30,14 @@ class AgencyList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: agencies.length,
         itemBuilder: (context, index) {
-          return const AgencyTile(
-            agencyName: "agencyName",
-            agencySpecialisation: "agencySpecialisation",
-            agencyImage: "agencyImage",
-            agencyLocation: "agencyLocation",
-            agencyAssociates: [],
+          return AgencyTile(
+            agencyName: agencies[index]["agencyName"],
+            agencySpecialisation: agencies[index]["agencyExpertise"],
+            agencyImage: agencies[index]["agencyLogo"],
+            agencyLocation: agencies[index]["OperatingState"],
+            agencyAssociates: agencies[index]["childAgencies"],
           );
         },
       ),

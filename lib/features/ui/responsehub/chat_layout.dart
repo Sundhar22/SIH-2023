@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/chat/chat.dart';
+import 'package:sih_2023/features/ui/map/view/map.dart';
 
-class ResponseHubChatLayout extends StatelessWidget {
-  const ResponseHubChatLayout({
+class TemporaryEmergencyRooms extends StatelessWidget {
+  const TemporaryEmergencyRooms({
     super.key,
     required this.integratedReliefRoomName,
     required this.integratedReliefRoomCause,
@@ -49,7 +50,12 @@ class ResponseHubChatLayout extends StatelessWidget {
                   cause: integratedReliefRoomCause,
                   location: integratedReliefLocation),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MapScreen()),
+                  );
+                },
                 child: const Text("View Scenario"),
               ),
             ],
@@ -75,7 +81,7 @@ class Description extends StatelessWidget {
         children: [
           Icon(Icons.gps_fixed, color: Colors.red),
           SizedBox(width: 5),
-          Text("Created on 2nd September 2023"),
+          Text("Created on 28th August 2023"),
         ],
       ),
     );
@@ -91,10 +97,14 @@ class RescueAgencyInvolved extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: [
-        CircleAvatar(radius: 15),
-        CircleAvatar(radius: 15),
-        CircleAvatar(radius: 15),
-        CircleAvatar(radius: 15),
+        CircleAvatar(
+          radius: 15,
+          child: Text("FP"),
+        ),
+        CircleAvatar(
+          radius: 15,
+          child: Text("RP"),
+        ),
       ],
     );
   }
@@ -124,14 +134,14 @@ class LocationInfo extends StatelessWidget {
         const SizedBox(width: 10),
         Row(
           children: [
-            const Icon(Icons.flood_sharp, color: Colors.amber),
+            const Icon(Icons.whatshot, color: Colors.red),
             Text(
               cause,
               style: const TextStyle(color: Colors.black, fontSize: 15),
             ),
           ],
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: 15),
         const RescueAgencyInvolved(),
       ],
     );

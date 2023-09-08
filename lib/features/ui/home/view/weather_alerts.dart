@@ -1,5 +1,21 @@
 import 'package:flutter/material.dart';
 
+final List<String> weatherUpdates = [
+  "Thunder Shower",
+  "Flood",
+  "Tsunami",
+  "Moderate Thunderstorm",
+  "Very Heavy Rain"
+];
+
+final List<String> weatherLocation = [
+  "Jaunpur",
+  "Assam",
+  "Bardez and Tiswadi",
+  "Chennai",
+  "Narmada"
+];
+
 class WeatherAlerts extends StatelessWidget {
   const WeatherAlerts({
     super.key,
@@ -13,7 +29,7 @@ class WeatherAlerts extends StatelessWidget {
         height: 45,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: weatherLocation.length,
           itemBuilder: (context, index) {
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -24,7 +40,10 @@ class WeatherAlerts extends StatelessWidget {
                   color: Colors.grey,
                 ),
               ),
-              child: const WeatherTextIndicator(),
+              child: WeatherTextIndicator(
+                weatherUpdate: weatherUpdates[index],
+                weatherLocation: weatherLocation[index],
+              ),
             );
           },
         ),
@@ -36,7 +55,11 @@ class WeatherAlerts extends StatelessWidget {
 class WeatherTextIndicator extends StatelessWidget {
   const WeatherTextIndicator({
     super.key,
+    required this.weatherUpdate,
+    required this.weatherLocation,
   });
+
+  final String weatherUpdate, weatherLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +70,16 @@ class WeatherTextIndicator extends StatelessWidget {
           child: Icon(Icons.cyclone, color: Colors.red),
         ),
         RichText(
-          text: const TextSpan(
-            text: 'Cyclone Hit ',
-            style: TextStyle(
+          text: TextSpan(
+            text: weatherUpdate,
+            style: const TextStyle(
               fontFamily: 'Poppins',
               color: Colors.black,
             ),
             children: <TextSpan>[
               TextSpan(
-                text: '(Banglore)',
-                style: TextStyle(
+                text: " ($weatherLocation)",
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
                 ),

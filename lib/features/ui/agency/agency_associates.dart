@@ -1,10 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 
 class AgencyAssociates extends StatelessWidget {
   const AgencyAssociates({
     super.key,
+    required this.agencyList,
+    required this.imageLink,
   });
+
+  final String imageLink;
+  final List<String> agencyList;
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +26,12 @@ class AgencyAssociates extends StatelessWidget {
               height: 250,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: agencyList.length,
                 itemBuilder: (context, index) {
-                  return const AssociateAgencyLayout();
+                  return AssociateAgencyLayout(
+                    agencyLogo: imageLink,
+                    agencyName: agencyList[index],
+                  );
                 },
               ),
             ),
@@ -36,7 +45,11 @@ class AgencyAssociates extends StatelessWidget {
 class AssociateAgencyLayout extends StatelessWidget {
   const AssociateAgencyLayout({
     super.key,
+    required this.agencyName,
+    required this.agencyLogo,
   });
+
+  final String agencyName, agencyLogo;
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +63,16 @@ class AssociateAgencyLayout extends StatelessWidget {
           Radius.circular(20),
         ),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(),
-          SizedBox(height: 10),
+          CircleAvatar(
+            backgroundImage: CachedNetworkImageProvider(agencyLogo),
+          ),
+          const SizedBox(height: 20),
           Text(
-            "Nation Management of Water Resources",
-            style: TextStyle(color: Colors.white),
+            agencyName,
+            style: const TextStyle(color: Colors.white),
           ),
         ],
       ),

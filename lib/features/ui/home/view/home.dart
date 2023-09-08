@@ -1,15 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
+import 'package:sih_2023/features/ui/map/view/map.dart';
+import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final List pages = [
+    const HomeState(),
+    const MapScreen(),
+    const ResponseHub(),
+    const HomeState(),
+    const ResponseHub()
+  ];
+
+  late int curPage;
+  @override
+  void initState() {
+    curPage = 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            curPage = index;
+          });
+        },
+        currentIndex: curPage,
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: const TextStyle(fontSize: 0),
         unselectedFontSize: 0,
@@ -39,15 +68,24 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: const SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            GreetMessage(),
-            WeatherAlerts(),
-            Expanded(child: AgencyComponent()),
-          ],
-        ),
+      body: pages[curPage],
+    );
+  }
+}
+
+class HomeState extends StatelessWidget {
+  const HomeState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          GreetMessage(),
+          WeatherAlerts(),
+          Expanded(child: AgencyComponent()),
+        ],
       ),
     );
   }

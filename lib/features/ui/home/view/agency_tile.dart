@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/agency/agency_details.dart';
 
@@ -24,30 +25,32 @@ class AgencyTile extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const AgencyDetailsScreen(),
+              builder: (context) => AgencyDetailsScreen(
+                imageLink: agencyImage,
+                agencyName: agencyName,
+                agencyLocation: agencyLocation,
+                agencyExpeertise: agencySpecialisation,
+                agencyAssociates: agencyAssociates,
+              ),
             ),
           );
         },
         trailing: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const AgencyDetailsScreen(),
-              ),
-            );
-          },
+          onPressed: () {},
           icon: const Icon(Icons.arrow_right),
           splashRadius: 10,
         ),
-        leading: const CircleAvatar(
+        leading: CircleAvatar(
           radius: 35,
+          backgroundImage: CachedNetworkImageProvider(
+            agencyImage,
+          ),
         ),
-        title: const Text(
-          "National Disaster Relief",
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Text(
+          agencyName,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        subtitle: const Text("Food Relief Authority"),
+        subtitle: Text(agencySpecialisation),
       ),
     );
   }

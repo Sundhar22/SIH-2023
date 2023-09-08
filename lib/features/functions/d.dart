@@ -8,9 +8,9 @@ final List agencies = [
     "agencyExpertise": "Emergency Services",
     "childAgencies": [
       "District Disaster management authority",
-      "SEOC",
-      "SDRF",
-      "SDMF",
+      "STATE EMERGENCY OPERATIONS CENTER",
+      "STATE DISASTER RESPONSE FUND",
+      "STATE DISASTER MITIGATION FUND",
     ],
     "employeeDetails": [],
     "OperatingState": "TamilNadu"
@@ -21,9 +21,9 @@ final List agencies = [
     "agencyLong": 78.14448459465682,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/800px-TamilNadu_Logo.svg.png",
-    "agencyExpertise": "Emergency Services",
+    "agencyExpertise": "Fire & Health Department",
     "childAgencies": [
-      "RPF",
+      "RAILWAY PROTECTION FORCE",
       "Fire and Emergency services",
       "Health Department"
     ],
@@ -32,15 +32,16 @@ final List agencies = [
   },
   {
     "agencyName": "Bangalore District Disaster Management Authority",
-    "agencyLogo": "https://ksdrf.karnataka.gov.in/uploads/91421667380455.jpg",
+    "agencyLogo":
+        "https://thebengalurulive.com/wp-content/uploads/2022/04/QK0RuPMh_400x400.jpg",
     "agencyLat": 12.972337749126464,
     "agencyLong": 77.58509052566275,
-    "agencyExpertise": "Emergency Services",
+    "agencyExpertise": "Food Supplies",
     "childAgencies": [
       "District Disaster management authority",
-      "SEOC",
-      "SDRF",
-      "SDMF"
+      "STATE EMERGENCY OPERATIONS CENTER",
+      "STATE DISASTER RESPONSE FUND",
+      "STATE DISASTER MITIGATION FUND"
     ],
     "employeeDetails": [],
     "OperatingState": "Karnataka"
@@ -51,9 +52,9 @@ final List agencies = [
     "agencyLong": 77.5021,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/800px-TamilNadu_Logo.svg.png",
-    "agencyExpertise": "Emergency Services",
+    "agencyExpertise": "Flood Controll",
     "childAgencies": [
-      "RPF",
+      "RAILWAY PROTECTION FORCE",
       "Fire and Emergency services",
       "Health Department"
     ],
@@ -68,7 +69,7 @@ final List agencies = [
     "agencyLong": 78.0758,
     "agencyExpertise": "Emergency Services",
     "childAgencies": [
-      "RPF",
+      "RAILWAY PROTECTION FORCE",
       "Fire and Emergency services",
       "Health Department"
     ],
@@ -81,9 +82,9 @@ final List agencies = [
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/800px-TamilNadu_Logo.svg.png",
     "agencyLat": 11.0101,
     "agencyLong": 76.9625,
-    "agencyExpertise": "Emergency Services",
+    "agencyExpertise": "Health Service",
     "childAgencies": [
-      "RPF",
+      "RAILWAY PROTECTION FORCE",
       "Fire and Emergency services",
       "Health Department"
     ],

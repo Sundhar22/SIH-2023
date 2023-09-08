@@ -19,10 +19,13 @@ class ChatScreen extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     icon: const Icon(Icons.arrow_back)),
-                const CircleAvatar(radius: 20),
-                const SizedBox(width: 50),
+                const CircleAvatar(
+                  radius: 20,
+                  child: Text("MRT"),
+                ),
+                const SizedBox(width: 10),
                 const Text(
-                  "Relief Room",
+                  "Madurai Response Team",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
