@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
-import 'package:sih_2023/features/ui/map/view/map.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {

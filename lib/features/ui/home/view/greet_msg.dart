@@ -31,41 +31,51 @@ class QuickActionWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showOptionsDialog(BuildContext context) {
-      String selectedOption = 'None'; // Default selected option
+    void _showSmallPopup(BuildContext context) {
       final List<String> options = [
-        'Loaction',
-        'Area of Expertise',
-        'Area of Expertise',
-        'Area of Expertise',
-        'Area of Expertise',
-        'Area of Expertise',
-        '',
-        '',
+        "Area of Expertise",
+        "State",
+        "District",
+        "NearBy",
+        "Central",
       ];
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return SimpleDialog(
-            title: const Text('Select an Option'),
-            children: options.map((String option) {
-              return SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context,
-                      option); // Close dialog and return selected option
-                },
-                child: ListTile(
-                  title: Text(option),
+          return AlertDialog(
+            title: const Text('Filters'),
+            content: SizedBox(
+              height: 260, // Set the desired height
+              child: SingleChildScrollView(
+                child: Scrollbar(
+                  child: Column(
+                    children: [
+                      for (int i = 0; i < options.length; i++)
+                        ListTile(
+                          contentPadding: const EdgeInsets.all(0),
+                          leading: const CircleAvatar(),
+                          title: Text(options[i]),
+                        ),
+                    ],
+                  ),
                 ),
-              );
-            }).toList(),
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('Apply'),
+              ),
+            ],
           );
-        },
-      ).then(
-        (value) {
-          if (value != null) {
-            selectedOption = value;
-          }
         },
       );
     }
@@ -85,7 +95,7 @@ class QuickActionWidgets extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            _showOptionsDialog(context);
+            _showSmallPopup(context);
           },
           icon: const Icon(Icons.sort),
         ),
