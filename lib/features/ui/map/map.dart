@@ -40,16 +40,14 @@ class _MapState extends State<Map> {
 
   void _addCustomMarkers() async {
     markers.add(Marker(
-      flat: true,
       markerId: const MarkerId('fire_marker'),
       position: fire,
       icon: await _createCustomMarker('assets/images/fire.png'),
     ));
     markers.add(Marker(
-      flat: true,
       markerId: const MarkerId('tree_marker'),
       position: tree,
-      icon: await _createCustomMarker('assets/images/tree.png',),
+      icon: await _createCustomMarker('assets/images/tree.png'),
     ));
 
     //  markers.add(Marker(
@@ -72,7 +70,7 @@ class _MapState extends State<Map> {
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
           target: center,
-          zoom: 10.0,
+          zoom: 12.0,
         ),
         onMapCreated: (GoogleMapController controller) {
           setState(() {
@@ -104,7 +102,7 @@ class _MapState extends State<Map> {
 }
 
 Future<BitmapDescriptor> _createCustomMarker(String imagePath) async {
-  const ImageConfiguration config = ImageConfiguration(size: Size(10, 10));
+  final ImageConfiguration config = const ImageConfiguration();
   final BitmapDescriptor bitmapDescriptor =
       await BitmapDescriptor.fromAssetImage(config, imagePath);
   return bitmapDescriptor;
