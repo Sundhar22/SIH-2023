@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:sih_2023/features/ui/map/map.dart';
-import 'package:sih_2023/features/ui/chat/chat.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
-import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
+import 'package:sih_2023/features/ui/map/view/map.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -26,6 +24,6 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           fontFamily: 'Poppins',
         ),
-        home: Map());
+        home: MapScreen());
   }
 }

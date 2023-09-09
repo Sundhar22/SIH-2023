@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 class AgencyImageHolder extends StatelessWidget {
   const AgencyImageHolder({
     super.key,
+    required this.imageLink,
   });
+
+  final String imageLink;
 
   @override
   Widget build(BuildContext context) {
@@ -13,15 +16,15 @@ class AgencyImageHolder extends StatelessWidget {
       child: Container(
         height: 250,
         width: double.maxFinite,
-        decoration: const BoxDecoration(
-          color: Colors.deepPurpleAccent,
-          borderRadius: BorderRadius.all(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: const BorderRadius.all(
             Radius.circular(10),
           ),
           image: DecorationImage(
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             image: CachedNetworkImageProvider(
-              "https://ksdrf.karnataka.gov.in/uploads/91421667380455.jpg",
+              imageLink,
             ),
           ),
         ),

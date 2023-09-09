@@ -19,11 +19,11 @@ class ResponseHub extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ResponseHubChatLayout(
-                integratedReliefRoomName: "National Disaster Relief Campus",
-                integratedReliefRoomCause: "Flood",
+              TemporaryEmergencyRooms(
+                integratedReliefRoomName: "Madurai Railway Fire Relief Force",
+                integratedReliefRoomCause: "Train Accident",
                 integratedReliefRoomAgencies: [],
-                integratedReliefLocation: "Dindugal",
+                integratedReliefLocation: "Madurai",
               )
             ],
           ),

@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class Map extends StatefulWidget {
+class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
-  _MapState createState() => _MapState();
+  State createState() => _MapScreenState();
 }
 
-class _MapState extends State<Map> {
+class _MapScreenState extends State<MapScreen> {
   late GoogleMapController mapController;
   LatLng center = const LatLng(9.920556085930551, 78.11152826989836);
   LatLng fire = const LatLng(9.920556085930551, 78.11152826989836);
@@ -24,13 +26,13 @@ class _MapState extends State<Map> {
   }
 
   void _startRippleAnimation() {
-    Future.delayed(Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       mapController.animateCamera(
         CameraUpdate.newLatLngZoom(center, 15.0),
       );
     });
 
-    Timer.periodic(Duration(milliseconds: 1500), (timer) {
+    Timer.periodic(const Duration(milliseconds: 1500), (timer) {
       if (!mounted) {
         timer.cancel();
         return;
@@ -77,7 +79,7 @@ class _MapState extends State<Map> {
         markers: Set<Marker>.of(markers),
         circles: {
           Circle(
-            circleId: CircleId('radius_circle'),
+            circleId: const CircleId('radius_circle'),
             center: fire,
             radius: radius,
             fillColor: Colors.red.withOpacity(0.3),

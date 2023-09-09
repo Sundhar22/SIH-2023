@@ -3,31 +3,36 @@ import 'package:flutter/material.dart';
 class AgencyDescription extends StatelessWidget {
   const AgencyDescription({
     super.key,
+    required this.name,
+    required this.location,
+    required this.area,
   });
+
+  final String name, location, area;
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.only(top: 5, left: 10),
+          padding: const EdgeInsets.only(top: 5, left: 10),
           child: Text(
-            "National Disastaer Relief Commitie",
+            name,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
             ),
           ),
         ),
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Location(),
-            AreaOfExpertise(),
+            Location(location: location),
+            AreaOfExpertise(area: area),
           ],
         )
       ],
@@ -38,19 +43,22 @@ class AgencyDescription extends StatelessWidget {
 class AreaOfExpertise extends StatelessWidget {
   const AreaOfExpertise({
     super.key,
+    required this.area,
   });
+
+  final String area;
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            Icon(Icons.food_bank),
-            SizedBox(width: 5),
-            Text("Food"),
-            SizedBox(width: 5),
+            const Icon(Icons.food_bank, color: Colors.amber),
+            const SizedBox(width: 5),
+            Text(area),
+            const SizedBox(width: 5),
           ],
         ),
       ),
@@ -61,17 +69,21 @@ class AreaOfExpertise extends StatelessWidget {
 class Location extends StatelessWidget {
   const Location({
     super.key,
+    required this.location,
   });
+
+  final String location;
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
-        SizedBox(width: 10),
-        Icon(Icons.location_on, color: Colors.red),
+        const SizedBox(width: 10),
+        const Icon(Icons.location_on, color: Colors.red),
+        const SizedBox(width: 5),
         Text(
-          "Tamil Nadu, India",
-          style: TextStyle(fontSize: 15),
+          location,
+          style: const TextStyle(fontSize: 15),
         ),
       ],
     );
