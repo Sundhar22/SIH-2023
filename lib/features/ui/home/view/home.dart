@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
@@ -17,7 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
     const MapScreen(),
-    const ResponseHub(),
     const HomeState(),
     const ResponseHub()
   ];
@@ -56,10 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.help),
             label: "",
           ),
           BottomNavigationBarItem(

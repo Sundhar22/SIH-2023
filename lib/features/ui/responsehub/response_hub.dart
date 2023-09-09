@@ -29,7 +29,7 @@ class ResponseHub extends StatelessWidget {
                 integratedReliefRoomCause: "Train Accident",
                 integratedReliefRoomAgencies: [],
                 integratedReliefLocation: "Madurai",
-              )
+              ),
             ],
           ),
         ),

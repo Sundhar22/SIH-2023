@@ -15,7 +15,7 @@ class AgencyAssociates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.only(top: 50),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -56,10 +56,9 @@ class AssociateAgencyLayout extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.all(15),
-      width: 160,
-      decoration: const BoxDecoration(
-        color: Colors.deepPurpleAccent,
-        borderRadius: BorderRadius.all(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: const BorderRadius.all(
           Radius.circular(20),
         ),
       ),
@@ -70,10 +69,31 @@ class AssociateAgencyLayout extends StatelessWidget {
             backgroundImage: CachedNetworkImageProvider(agencyLogo),
           ),
           const SizedBox(height: 20),
-          Text(
-            agencyName,
-            style: const TextStyle(color: Colors.white),
+          SizedBox(
+            width: 100,
+            child: Text(agencyName,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Colors.black)),
           ),
+          const SizedBox(height: 10),
+          const Row(
+            children: [
+              Text(
+                "View Details",
+                style: TextStyle(
+                  color: Colors.deepPurpleAccent,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.trending_up,
+                  color: Colors.deepPurpleAccent,
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
