@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/chat/message_model.dart';
 import 'package:sih_2023/features/ui/chat/select_media.dart';
 
+// ignore: must_be_immutable
 class ChatMessenger extends StatelessWidget {
   ChatMessenger({super.key, required this.roomId});
   String roomId;
@@ -25,8 +26,8 @@ class ChatMessenger extends StatelessWidget {
                 controller: messageController,
                 cursorColor: Colors.white,
                 maxLines: null,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   hintText: "Enter your chat",
                   hintStyle: TextStyle(color: Colors.white),
                   border: InputBorder.none,

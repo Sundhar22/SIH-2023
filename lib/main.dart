@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
-import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
 
 import 'firebase_options.dart';
 

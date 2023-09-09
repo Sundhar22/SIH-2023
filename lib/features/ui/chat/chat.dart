@@ -59,7 +59,7 @@ class ChatScreen extends StatelessWidget {
           stream: getRoomChatStream(roomId), 
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return CircularProgressIndicator(); 
+              return const CircularProgressIndicator(); 
             }
 
             List<Message> messages = snapshot.data!;
@@ -97,7 +97,7 @@ class ChatScreen extends StatelessWidget {
                       title: Text(message.content),
                     );
                   default:
-                    return SizedBox();
+                    return const SizedBox();
                 }
               },
             );
