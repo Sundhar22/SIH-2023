@@ -37,6 +37,8 @@ dependencies:
   flutter:
     sdk: flutter
   get: ^4.6.5
+  csc_picker: ^0.2.7
+  file_picker: ^5.5.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

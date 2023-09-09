@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/ui/chat/select_media.dart';
 
 class ChatMessenger extends StatelessWidget {
   const ChatMessenger({
@@ -30,12 +31,7 @@ class ChatMessenger extends StatelessWidget {
               ),
             ),
           ),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.image,
-                color: Colors.black,
-              )),
+          SelectMedia(),
           IconButton(
             onPressed: () {},
             icon: const Icon(

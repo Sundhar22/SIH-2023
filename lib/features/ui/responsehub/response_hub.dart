@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/responsehub/chat_layout.dart';
+import 'package:sih_2023/features/ui/responsehub/create_room.dart';
 
 class ResponseHub extends StatelessWidget {
   const ResponseHub({super.key});
@@ -12,7 +13,11 @@ class ResponseHub extends StatelessWidget {
           shape: const CircleBorder(),
           elevation: 10,
           child: const Icon(Icons.add, color: Colors.white),
-          onPressed: () {}),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return const CreateRoom();
+            }));
+          }),
       appBar: AppBar(
           elevation: 3, title: const Text("Response Hub"), centerTitle: true),
       body: const SafeArea(

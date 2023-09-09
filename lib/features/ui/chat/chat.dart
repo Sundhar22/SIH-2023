@@ -25,7 +25,7 @@ class ChatScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 const Text(
-                  "Madurai Response Team",
+                  "Madurai Force",
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
