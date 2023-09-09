@@ -1,9 +1,33 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/responsehub/chat_layout.dart';
 import 'package:sih_2023/features/ui/responsehub/create_room.dart';
+import 'package:sih_2023/features/ui/responsehub/push_room_data.dart';
 
-class ResponseHub extends StatelessWidget {
+class ResponseHub extends StatefulWidget {
   const ResponseHub({super.key});
+
+  @override
+  State<ResponseHub> createState() => _ResponseHubState();
+}
+
+class _ResponseHubState extends State<ResponseHub> {
+  FirebaseService firebaseService = FirebaseService();
+  List<Map<String, dynamic>> roomsData = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    List<Map<String, dynamic>> data = await firebaseService.fetchAllRooms();
+    print(data);
+    setState(() {
+      roomsData = data;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,17 +44,25 @@ class ResponseHub extends StatelessWidget {
           }),
       appBar: AppBar(
           elevation: 3, title: const Text("Response Hub"), centerTitle: true),
-      body: const SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              TemporaryEmergencyRooms(
-                integratedReliefRoomName: "Madurai Railway Fire Relief Force",
-                integratedReliefRoomCause: "Train Accident",
-                integratedReliefRoomAgencies: [],
-                integratedReliefLocation: "Madurai",
-              ),
-            ],
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () => _fetchData(),
+          child: ListView.builder(
+            itemCount: roomsData.length,
+            itemBuilder: (context, index) {
+              Map<String, dynamic> room = roomsData[index];
+              print(room);
+              return TemporaryEmergencyRooms(
+                  integratedroomId: room['roomId'],
+                  integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(
+                          room['createdOn'].millisecondsSinceEpoch)
+                      .toDate()
+                      .toString(),
+                  integratedReliefRoomName: room['roomName'],
+                  integratedReliefRoomCause: room['disasterType'],
+                  integratedReliefRoomAgencies: room['agencies'],
+                  integratedReliefLocation: room['district']);
+            },
           ),
         ),
       ),
