@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/ui/agency/agency_details.dart';
+import 'package:sih_2023/features/ui/agency/expanded_agency_screen.dart';
 
 class AgencyTile extends StatelessWidget {
   const AgencyTile({
@@ -29,7 +29,7 @@ class AgencyTile extends StatelessWidget {
                 imageLink: agencyImage,
                 agencyName: agencyName,
                 agencyLocation: agencyLocation,
-                agencyExpeertise: agencySpecialisation,
+                agencyExpertise: agencySpecialisation,
                 agencyAssociates: agencyAssociates,
               ),
             ),

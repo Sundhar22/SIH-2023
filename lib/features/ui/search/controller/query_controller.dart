@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:sih_2023/features/functions/d.dart';
 import 'package:sih_2023/features/ui/search/model/query_model.dart';
 
-//
 class QueryController extends GetxController {
   RxString searchQuery = "Find Agencies".obs;
   var searchResults = [].obs;
@@ -20,7 +19,7 @@ class QueryController extends GetxController {
             QueryResultModel(
               agencyName: agencyDetails["agencyName"],
               agencyLogo: agencyDetails["agencyLogo"],
-              agencyKey: "Mitunb",
+              agencyKey: "Mitun",
             ),
           );
         }

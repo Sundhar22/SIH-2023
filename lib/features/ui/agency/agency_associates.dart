@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 
 class AgencyAssociates extends StatelessWidget {
   const AgencyAssociates({
@@ -15,26 +14,27 @@ class AgencyAssociates extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 50),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.all(5.0),
+      child: ExpansionTile(
+        title: const Text("Child Agencies"),
         children: [
-          const CustomTitleWidget(titleContent: "Child Agencies"),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: SizedBox(
-              height: 250,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: agencyList.length,
-                itemBuilder: (context, index) {
-                  return AssociateAgencyLayout(
-                    agencyLogo: imageLink,
-                    agencyName: agencyList[index],
-                  );
-                },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 250,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: agencyList.length,
+                  itemBuilder: (context, index) {
+                    return AssociateAgencyLayout(
+                      agencyLogo: imageLink,
+                      agencyName: agencyList[index],
+                    );
+                  },
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
@@ -82,14 +82,14 @@ class AssociateAgencyLayout extends StatelessWidget {
               Text(
                 "View Details",
                 style: TextStyle(
-                  color: Colors.deepPurpleAccent,
+                  color: Colors.blueAccent,
                 ),
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
                   Icons.trending_up,
-                  color: Colors.deepPurpleAccent,
+                  color: Colors.blueAccent,
                 ),
               ),
             ],

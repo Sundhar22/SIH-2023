@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+import 'package:sih_2023/features/theme/build_theme.dart';
+import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'firebase_options.dart';
 
@@ -7,6 +10,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
+  Get.put(FilterController());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,13 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.deepPurpleAccent,
-        ),
-        useMaterial3: true,
-        fontFamily: 'Poppins',
-      ),
+      theme: buildTheme(),
       home: const HomeScreen(),
     );
   }

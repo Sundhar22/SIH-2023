@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
+import 'package:sih_2023/features/ui/home/view/popup_widget.dart';
 import 'package:sih_2023/features/ui/search/view/search.dart';
 
 class GreetMessage extends StatelessWidget {
@@ -31,55 +32,6 @@ class QuickActionWidgets extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void _showSmallPopup(BuildContext context) {
-      final List<String> options = [
-        "Area of Expertise",
-        "State",
-        "District",
-        "NearBy",
-        "Central",
-      ];
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Filters'),
-            content: SizedBox(
-              height: 260, // Set the desired height
-              child: SingleChildScrollView(
-                child: Scrollbar(
-                  child: Column(
-                    children: [
-                      for (int i = 0; i < options.length; i++)
-                        ListTile(
-                          contentPadding: const EdgeInsets.all(0),
-                          leading: const CircleAvatar(),
-                          title: Text(options[i]),
-                        ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('Apply'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-
     return Row(
       children: [
         IconButton(
@@ -95,7 +47,12 @@ class QuickActionWidgets extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            _showSmallPopup(context);
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const PopupWidget();
+              },
+            );
           },
           icon: const Icon(Icons.sort),
         ),

@@ -17,10 +17,6 @@ class AgencyImageHolder extends StatelessWidget {
         height: 250,
         width: double.maxFinite,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(10),
-          ),
           image: DecorationImage(
             fit: BoxFit.contain,
             image: CachedNetworkImageProvider(

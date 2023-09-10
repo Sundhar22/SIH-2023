@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/functions/d.dart';
+import 'package:sih_2023/features/constants/agencies.dart';
 import 'package:sih_2023/features/ui/home/view/agency_tile.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 
@@ -29,17 +29,28 @@ class AgencyList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
-        itemCount: agencies.length,
-        itemBuilder: (context, index) {
-          return AgencyTile(
-            agencyName: agencies[index]["agencyName"],
-            agencySpecialisation: agencies[index]["agencyExpertise"],
-            agencyImage: agencies[index]["agencyLogo"],
-            agencyLocation: agencies[index]["OperatingState"],
-            agencyAssociates: agencies[index]["childAgencies"],
-          );
-        },
+      child: Scrollbar(
+        thumbVisibility: true,
+        interactive: true,
+        child: ListView.builder(
+          itemCount: agencyKeys.length,
+          itemBuilder: (context, index) {
+            Map? agencyData = agencyList[agencyKeys[index]];
+            if (agencyData != null) {
+              return AgencyTile(
+                agencyName: agencyData["agencyName"] ?? index.toString(),
+                agencySpecialisation:
+                    expertiseMapping[agencyData["agencyType"]] ??
+                        index.toString(),
+                agencyImage: agencyData["agencyLogo"] ?? index.toString(),
+                agencyLocation:
+                    agencyData["OperatingState"] ?? index.toString(),
+                agencyAssociates: agencyData["childAgencies"] ?? [""],
+              );
+            }
+            return null;
+          },
+        ),
       ),
     );
   }
