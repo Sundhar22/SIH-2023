@@ -9,12 +9,16 @@ class TemporaryEmergencyRooms extends StatelessWidget {
     required this.integratedReliefRoomCause,
     required this.integratedReliefRoomAgencies,
     required this.integratedReliefLocation,
+    required this.integratedCreatedOn,
+    required this.integratedroomId
   });
 
   final String integratedReliefRoomName;
   final String integratedReliefRoomCause;
   final String integratedReliefLocation;
-  final List<String> integratedReliefRoomAgencies;
+  final List<dynamic> integratedReliefRoomAgencies;
+  final String integratedCreatedOn;
+  final String integratedroomId;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +26,8 @@ class TemporaryEmergencyRooms extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const ChatScreen()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => ChatScreen(roomId: integratedroomId,)));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -45,7 +49,9 @@ class TemporaryEmergencyRooms extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(color: Colors.black, fontSize: 18),
               ),
-              const Description(),
+              Description(
+                createdOn: integratedCreatedOn,
+              ),
               LocationInfo(
                   cause: integratedReliefRoomCause,
                   location: integratedReliefLocation),
@@ -67,13 +73,12 @@ class TemporaryEmergencyRooms extends StatelessWidget {
 }
 
 class Description extends StatelessWidget {
-  const Description({
-    super.key,
-  });
+  Description({super.key, required this.createdOn});
+  String createdOn;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(
         vertical: 15,
       ),
@@ -81,7 +86,7 @@ class Description extends StatelessWidget {
         children: [
           Icon(Icons.gps_fixed, color: Colors.red),
           SizedBox(width: 5),
-          Text("Created on 28th August 2023"),
+          Text(createdOn),
         ],
       ),
     );
