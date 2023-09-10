@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/functions/add_collection.dart';
 
 Map<int, String> expertiseMapping = {
   1: "Emergency Services",
@@ -36,7 +37,7 @@ Map<String, Map> agencyList = {
   "NDMA": {
     "agencyName": "National Disaster Management Authority",
     "agencyLat": 28.56656932727816,
-    "agentLong": 77.19933404514343,
+    "agencyLong": 77.19933404514343,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/6/6b/National_Disaster_Management_Authority_Logo.png",
     "agencyType": 1,
@@ -48,7 +49,7 @@ Map<String, Map> agencyList = {
   "NDRF": {
     "agencyName": "National Disaster Response Force",
     "agencyLat": 28.86530214685698,
-    "agentLong": 77.45758954487066,
+    "agencyLong": 77.45758954487066,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/commons/1/14/NDRF_Logo.png",
     "agencyType": 4,
@@ -60,7 +61,7 @@ Map<String, Map> agencyList = {
   "MHA": {
     "agencyName": "Ministry of Home Affairs ",
     "agencyLat": 28.62776971758393,
-    "agentLong": 77.20327255788087,
+    "agencyLong": 77.20327255788087,
     "agencyLogo":
         "https://www.krystalvision.co.in/wp-content/uploads/2019/01/MHA.jpg",
     "agencyType": 9,
@@ -72,7 +73,7 @@ Map<String, Map> agencyList = {
   "DMD": {
     "agencyName": "Disaster Management Division ",
     "agencyLat": 28.680770615663164,
-    "agentLong": 77.22834337445313,
+    "agencyLong": 77.22834337445313,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/6/6b/National_Disaster_Management_Authority_Logo.png",
     "agencyType": 9,
@@ -84,7 +85,7 @@ Map<String, Map> agencyList = {
   "MoD": {
     "agencyName": "Ministry of Defence",
     "agencyLat": 28.613710702930817,
-    "agentLong": 77.20772892233836,
+    "agencyLong": 77.20772892233836,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/6/6b/National_Disaster_Management_Authority_Logo.png",
     "agencyType": 10,
@@ -96,7 +97,7 @@ Map<String, Map> agencyList = {
   "DRDO": {
     "agencyName": "Defence Research and Development Organisation ",
     "agencyLat": 28.613710702930817,
-    "agentLong": 77.20772892233836,
+    "agencyLong": 77.20772892233836,
     "agencyLogo":
         "https://static.theprint.in/wp-content/uploads/2022/03/Defence_Ministry_logo20220303111535.jpg",
     "agencyType": 11,
@@ -108,7 +109,7 @@ Map<String, Map> agencyList = {
   "MoHFW": {
     "agencyName": "Ministry of Health and Family Welfare",
     "agencyLat": 28.613523109859095,
-    "agentLong": 76.98486899656736,
+    "agencyLong": 76.98486899656736,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Ministry_of_Health_India.svg/1200px-Ministry_of_Health_India.svg.png",
     "agencyType": 9,
@@ -120,7 +121,7 @@ Map<String, Map> agencyList = {
   "NIDM": {
     "agencyName": "National Institute of Disaster Management",
     "agencyLat": 28.756968820282825,
-    "agentLong": 77.09381465607991,
+    "agencyLong": 77.09381465607991,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfOWJqRPmhtaf3u5o_AUlTDp8UdnsYXcJCy7u9EBhi&s",
     "agencyType": 12,
@@ -132,7 +133,7 @@ Map<String, Map> agencyList = {
   "MoCA": {
     "agencyName": "Ministry of Civil Aviation",
     "agencyLat": 28.584032114270173,
-    "agentLong": 77.21170204668654,
+    "agencyLong": 77.21170204668654,
     "agencyLogo":
         "https://content3.jdmagicbox.com/comp/delhi/k4/011pxx11.xx11.001264774447.d5k4/catalogue/ministry-of-civil-aviation-jor-bagh-delhi-government-organisations-20khcq8.jpg",
     "agencyType": 10,
@@ -144,7 +145,7 @@ Map<String, Map> agencyList = {
   "DGCA": {
     "agencyName": "Directorate General of Civil Aviation",
     "agencyLat": 28.56473753379998,
-    "agentLong": 77.121654405312,
+    "agencyLong": 77.121654405312,
     "agencyLogo":
         "https://image.telanganatoday.com/wp-content/uploads/2023/08/dg_V_jpg--442x260-4g.webp?sw=1536&dsz=442x260&iw=385&p=false&r=1.25",
     "agencyType": 10,
@@ -156,7 +157,7 @@ Map<String, Map> agencyList = {
   "AAI": {
     "agencyName": "Airports Authority of India",
     "agencyLat": 28.556474770235496,
-    "agentLong": 77.0941857824806,
+    "agencyLong": 77.0941857824806,
     "agencyLogo": "https://cdn.siasat.com/wp-content/uploads/2020/01/AAI-1.jpg",
     "agencyType": 10,
     "childAgencies": [""],
@@ -167,7 +168,7 @@ Map<String, Map> agencyList = {
   "MoP": {
     "agencyName": "Ministry of Power",
     "agencyLat": 28.619230491949608,
-    "agentLong": 77.21172231316399,
+    "agencyLong": 77.21172231316399,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzB9HARK1sUeFYHAcCQ4Ls2ChX8M_nkT6nypVAPS-X&s",
     "agencyType": 9,
@@ -179,7 +180,7 @@ Map<String, Map> agencyList = {
   "NDMRC": {
     "agencyName": "National Disaster Mitigation Resource Centre ",
     "agencyLat": 28.566482716362447,
-    "agentLong": 77.19936965345319,
+    "agencyLong": 77.19936965345319,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/6/6b/National_Disaster_Management_Authority_Logo.png",
     "agencyType": 1,
@@ -191,7 +192,7 @@ Map<String, Map> agencyList = {
   "MIB": {
     "agencyName": "Ministry of Information and Broadcasting ",
     "agencyLat": 28.63272393243444,
-    "agentLong": 77.21965348047424,
+    "agencyLong": 77.21965348047424,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Ministry_of_Information_and_Broadcasting.svg/1200px-Ministry_of_Information_and_Broadcasting.svg.png",
     "agencyType": 1,
@@ -203,7 +204,7 @@ Map<String, Map> agencyList = {
   "FCI": {
     "agencyName": "Food Corporation of India",
     "agencyLat": 28.63076521966867,
-    "agentLong": 77.22658430804582,
+    "agencyLong": 77.22658430804582,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Food_Corporation_of_India.svg/1200px-Food_Corporation_of_India.svg.png",
     "agencyType": 13,
@@ -215,7 +216,7 @@ Map<String, Map> agencyList = {
   "NAFED": {
     "agencyName": "National Agricultural Cooperative Federation",
     "agencyLat": 28.572733872666696,
-    "agentLong": 77.25902155418623,
+    "agencyLong": 77.25902155418623,
     "agencyLogo":
         "https://iasgatewayy.com/wp-content/uploads/2019/09/The-National-Agricultural-Cooperative-.jpg",
     "agencyType": 13,
@@ -227,7 +228,7 @@ Map<String, Map> agencyList = {
   "CCSF": {
     "agencyName": "Confederation of Cooperative Sugar Factories",
     "agencyLat": 28.562964353755792,
-    "agentLong": 77.22449764984275,
+    "agencyLong": 77.22449764984275,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Food_Corporation_of_India.svg/1200px-Food_Corporation_of_India.svg.png",
     "agencyType": 13,
@@ -239,7 +240,7 @@ Map<String, Map> agencyList = {
   "MoES": {
     "agencyName": "Ministry of Earth Sciences",
     "agencyLat": 28.589876758712737,
-    "agentLong": 77.2232032354763,
+    "agencyLong": 77.2232032354763,
     "agencyLogo":
         "https://wpassets.adda247.com/wp-content/uploads/multisite/sites/5/2020/07/11133856/f3.jpg",
     "agencyType": 1,
@@ -251,7 +252,7 @@ Map<String, Map> agencyList = {
   "GSI": {
     "agencyName": "Geological Survey of India ",
     "agencyLat": 28.52338305259925,
-    "agentLong": 77.23179816862816,
+    "agencyLong": 77.23179816862816,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Food_Corporation_of_India.svg/1200px-Food_Corporation_of_India.svg.png",
     "agencyType": 1,
@@ -263,7 +264,7 @@ Map<String, Map> agencyList = {
   "IMD": {
     "agencyName": "Indian Meteorlogical Department",
     "agencyLat": 8.331082831387103,
-    "agentLong": 78.27064566662379,
+    "agencyLong": 78.27064566662379,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/India_Meteorological_Department_%28logo%29.png/150px-India_Meteorological_Department_%28logo%29.png",
     "agencyType": 5,
@@ -275,7 +276,7 @@ Map<String, Map> agencyList = {
   "NWFC": {
     "agencyName": "National Weather Forecasting Centre",
     "agencyLat": 29.648634307089253,
-    "agentLong": 77.10650105318281,
+    "agencyLong": 77.10650105318281,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-GkZ6dWpIBO6_l3zzQ5Gw-YoLMgDg5wq7DhQHrO8C&s",
     "agencyType": 5,
@@ -287,7 +288,7 @@ Map<String, Map> agencyList = {
   "CWD": {
     "agencyName": "Cyclone Warning Division ",
     "agencyLat": 8.331082831387103,
-    "agentLong": 78.27064566662379,
+    "agencyLong": 78.27064566662379,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -299,7 +300,7 @@ Map<String, Map> agencyList = {
   "TNRMC": {
     "agencyName": "Tamilnadu Regional Meteorological Centre ",
     "agencyLat": 13.949679901914548,
-    "agentLong": 80.19841477884609,
+    "agencyLong": 80.19841477884609,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -311,7 +312,7 @@ Map<String, Map> agencyList = {
   "DRMC": {
     "agencyName": "Delhi Regional Meteorological Centre ",
     "agencyLat": 29.024013836100924,
-    "agentLong": 77.16784372872281,
+    "agencyLong": 77.16784372872281,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -323,7 +324,7 @@ Map<String, Map> agencyList = {
   "MRMC": {
     "agencyName": "Mumbai Regional Meteorological Centre ",
     "agencyLat": 13.949679901914548,
-    "agentLong": 80.19841477884609,
+    "agencyLong": 80.19841477884609,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -335,7 +336,7 @@ Map<String, Map> agencyList = {
   "KRMC": {
     "agencyName": "Kolkata Regional Meteorological Centre ",
     "agencyLat": 22.536319637877412,
-    "agentLong": 88.33069743000081,
+    "agencyLong": 88.33069743000081,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -347,7 +348,7 @@ Map<String, Map> agencyList = {
   "KLRMC": {
     "agencyName": "Kerala Regional Meteorological Centre ",
     "agencyLat": 9.289014906670763,
-    "agentLong": 77.04186823879726,
+    "agencyLong": 77.04186823879726,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -359,7 +360,7 @@ Map<String, Map> agencyList = {
   "PRMC": {
     "agencyName": "Patna Regional Meteorological Centre ",
     "agencyLat": 25.597677215305904,
-    "agentLong": 85.09051914927343,
+    "agencyLong": 85.09051914927343,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -371,7 +372,7 @@ Map<String, Map> agencyList = {
   "NRMC": {
     "agencyName": "Nagpur Regional Meteorological Centre ",
     "agencyLat": 21.232262330441532,
-    "agentLong": 79.060364094557,
+    "agencyLong": 79.060364094557,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -383,7 +384,7 @@ Map<String, Map> agencyList = {
   "VRMC": {
     "agencyName": "Vishakhapatnam Regional Meteorological Centre ",
     "agencyLat": 8.62553956579286,
-    "agentLong": 76.97908936403572,
+    "agencyLong": 76.97908936403572,
     "agencyLogo":
         "https://mausam.imd.gov.in/imd_latest/img/imd_logo_enamble.png",
     "agencyType": 5,
@@ -395,7 +396,7 @@ Map<String, Map> agencyList = {
   "TNNIC": {
     "agencyName": "Tamilnadu National Informatics Centre",
     "agencyLat": 13.908164323721174,
-    "agentLong": 80.50632713672945,
+    "agencyLong": 80.50632713672945,
     "agencyLogo":
         "https://presentations.gov.in/presgov_new/wp-content/uploads/2020/06/NIC_Preview-1.png?x42937",
     "agencyType": 6,
@@ -407,7 +408,7 @@ Map<String, Map> agencyList = {
   "APNIC": {
     "agencyName": "Andhrapradesh National Informatics Centre",
     "agencyLat": 17.69049943367959,
-    "agentLong": 80.74027534407776,
+    "agencyLong": 80.74027534407776,
     "agencyLogo":
         "https://presentations.gov.in/presgov_new/wp-content/uploads/2020/06/NIC_Preview-1.png?x42937",
     "agencyType": 6,
@@ -419,7 +420,7 @@ Map<String, Map> agencyList = {
   "KLNIC": {
     "agencyName": "Kerala National Informatics Centre",
     "agencyLat": 8.663418963527208,
-    "agentLong": 76.97812295014212,
+    "agencyLong": 76.97812295014212,
     "agencyLogo":
         "https://presentations.gov.in/presgov_new/wp-content/uploads/2020/06/NIC_Preview-1.png?x42937",
     "agencyType": 6,
@@ -431,7 +432,7 @@ Map<String, Map> agencyList = {
   "MHNIC": {
     "agencyName": "Maharashtra National Informatics Centre",
     "agencyLat": 19.166797379344832,
-    "agentLong": 73.02862062326344,
+    "agencyLong": 73.02862062326344,
     "agencyLogo":
         "https://presentations.gov.in/presgov_new/wp-content/uploads/2020/06/NIC_Preview-1.png?x42937",
     "agencyType": 6,
@@ -443,7 +444,7 @@ Map<String, Map> agencyList = {
   "KTNIC": {
     "agencyName": "Karnataka National Informatics Centre",
     "agencyLat": 8.663418963527208,
-    "agentLong": 76.97812295014212,
+    "agencyLong": 76.97812295014212,
     "agencyLogo":
         "https://presentations.gov.in/presgov_new/wp-content/uploads/2020/06/NIC_Preview-1.png?x42937",
     "agencyType": 6,
@@ -455,7 +456,7 @@ Map<String, Map> agencyList = {
   "INCOIS": {
     "agencyName": "Indian National Centre for Ocean Information Services ",
     "agencyLat": 17.528362043754157,
-    "agentLong": 78.40013201356713,
+    "agencyLong": 78.40013201356713,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfRy8vymDA90Kr0Gr_54XCfM2pZowhuwyNpBBhGpG3&s",
     "agencyType": 5,
@@ -467,7 +468,7 @@ Map<String, Map> agencyList = {
   "IOFS": {
     "agencyName": "Indian Ocean Forecasting System ",
     "agencyLat": 17.528362043754157,
-    "agentLong": 78.40013201356713,
+    "agencyLong": 78.40013201356713,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfRy8vymDA90Kr0Gr_54XCfM2pZowhuwyNpBBhGpG3&s",
     "agencyType": 7,
@@ -479,7 +480,7 @@ Map<String, Map> agencyList = {
   "INDIS": {
     "agencyName": "Indian Ocean Data and Information System ",
     "agencyLat": 17.528362043754157,
-    "agentLong": 78.40013201356713,
+    "agencyLong": 78.40013201356713,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfRy8vymDA90Kr0Gr_54XCfM2pZowhuwyNpBBhGpG3&s",
     "agencyType": 6,
@@ -491,7 +492,7 @@ Map<String, Map> agencyList = {
   "IOTEWS": {
     "agencyName": "Indian Ocean Tsunami Early Warning System ",
     "agencyLat": 17.528362043754157,
-    "agentLong": 78.40013201356713,
+    "agencyLong": 78.40013201356713,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfRy8vymDA90Kr0Gr_54XCfM2pZowhuwyNpBBhGpG3&s",
     "agencyType": 8,
@@ -503,7 +504,7 @@ Map<String, Map> agencyList = {
   "NCCR": {
     "agencyName": "National Centre for Coastal Research",
     "agencyLat": 17.528362043754157,
-    "agentLong": 78.40013201356713,
+    "agencyLong": 78.40013201356713,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfRy8vymDA90Kr0Gr_54XCfM2pZowhuwyNpBBhGpG3&s",
     "agencyType": 9,
@@ -515,7 +516,7 @@ Map<String, Map> agencyList = {
   "NCMC": {
     "agencyName": "National Crisis Management Committee",
     "agencyLat": 17.528362043754157,
-    "agentLong": 78.40013201356713,
+    "agencyLong": 78.40013201356713,
     "agencyLogo":
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfRy8vymDA90Kr0Gr_54XCfM2pZowhuwyNpBBhGpG3&s",
     "agencyType": 1,
@@ -579,12 +580,13 @@ Map<String, Map> agencyList = {
     "agencyType": 2,
     "childAgencies": [""],
     "parentAgency": "SDRF",
+    "OperatingState": "Tamilnadu",
     "operatingLocation": ""
   },
   "MDDMA": {
     "agencyName": "Madurai District Disaster Management Authority",
     "agencyLat": 9.9282231583336,
-    "agentLong": 78.14448459465682,
+    "agencyLong": 78.14448459465682,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/800px-TamilNadu_Logo.svg.png",
     "agencyType": 1,
@@ -604,6 +606,7 @@ Map<String, Map> agencyList = {
     "agencyLat": 9.965866053431377,
     "agencyLong": 78.10748365347084,
     "agencyType": 3,
+    "OperatingState": "",
     "childAgencies": [""],
     "parentAgency": "Indian Railways",
     "operatingLocation": "Railway"
@@ -614,16 +617,16 @@ Map<String, Map> agencyList = {
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/800px-TamilNadu_Logo.svg.png",
     "agencyType": 4,
     "childAgencies": [""],
-    "parentAgency": "Government of Tamil Nadu",
+    "OperatingState": "Tamilnadu",
     "operatingLocation": ""
   },
   "KDDMA": {
     "agencyName": "Kanyakumari District Disaster Management Authority",
     "agencyLat": 8.0819,
-    "AgencyLong": 77.5021,
+    "agencyLong": 77.5021,
     "agencyLogo":
         "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/800px-TamilNadu_Logo.svg.png",
-    "agencyType": "1",
+    "agencyType": 1,
     "childAgencies": [
       "(RPF)",
       "Fire and Emergency Services",
@@ -1136,7 +1139,7 @@ Map<String, Map> agencyList = {
     "agencyLogo":
         "https://qph.cf2.quoracdn.net/main-qimg-89dc4d0e21c42c7f0778582ee45c7440-pjlq",
     "agencyType": 1,
-    "childAgenciees": [
+    "childAgencies": [
       "RPF",
       "Fire and Emergency Services",
       "Health Department"
@@ -1152,7 +1155,7 @@ Map<String, Map> agencyList = {
     "agencyLogo":
         "https://qph.cf2.quoracdn.net/main-qimg-89dc4d0e21c42c7f0778582ee45c7440-pjlq",
     "agencyType": 1,
-    "childAgenciees": [
+    "childAgencies": [
       "RPF",
       "Fire and Emergency Services",
       "Health Department"
@@ -1885,7 +1888,7 @@ final List<String> agencyKeys = [
   'IOTEWS',
   'NCCR',
   'NCMC',
-  'TN SDMA',
+  'TNSDMA',
   'TNSEOC',
   'TNSDRF',
   'DRT',
@@ -1972,12 +1975,33 @@ final List<String> agencyKeys = [
   'KSDMA'
 ];
 
-void mainA() {
-  List<String> a = [];
-  for (var element in agencyList.keys) {
-    a.add(
-      "'$element'",
-    );
+void populateDataBase() async {
+  int count = 0;
+  for (String key in agencyKeys) {
+    Map<dynamic, dynamic> curData = agencyList[key] ?? {};
+    String agencyName = curData["agencyName"];
+    String agencyKey = key;
+    String agencyLogo = curData["agencyLogo"];
+    int agencyType = curData["agencyType"];
+    String agencyOperatingState = curData["OperatingState"];
+    String agencyOperatingLocation = curData["operatingLocation"] ?? "";
+    List agencyChildAgencies = curData["childAgencies"];
+    double agencyLat = curData["agencyLat"] ?? 0.0;
+    double agencyLong = curData["agencyLong"] ?? 0.0;
+    Map<String, dynamic> dbEntry = {
+      'agencyName': agencyName,
+      'agencyKey': agencyKey,
+      'agencyLogo': agencyLogo,
+      'agencyType': agencyType,
+      'agencyOperatingState': agencyOperatingState,
+      'agencyOperatingLocation': agencyOperatingLocation,
+      'agencyLatitutude': agencyLat,
+      'agencyLongitude': agencyLong,
+      'agencyAssociates': agencyChildAgencies,
+      'agencyEmployee': []
+    };
+    await addDocumentToCollection("agencies", dbEntry);
+    print("Document Populated $count");
   }
-  print(a);
+  print("Operation Succesfull");
 }

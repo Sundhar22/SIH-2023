@@ -32,10 +32,11 @@ dependencies:
   cloud_firestore: ^4.9.1
   cupertino_icons: ^1.0.2
   firebase_core: ^2.15.1
-  firebase_storage: ^11.2.6
   flutter:
     sdk: flutter
   get: ^4.6.5
+  google_maps_flutter: ^2.5.0
+  lottie: ^2.6.0
   csc_picker: ^0.2.7
   file_picker: ^5.5.0
   firebase_storage: ^11.2.6
