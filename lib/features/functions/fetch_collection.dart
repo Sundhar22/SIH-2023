@@ -11,9 +11,7 @@ Future<List<Map<String, dynamic>>> retrieveCollection(
     for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
       documents.add(documentSnapshot.data() as Map<String, dynamic>);
     }
-  } catch (e) {
-    print("Error retrieving collection: $e");
-  }
-
+  } catch (e) {}
+  print(documents);
   return documents;
 }

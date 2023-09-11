@@ -9,7 +9,7 @@ class AgencyAssociates extends StatelessWidget {
   });
 
   final String imageLink;
-  final List<String> agencyList;
+  final List<dynamic> agencyList;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/constants/agencies.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 import 'package:sih_2023/features/ui/home/view/popup_widget.dart';
 import 'package:sih_2023/features/ui/search/view/search.dart';
@@ -48,13 +47,12 @@ class QuickActionWidgets extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            populateDataBase();
-            // showDialog(
-            //   context: context,
-            //   builder: (BuildContext context) {
-            //     return const PopupWidget();
-            //   },
-            // );
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return const PopupWidget();
+              },
+            );
           },
           icon: const Icon(Icons.sort),
         ),

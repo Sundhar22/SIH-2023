@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData buildTheme() {
   return ThemeData(
+    dividerColor: Colors.transparent,
     fontFamily: 'Poppins',
     expansionTileTheme: ExpansionTileThemeData(
       childrenPadding: const EdgeInsets.all(10),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
+import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/onboarding/signin.dart';
@@ -14,6 +15,7 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
   Get.put(FilterController());
+  Get.put(AgencyController());
 }
 
 class MyApp extends StatelessWidget {

@@ -6,13 +6,10 @@ Future<void> addDocumentToCollection(
 ) async {
   try {
     // Get a reference to the Firestore collection
-    print("Trying BRo");
     CollectionReference collectionReference =
         FirebaseFirestore.instance.collection(collectionName);
 
     // Add the document to the collection
     await collectionReference.add(data);
-  } catch (e) {
-    print(e);
-  }
+  } catch (e) {}
 }

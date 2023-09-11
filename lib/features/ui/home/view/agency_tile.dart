@@ -10,10 +10,15 @@ class AgencyTile extends StatelessWidget {
     required this.agencyImage,
     required this.agencyLocation,
     required this.agencyAssociates,
+    required this.agecnyDescription,
   });
 
-  final String agencyName, agencySpecialisation, agencyImage, agencyLocation;
-  final List<String> agencyAssociates;
+  final String agencyName,
+      agencySpecialisation,
+      agencyImage,
+      agencyLocation,
+      agecnyDescription;
+  final List agencyAssociates;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +36,7 @@ class AgencyTile extends StatelessWidget {
                 agencyLocation: agencyLocation,
                 agencyExpertise: agencySpecialisation,
                 agencyAssociates: agencyAssociates,
+                angencyDescription: agecnyDescription,
               ),
             ),
           );
@@ -50,7 +56,9 @@ class AgencyTile extends StatelessWidget {
           agencyName,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        subtitle: Text(agencySpecialisation),
+        subtitle: Text(
+          agencySpecialisation,
+        ),
       ),
     );
   }
