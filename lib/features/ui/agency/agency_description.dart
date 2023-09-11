@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 class AgencyDescription extends StatelessWidget {
   const AgencyDescription({
     super.key,
+    required this.agencyDescription,
   });
+
+  final String agencyDescription;
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: ExpansionTile(
         initiallyExpanded: false,
-        childrenPadding: EdgeInsets.all(10),
-        title: Text("Agency Description"),
+        childrenPadding: const EdgeInsets.all(10),
+        title: const Text("Agency Description"),
         children: [
           Text(
-            "ENter your number bdebw ew e dewe dew e  e ed wed e edw ",
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 18,
-            ),
+            agencyDescription,
+            // overflow: TextOverflow.ellipsis,
+            style: const TextStyle(fontSize: 16),
           ),
         ],
       ),
