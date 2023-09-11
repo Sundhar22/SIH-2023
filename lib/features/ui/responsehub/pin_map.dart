@@ -147,8 +147,9 @@ class _PinMapScreenState extends State<PinMapScreen> {
   }
 
   Future<void> _fetchAddress(LatLng coordinates) async {
+    print('fetching....');
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        coordinates.latitude, coordinates.longitude);
+        coordinates.latitude, coordinates.longitude,localeIdentifier: "en");
     if (placemarks.isNotEmpty) {
       final selectedAddress = placemarks[0];
       setState(() {

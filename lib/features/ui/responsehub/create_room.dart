@@ -19,6 +19,7 @@ class _CreateRoomState extends State<CreateRoom> {
   TextEditingController roomNameController = TextEditingController();
   TextEditingController disasterTypeController = TextEditingController();
   String selectedState = 'Select State';
+  String selectedDisaster = 'Select Disaster';
   String selectedDistrict = '';
   Map<String, List<String>> stateDistrictMap = {
     'Tamil Nadu': [
@@ -141,7 +142,48 @@ class _CreateRoomState extends State<CreateRoom> {
     'Assam'
   ]; // Add more states here
 
+  List<String> NaturalDisasters = [
+    'Earthquakes',
+    'Floods',
+    'Hurricanes',
+    ' Typhoons',
+    'Cyclones',
+    'Tornadoes',
+    'Volcanic Eruptions',
+    'Wildfires',
+    'Tsunamis',
+    'Droughts',
+    'Landslides',
+    'Avalanches',
+    'Thunderstorms',
+    'Blizzards',
+    'Extreme Heatwaves',
+    'Sinkholes',
+    'Mudslides',
+    'Hailstorms',
+    'Winter Storms',
+    'Ice Storms',
+    'Dust Storms',
+  ];
+
+  List manmadeDisaster = [
+    'chemical spills',
+    'transportation accidents',
+    'mining accidents',
+    'Environmental Disasters',
+    'deforestation',
+    'climate change',
+    'cial Disasters',
+    'warfare',
+    'genocide',
+    'civil unrest',
+    'hyperinflation',
+    'terrorism',
+  ];
+  List disasters = ['Select Disaster'];
+
   List<String> districts = [];
+  String selectedDisasterType = '';
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +198,7 @@ class _CreateRoomState extends State<CreateRoom> {
                 const Text("Create Room", style: TextStyle(fontSize: 30)),
                 const SizedBox(height: 20),
                 const Text('Name of the room', style: TextStyle(fontSize: 20)),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 TextField(
@@ -165,23 +207,69 @@ class _CreateRoomState extends State<CreateRoom> {
                       const InputDecoration(border: OutlineInputBorder()),
                 ),
                 const SizedBox(height: 20),
-                const Text('Type of the disaster',
+                Text(
+                  'Select the Disaster Type:',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 16),
+                RadioListTile<String>(
+                  title: Text('Manmade Disaster'),
+                  value: 'Manmade Disaster',
+                  groupValue: selectedDisasterType,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedDisasterType = value!;
+                      disasters = manmadeDisaster;
+                      selectedDisaster = disasters[0];
+                    });
+                  },
+                ),
+                RadioListTile<String>(
+                  title: Text('Natural Disaster'),
+                  value: 'Natural Disaster',
+                  groupValue: selectedDisasterType,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedDisasterType = value!;
+                      disasters = NaturalDisasters;
+                      selectedDisaster = disasters[0];
+                    });
+                  },
+                ),
+                SizedBox(height: 32),
+                const Text('Name of the disaster',
                     style: TextStyle(fontSize: 20)),
-                SizedBox(
-                  height: 10,
-                ),
-                TextField(
-                  controller: disasterTypeController,
-                  decoration:
-                      const InputDecoration(border: OutlineInputBorder()),
-                ),
-                const SizedBox(height: 20),
-                const Text('Name of the State', style: TextStyle(fontSize: 20)),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 DropdownButtonFormField<String>(
-                  decoration: InputDecoration(border: OutlineInputBorder()),
+                  decoration:
+                      const InputDecoration(border: OutlineInputBorder()),
+                  value: selectedDisaster,
+                  hint: const Text('Select Disaster'),
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedDisaster = newValue!;
+                    });
+                  },
+                  items: disasters.map((disaster) {
+                    return DropdownMenuItem<String>(
+                      value: disaster,
+                      child: Text(disaster),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 20),
+                const Text('Name of the State', style: TextStyle(fontSize: 20)),
+                const SizedBox(
+                  height: 10,
+                ),
+                DropdownButtonFormField<String>(
+                  decoration:
+                      const InputDecoration(border: OutlineInputBorder()),
                   value: selectedState,
                   hint: const Text('Select State'),
                   onChanged: (newValue) {
@@ -201,7 +289,7 @@ class _CreateRoomState extends State<CreateRoom> {
                 const SizedBox(height: 25),
                 const Text('Name of the District',
                     style: TextStyle(fontSize: 20)),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 DropdownButtonFormField<String>(
@@ -230,7 +318,7 @@ class _CreateRoomState extends State<CreateRoom> {
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.deepPurpleAccent,
-                        shape: StadiumBorder(),
+                        shape: const StadiumBorder(),
                       ),
                       onPressed: () {
                         _searchLocation(selectedDistrict).then((value) {
@@ -247,42 +335,6 @@ class _CreateRoomState extends State<CreateRoom> {
                             ),
                           );
                         });
-
-                        // firebaseService.pushRoomData(Room(
-                        //   createdOn: Timestamp.now(),
-                        //   roomName: roomNameController.value.text,
-                        //   disasterType: disasterTypeController.value.text,
-                        //   state: selectedState,
-                        //   district: selectedDistrict,
-                        //   location: [
-                        //     10.0,
-                        //     10.0,
-                        //   ],
-                        //   agencies: [],
-                        // ));
-                        // showAdaptiveDialog(
-                        //     context: context,
-                        //     builder: (context) {
-                        //       return AlertDialog(
-                        //         title: const Text('Room Created'),
-                        //         content: const Text(
-                        //             'Room has been created successfully'),
-                        //         actions: [
-                        //           TextButton(
-                        //             onPressed: () {
-                        //               Navigator.pop(context);
-                        //               Navigator.pop(context);
-                        //               // Navigator.pushReplacement(
-                        //               //   context,
-                        //               //   MaterialPageRoute(
-                        //               //       builder: (context) => ResponseHub()),
-                        //               // );
-                        //             },
-                        //             child: const Text('OK'),
-                        //           ),
-                        //         ],
-                        //       );
-                        //     });
                       },
                       child: const Text(
                         'Next',
@@ -311,7 +363,7 @@ class _CreateRoomState extends State<CreateRoom> {
       return newLatLng;
     } else {
       Get.snackbar('Error', 'Location not found');
-      return LatLng(0, 0);
+      return const LatLng(0, 0);
     }
   }
 }
