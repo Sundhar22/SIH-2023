@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/chat/chat.dart';
 import 'package:sih_2023/features/ui/map/view/map.dart';
+import 'package:sih_2023/features/ui/map/view/scenario_map.dart';
 
 class TemporaryEmergencyRooms extends StatelessWidget {
   const TemporaryEmergencyRooms({
@@ -10,7 +12,8 @@ class TemporaryEmergencyRooms extends StatelessWidget {
     required this.integratedReliefRoomAgencies,
     required this.integratedReliefLocation,
     required this.integratedCreatedOn,
-    required this.integratedroomId
+    required this.integratedroomId,
+    required this.integratedlatLng
   });
 
   final String integratedReliefRoomName;
@@ -19,6 +22,7 @@ class TemporaryEmergencyRooms extends StatelessWidget {
   final List<dynamic> integratedReliefRoomAgencies;
   final String integratedCreatedOn;
   final String integratedroomId;
+  final List integratedlatLng;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class TemporaryEmergencyRooms extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MapScreen()),
+                    MaterialPageRoute(builder: (context) => ScenarioMapScreen(initialLocation: LatLng(integratedlatLng[0], integratedlatLng[1]),)),
                   );
                 },
                 child: const Text("View Scenario"),

@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sih_2023/features/ui/responsehub/pin_map.dart';
 import 'package:sih_2023/features/ui/responsehub/push_room_data.dart';
 import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
 import 'package:sih_2023/features/ui/responsehub/room_model.dart';
@@ -139,7 +142,7 @@ class _CreateRoomState extends State<CreateRoom> {
   ]; // Add more states here
 
   List<String> districts = [];
-  FirebaseService firebaseService = FirebaseService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,60 +222,71 @@ class _CreateRoomState extends State<CreateRoom> {
                   }).toList(),
                 ),
                 const SizedBox(height: 50),
-                SizedBox(
-                  width: double.maxFinite,
-                  height: 50,
-                  child: Center(
-                    child: SizedBox(
-                      width: double.maxFinite,
-                      height: 50,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          foregroundColor: Colors.white,
-                          backgroundColor: Colors.deepPurpleAccent,
-                          shape: StadiumBorder(),
-                        ),
-                        onPressed: () {
-                          firebaseService.pushRoomData(Room(
-                            createdOn: Timestamp.now(),
-                            roomName: roomNameController.value.text,
-                            disasterType: disasterTypeController.value.text,
-                            state: selectedState,
-                            district: selectedDistrict,
-                            location: [
-                              10.0,
-                              10.0,
-                            ],
-                            agencies: [],
-                          ));
-                          showAdaptiveDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text('Room Created'),
-                                  content: const Text(
-                                      'Room has been created successfully'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        // Navigator.pushReplacement(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //       builder: (context) => ResponseHub()),
-                                        // );
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              });
-                        },
-                        child: const Text(
-                          'Create Room',
-                          style: TextStyle(fontSize: 20),
-                        ),
+                Center(
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.deepPurpleAccent,
+                        shape: StadiumBorder(),
+                      ),
+                      onPressed: () {
+                        _searchLocation(selectedDistrict).then((value) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PinMapScreen(
+                                  initialLocation: value,
+                                  roomName: roomNameController.value.text,
+                                  disasterType:
+                                      disasterTypeController.value.text,
+                                  selectedState: selectedState,
+                                  selectedDistrict: selectedDistrict),
+                            ),
+                          );
+                        });
+
+                        // firebaseService.pushRoomData(Room(
+                        //   createdOn: Timestamp.now(),
+                        //   roomName: roomNameController.value.text,
+                        //   disasterType: disasterTypeController.value.text,
+                        //   state: selectedState,
+                        //   district: selectedDistrict,
+                        //   location: [
+                        //     10.0,
+                        //     10.0,
+                        //   ],
+                        //   agencies: [],
+                        // ));
+                        // showAdaptiveDialog(
+                        //     context: context,
+                        //     builder: (context) {
+                        //       return AlertDialog(
+                        //         title: const Text('Room Created'),
+                        //         content: const Text(
+                        //             'Room has been created successfully'),
+                        //         actions: [
+                        //           TextButton(
+                        //             onPressed: () {
+                        //               Navigator.pop(context);
+                        //               Navigator.pop(context);
+                        //               // Navigator.pushReplacement(
+                        //               //   context,
+                        //               //   MaterialPageRoute(
+                        //               //       builder: (context) => ResponseHub()),
+                        //               // );
+                        //             },
+                        //             child: const Text('OK'),
+                        //           ),
+                        //         ],
+                        //       );
+                        //     });
+                      },
+                      child: const Text(
+                        'Next',
+                        style: TextStyle(fontSize: 20),
                       ),
                     ),
                   ),
@@ -283,5 +297,21 @@ class _CreateRoomState extends State<CreateRoom> {
         ),
       ),
     );
+  }
+
+  Future<LatLng> _searchLocation(String locationName) async {
+    List<Location> locations = await locationFromAddress(locationName);
+    if (locations.isNotEmpty) {
+      final selectedLocation = locations[0];
+      final newLatLng = LatLng(
+        selectedLocation.latitude,
+        selectedLocation.longitude,
+      );
+
+      return newLatLng;
+    } else {
+      Get.snackbar('Error', 'Location not found');
+      return LatLng(0, 0);
+    }
   }
 }

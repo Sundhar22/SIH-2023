@@ -16,8 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
     const MapScreen(),
+    const ResponseHub(),
     const HomeState(),
-    const ResponseHub()
   ];
 
   late int curPage;
@@ -72,7 +72,7 @@ class HomeState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return  SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
