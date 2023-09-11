@@ -10,7 +10,7 @@ class AgencyController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    await fetchAgency();
+    // await fetchAgency();
   }
 
   Future<void> fetchAgency() async {
