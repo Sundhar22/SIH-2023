@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
-import 'package:sih_2023/features/ui/home/view/popup_widget.dart';
 import 'package:sih_2023/features/ui/search/view/search.dart';
 
 class GreetMessage extends StatelessWidget {
@@ -46,14 +45,7 @@ class QuickActionWidgets extends StatelessWidget {
           icon: const Icon(Icons.search),
         ),
         IconButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const PopupWidget();
-              },
-            );
-          },
+          onPressed: () {},
           icon: const Icon(Icons.sort),
         ),
       ],

@@ -11,7 +11,7 @@ class QueryController extends GetxController {
     if (query.isEmpty) {
       searchResults.value = [];
     } else {
-      Set queryResult = {};
+      List queryResult = [];
       for (AgencyModel agencyDetails in allAgencyModels) {
         if (agencyDetails.agencyName
             .toLowerCase()
@@ -25,7 +25,7 @@ class QueryController extends GetxController {
           );
         }
       }
-      searchResults.value = queryResult.toList();
+      searchResults.value = queryResult;
     }
   }
 }

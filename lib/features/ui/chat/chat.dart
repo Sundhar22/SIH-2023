@@ -56,10 +56,10 @@ class ChatScreen extends StatelessWidget {
           roomId: roomId,
         ),
         body: StreamBuilder<List<Message>>(
-          stream: getRoomChatStream(roomId), 
+          stream: getRoomChatStream(roomId),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const CircularProgressIndicator(); 
+              return const CircularProgressIndicator();
             }
 
             List<Message> messages = snapshot.data!;

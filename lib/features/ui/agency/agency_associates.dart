@@ -1,5 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/ui/agency/expanded_agency_screen.dart';
+import 'package:sih_2023/features/ui/home/model/agency_model.dart';
+
+getModel(String dictKey) {
+  for (AgencyModel element in allAgencyModels) {
+    if (element.agencyKey == dictKey) {
+      return element;
+    }
+  }
+}
 
 class AgencyAssociates extends StatelessWidget {
   const AgencyAssociates({
@@ -77,22 +88,44 @@ class AssociateAgencyLayout extends StatelessWidget {
                 style: const TextStyle(color: Colors.black)),
           ),
           const SizedBox(height: 10),
-          const Row(
-            children: [
-              Text(
-                "View Details",
-                style: TextStyle(
-                  color: Colors.blueAccent,
+          GestureDetector(
+            onTap: () {
+              dynamic model = getModel(agencyName) ?? '';
+              if (model != '') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AgencyDetailsScreen(
+                      imageLink: model.agencyLogo,
+                      agencyName: model.agencyName,
+                      agencyLocation: model.agencyOperatingState,
+                      agencyExpertise: model.agencyExpertise,
+                      agencyAssociates: model.agencyAssocaites,
+                      angencyDescription: model.agencyDescription,
+                    ),
+                  ),
+                );
+              } else {
+                print("Not Found Bro");
+              }
+            },
+            child: const Row(
+              children: [
+                Text(
+                  "View Details",
+                  style: TextStyle(
+                    color: Colors.blueAccent,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.trending_up,
-                  color: Colors.blueAccent,
+                Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.trending_up,
+                    color: Colors.blueAccent,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           )
         ],
       ),
