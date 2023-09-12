@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MessageTile extends StatefulWidget {
   final Widget message;
@@ -22,43 +21,61 @@ class _MessageTileState extends State<MessageTile> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-          top: 4.h,
-          bottom: 4.w,
-          left: widget.sentByMe ? 0 : 4.w,
-          right: widget.sentByMe ? 24.h : 0),
+          top: 4,
+          bottom: 4,
+          left: widget.sentByMe ? 0 : 4,
+          right: widget.sentByMe ? 24 : 0),
       alignment: widget.sentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
         margin: widget.sentByMe
             ? const EdgeInsets.only(left: 30)
             : const EdgeInsets.only(right: 30),
-        padding:
-            EdgeInsets.only(top: 17.h, bottom: 17.h, left: 20.w, right: 20.w),
+        padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
         decoration: BoxDecoration(
             borderRadius: widget.sentByMe
                 ? BorderRadius.only(
-                    topLeft: Radius.circular(20.w),
-                    topRight: Radius.circular(20.w),
-                    bottomLeft: Radius.circular(20.w),
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
                   )
                 : BorderRadius.only(
-                    topLeft: Radius.circular(20.w),
-                    topRight: Radius.circular(20.w),
-                    bottomRight: Radius.circular(20.w),
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
                   ),
             color: widget.sentByMe
                 ? Theme.of(context).primaryColor
-                : Colors.grey[700]),
+                : Colors.deepPurpleAccent.withOpacity(.2)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              widget.sender.toUpperCase(),
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: -0.5),
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.grey[100],
+                  child: Center(
+                      child: Text(
+                    getLogoText(widget.sender),
+                    style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600),
+                  )),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  widget.sender.toUpperCase(),
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      letterSpacing: -0.5),
+                ),
+              ],
             ),
             const SizedBox(
               height: 8,
@@ -69,4 +86,19 @@ class _MessageTileState extends State<MessageTile> {
       ),
     );
   }
+}
+
+String getLogoText(String text) {
+  List<String> words = text.split(' ');
+  String logoText = '';
+
+  for (String word in words) {
+    if (word.isNotEmpty) {
+      logoText += word[0].toUpperCase();
+    }
+  }
+  if (logoText.length > 3) {
+    return logoText.substring(0, 3).toUpperCase();
+  }
+  return logoText.toUpperCase();
 }
