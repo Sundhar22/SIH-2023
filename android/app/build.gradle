@@ -28,7 +28,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.example.sih_2023"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -41,7 +41,7 @@ android {
         applicationId "com.example.sih_2023"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 27
+        minSdkVersion 20
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -61,4 +61,3 @@ android {
 flutter {
     source '../..'
 }
-

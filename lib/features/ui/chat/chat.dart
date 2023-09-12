@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/chat/chat_messenger.dart';
-
 import 'package:sih_2023/features/ui/chat/message_model.dart';
+import 'package:sih_2023/features/ui/chat/message_tile.dart';
 import 'package:sih_2023/features/ui/chat/play_video.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key, required this.roomId});
-  String roomId;
+  const ChatScreen({super.key, required this.roomId});
+  final String roomId;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +56,10 @@ class ChatScreen extends StatelessWidget {
           roomId: roomId,
         ),
         body: StreamBuilder<List<Message>>(
-          stream: getRoomChatStream(roomId), 
+          stream: getRoomChatStream(roomId),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const CircularProgressIndicator(); 
+              return const CircularProgressIndicator();
             }
 
             List<Message> messages = snapshot.data!;
@@ -71,30 +71,47 @@ class ChatScreen extends StatelessWidget {
 
                 switch (message.type) {
                   case 'Photo':
-                    return Row(
-                      children: [
-                        Container(
-                            width: 200,
-                            height: 200,
-                            color: Colors.purpleAccent,
-                            child: Image.network(
-                              message.content,
-                              fit: BoxFit.cover,
-                            )),
-                      ],
+                    return MessageTile(
+                      message: Row(
+                        children: [
+                          Container(
+                              width: 200,
+                              height: 200,
+                              color: Colors.purpleAccent,
+                              child: Image.network(
+                                message.content,
+                                fit: BoxFit.cover,
+                              )),
+                        ],
+                      ),
+                      sentByMe: true,
+                      sender: '',
                     );
 
                   case 'Document':
-                    return Text(message.content);
+                    return MessageTile(
+                      message: Text(message.content),
+                      sentByMe: true,
+                      sender: '',
+                    );
                   case 'Video':
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: VideoMessageWidget(videoUrl: message.content),
+                    return MessageTile(
+                      message: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: VideoMessageWidget(videoUrl: message.content),
+                      ),
+                      sender: '',
+                      sentByMe: true,
                     );
 
                   case 'Text':
-                    return ListTile(
-                      title: Text(message.content),
+                    MessageTile(
+                      message: Text(message.content,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.white)),
+                      sender: 'Me',
+                      sentByMe: true,
                     );
                   default:
                     return const SizedBox();
