@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sih_2023/features/ui/chat/chat_messenger.dart';
 import 'package:sih_2023/features/ui/chat/message_model.dart';
+import 'package:sih_2023/features/ui/chat/message_tile.dart';
+import 'package:sih_2023/features/ui/chat/pdf_viwer.dart';
 import 'package:sih_2023/features/ui/chat/play_video.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, required this.roomId, required this.roomName});
   final String roomId;
   final String roomName;
 
+  @override
+  State<ChatScreen> createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     // Stream<QuerySnapshot> getMessagesStream() {
@@ -17,23 +24,6 @@ class ChatScreen extends StatelessWidget {
     //       .orderBy('timestamp')
     //       .snapshots();
     // }
-
-    
-
-    String getLogoText(String text) {
-      List<String> words = text.split(' ');
-      String logoText = '';
-
-      for (String word in words) {
-        if (word.isNotEmpty) {
-          logoText += word[0].toUpperCase();
-        }
-      }
-      if (logoText.length > 3) {
-        return logoText.substring(0, 3).toUpperCase();
-      }
-      return logoText.toUpperCase();
-    }
 
     return Scaffold(
         appBar: AppBar(
@@ -52,14 +42,14 @@ class ChatScreen extends StatelessWidget {
                     radius: 25,
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: Text(getLogoText(roomName)),
+                      child: Text(getLogoText(widget.roomName)),
                     ),
                   ),
                   const SizedBox(width: 20),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
-                      roomName,
+                      widget.roomName,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 20,
@@ -77,55 +67,79 @@ class ChatScreen extends StatelessWidget {
           ),
         ),
         bottomSheet: ChatMessenger(
-          roomId: roomId,
+          roomId: widget.roomId,
         ),
-        body: StreamBuilder<List<Message>>(
-          stream: getRoomChatStream(roomId),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const CircularProgressIndicator();
-            }
+        body: Container(
+          padding: const EdgeInsets.only(left: 10, right: 10, bottom: 70),
+          child: StreamBuilder<List<Message>>(
+            stream: getRoomChatStream(widget.roomId),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const CircularProgressIndicator();
+              }
 
-            List<Message> messages = snapshot.data!;
+              List<Message> messages = snapshot.data!;
 
-            return ListView.builder(
-              itemCount: messages.length,
-              itemBuilder: (context, index) {
-                Message message = messages[index];
+              return ListView.builder(
+                itemCount: messages.length,
+                itemBuilder: (context, index) {
+                  Message message = messages[index];
 
-                switch (message.type) {
-                  case 'Photo':
-                    return Row(
-                      children: [
-                        Container(
-                            width: 200,
-                            height: 200,
-                            color: Colors.white,
-                            child: Image.network(
-                              message.content,
-                              fit: BoxFit.cover,
-                            )),
-                      ],
-                    );
+                  switch (message.type) {
+                    case 'Photo':
+                      return MessageTile(
+                        message: Image.network(
+                          message.content,
+                          fit: BoxFit.fitHeight,
+                        ),
+                        sender: widget.roomName,
+                        sentByMe: false,
+                      );
 
-                  case 'Document':
-                    return Text(message.content);
-                  case 'Video':
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: VideoMessageWidget(videoUrl: message.content),
-                    );
+                    case 'Document':
+                      return MessageTile(
+                        message: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return PdfViewerPage(link: message.content);
+                                },
+                              ));
+                            });
+                          },
+                          child: Image.asset(
+                            'assets/images/pdf-file.png',
+                            height: 150,
+                            width: 150,
+                          ),
+                        ),
+                        sender: widget.roomName,
+                        sentByMe: true,
+                      );
+                    case 'Video':
+                      return MessageTile(
+                        message: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: VideoMessageWidget(videoUrl: message.content),
+                        ),
+                        sender: widget.roomName,
+                        sentByMe: false,
+                      );
 
-                  case 'Text':
-                    return ListTile(
-                      title: Text(message.content),
-                    );
-                  default:
-                    return const SizedBox();
-                }
-              },
-            );
-          },
+                    case 'Text':
+                      return MessageTile(
+                        message: Text(message.content),
+                        sender: widget.roomName,
+                        sentByMe: false,
+                      );
+                    default:
+                      return const SizedBox();
+                  }
+                },
+              );
+            },
+          ),
         ));
   }
 
