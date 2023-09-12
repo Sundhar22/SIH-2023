@@ -3,19 +3,19 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class MapScreen extends StatefulWidget {
-  const MapScreen({super.key});
+class ScenarioMapScreen extends StatefulWidget {
+  ScenarioMapScreen(
+      {super.key, required this.initialLocation, required this.radius});
+  LatLng initialLocation;
+  double radius;
 
   @override
-  State createState() => _MapScreenState();
+  State createState() => _ScenarioMapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class _ScenarioMapScreenState extends State<ScenarioMapScreen> {
   late GoogleMapController mapController;
-  LatLng center = const LatLng(9.920556085930551, 78.11152826989836);
-  LatLng fire = const LatLng(9.920556085930551, 78.11152826989836);
-  LatLng tree = const LatLng(9.925201, 78.119774);
-  double radius = 500;
+
   List<Marker> markers = [];
 
   @override
@@ -24,25 +24,12 @@ class _MapScreenState extends State<MapScreen> {
     _addCustomMarkers();
   }
 
-  
-
   void _addCustomMarkers() async {
     markers.add(Marker(
       markerId: const MarkerId('fire_marker'),
-      position: fire,
+      position: widget.initialLocation,
       icon: await _createCustomMarker('assets/images/fire.png'),
     ));
-    // markers.add(Marker(
-    //   markerId: const MarkerId('tree_marker'),
-    //   position: tree,
-    //   icon: await _createCustomMarker('assets/images/tree.png'),
-    // ));
-
-    //  markers.add(Marker(
-    //     markerId: const MarkerId('center_marker'),
-    //     position: center,
-    //     icon: await _createCustomMarker('assets/images/NDA.png'),
-    //   ));
 
     if (mounted) {
       setState(() {});
@@ -54,8 +41,8 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       body: GoogleMap(
         initialCameraPosition: CameraPosition(
-          target: center,
-          zoom: 12.0,
+          target: widget.initialLocation,
+          zoom: 15.0,
         ),
         onMapCreated: (GoogleMapController controller) {
           setState(() {
@@ -66,20 +53,12 @@ class _MapScreenState extends State<MapScreen> {
         circles: {
           Circle(
             circleId: const CircleId('radius_circle'),
-            center: fire,
-            radius: radius,
+            center: widget.initialLocation,
+            radius: widget.radius,
             fillColor: Colors.red.withOpacity(0.3),
             strokeColor: Colors.red,
             strokeWidth: 2,
           ),
-          // Circle(
-          //   circleId: CircleId('radius_circle'),
-          //   center: tree,
-          //   radius: radius,
-          //   fillColor: Colors.blue.withOpacity(0.3),
-          //   strokeColor: Colors.blue,
-          //   strokeWidth: 2,
-          // ),
         },
       ),
     );

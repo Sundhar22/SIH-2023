@@ -16,8 +16,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
     const MapScreen(),
+    const ResponseHub(),
     const HomeState(),
-    const ResponseHub()
   ];
 
   late int curPage;
@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedLabelStyle: const TextStyle(fontSize: 0),
         unselectedFontSize: 0,
         iconSize: 30,
-        selectedIconTheme: const IconThemeData(color: Colors.deepPurpleAccent),
+        selectedIconTheme: const IconThemeData(color: Colors.blueAccent),
         unselectedIconTheme: const IconThemeData(color: Colors.grey),
         items: const [
           BottomNavigationBarItem(
@@ -72,7 +72,7 @@ class HomeState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return  SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -17,9 +17,10 @@ final List<String> weatherLocation = [
 ];
 
 class WeatherAlerts extends StatelessWidget {
-  const WeatherAlerts({
+  WeatherAlerts({
     super.key,
   });
+    final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class WeatherAlerts extends StatelessWidget {
       child: SizedBox(
         height: 45,
         child: ListView.builder(
+          controller: ScrollController(),
           scrollDirection: Axis.horizontal,
           itemCount: weatherLocation.length,
           itemBuilder: (context, index) {
@@ -49,6 +51,15 @@ class WeatherAlerts extends StatelessWidget {
         ),
       ),
     );
+  }
+  void scrollToItem(int index) {
+    if (index >= 0 && index < 3) {
+      _scrollController.animateTo(
+        index * 56.0, // Adjust this value according to your item height
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }
 

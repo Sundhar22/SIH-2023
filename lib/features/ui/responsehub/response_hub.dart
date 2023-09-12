@@ -23,7 +23,6 @@ class _ResponseHubState extends State<ResponseHub> {
 
   Future<void> _fetchData() async {
     List<Map<String, dynamic>> data = await firebaseService.fetchAllRooms();
-    print(data);
     setState(() {
       roomsData = data;
     });
@@ -53,6 +52,9 @@ class _ResponseHubState extends State<ResponseHub> {
               Map<String, dynamic> room = roomsData[index];
               print(room);
               return TemporaryEmergencyRooms(
+                
+                radius: room['radius'],
+                  integratedlatLng: room['location'],
                   integratedroomId: room['roomId'],
                   integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(
                           room['createdOn'].millisecondsSinceEpoch)

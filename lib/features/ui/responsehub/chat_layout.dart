@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/chat/chat.dart';
 import 'package:sih_2023/features/ui/map/view/map.dart';
+import 'package:sih_2023/features/ui/map/view/scenario_map.dart';
 
 class TemporaryEmergencyRooms extends StatelessWidget {
-  const TemporaryEmergencyRooms({
-    super.key,
-    required this.integratedReliefRoomName,
-    required this.integratedReliefRoomCause,
-    required this.integratedReliefRoomAgencies,
-    required this.integratedReliefLocation,
-    required this.integratedCreatedOn,
-    required this.integratedroomId
-  });
+  const TemporaryEmergencyRooms(
+      {super.key,
+      required this.integratedReliefRoomName,
+      required this.integratedReliefRoomCause,
+      required this.integratedReliefRoomAgencies,
+      required this.integratedReliefLocation,
+      required this.integratedCreatedOn,
+      required this.integratedroomId,
+      required this.integratedlatLng,
+      required this.radius});
 
   final String integratedReliefRoomName;
   final String integratedReliefRoomCause;
@@ -19,6 +22,8 @@ class TemporaryEmergencyRooms extends StatelessWidget {
   final List<dynamic> integratedReliefRoomAgencies;
   final String integratedCreatedOn;
   final String integratedroomId;
+  final List integratedlatLng;
+  final double radius;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +32,12 @@ class TemporaryEmergencyRooms extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ChatScreen(roomId: integratedroomId,)));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ChatScreen(
+                        roomName: integratedReliefRoomName,
+                        roomId: integratedroomId,
+                      )));
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -59,7 +69,12 @@ class TemporaryEmergencyRooms extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const MapScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => ScenarioMapScreen(
+                              initialLocation: LatLng(
+                                  integratedlatLng[0], integratedlatLng[1]),
+                              radius: radius,
+                            )),
                   );
                 },
                 child: const Text("View Scenario"),
@@ -140,9 +155,15 @@ class LocationInfo extends StatelessWidget {
         Row(
           children: [
             const Icon(Icons.whatshot, color: Colors.red),
-            Text(
-              cause,
-              style: const TextStyle(color: Colors.black, fontSize: 15),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.3,
+              child: Text(
+                cause,
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    overflow: TextOverflow.ellipsis),
+              ),
             ),
           ],
         ),

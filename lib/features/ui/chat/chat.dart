@@ -6,8 +6,9 @@ import 'package:sih_2023/features/ui/chat/message_tile.dart';
 import 'package:sih_2023/features/ui/chat/play_video.dart';
 
 class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key, required this.roomId});
-  final String roomId;
+  ChatScreen({super.key, required this.roomId, required this.roomName});
+  String roomId;
+  String roomName;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +17,18 @@ class ChatScreen extends StatelessWidget {
           .collection('messages')
           .orderBy('timestamp')
           .snapshots();
+    }
+
+    String _getLogoText(String text) {
+      List<String> words = text.split(' ');
+      String logoText = '';
+
+      for (String word in words) {
+        if (word.isNotEmpty) {
+          logoText += word[0].toUpperCase();
+        }
+      }
+      return logoText.substring(0, 3).toUpperCase();
     }
 
     return Scaffold(
@@ -31,16 +44,23 @@ class ChatScreen extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.arrow_back)),
-                  const CircleAvatar(
-                    radius: 20,
-                    child: Text("MRT"),
+                  CircleAvatar(
+                    radius: 25,
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Text(_getLogoText(roomName)),
+                    ),
                   ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    "Madurai Force",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Text(
+                      roomName,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ],
@@ -77,7 +97,7 @@ class ChatScreen extends StatelessWidget {
                           Container(
                               width: 200,
                               height: 200,
-                              color: Colors.purpleAccent,
+                              color: Colors.white,
                               child: Image.network(
                                 message.content,
                                 fit: BoxFit.cover,
@@ -87,7 +107,6 @@ class ChatScreen extends StatelessWidget {
                       sentByMe: true,
                       sender: '',
                     );
-
                   case 'Document':
                     return MessageTile(
                       message: Text(message.content),
