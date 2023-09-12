@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/ui/agencymap/agency_map.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
@@ -15,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
-    const MapScreen(),
+    const AgencyMapScreen(),
     const HomeState(),
     const ResponseHub()
   ];

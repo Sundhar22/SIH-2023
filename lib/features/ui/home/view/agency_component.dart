@@ -23,20 +23,8 @@ class AgencyComponent extends StatelessWidget {
   }
 }
 
-class AgencyList extends StatefulWidget {
+class AgencyList extends StatelessWidget {
   const AgencyList({super.key});
-
-  @override
-  State<AgencyList> createState() => _AgencyListState();
-}
-
-class _AgencyListState extends State<AgencyList> {
-  late ScrollController scrollController;
-  @override
-  void initState() {
-    super.initState();
-    scrollController = ScrollController();
-  }
 
   //
   @override

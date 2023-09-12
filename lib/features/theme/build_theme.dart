@@ -9,28 +9,15 @@ ThemeData buildTheme() {
       backgroundColor: Colors.grey.withOpacity(.05),
       collapsedBackgroundColor: Colors.grey.withOpacity(.05),
     ),
-    chipTheme: const ChipThemeData(
-      labelPadding: EdgeInsets.symmetric(horizontal: 8),
-      showCheckmark: false,
-      shape: StadiumBorder(),
-      selectedColor: Colors.black,
-      disabledColor: Colors.white,
-      secondaryLabelStyle: TextStyle(
-        fontFamily: 'Poppins',
-        color: Colors.white,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
-      elevation: 3,
-      labelStyle: TextStyle(
-        fontFamily: 'Poppins',
-        color: Colors.black,
-        fontSize: 12,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
     colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.blueAccent,
+    ),
+    dialogTheme: const DialogTheme(
+      titleTextStyle: TextStyle(
+        fontFamily: 'Poppins',
+        color: Colors.black,
+        fontSize: 18,
+      ),
     ),
     useMaterial3: true,
   );
