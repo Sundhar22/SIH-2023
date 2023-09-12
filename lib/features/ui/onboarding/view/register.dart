@@ -1,8 +1,11 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
+import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
+
+import '../widgets/upload_image_widget.dart';
+
+
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -12,18 +15,6 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-  File? _image;
-
-  Future<void> _pickImageFromGallery() async {
-    final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,112 +35,33 @@ class _RegistrationPageState extends State<RegistrationPage> {
               Navigator.pop(context, true);
             }),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding:
-              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
+          padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
           child: Column(
             children: [
-              CircleAvatar(
-                radius: 75,
-                backgroundColor: Colors.grey,
-                backgroundImage: _image != null ? FileImage(_image!) : null,
-              ),
+              UploadImageWidget(),
               SizedBox(
-                height: 65,
-                width: 160,
-                child: TextButton(
-                    style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          return Colors.white;
-                        },
-                      ),
-                    ),
-                    onPressed: _pickImageFromGallery,
-                    child: const Text(
-                      "Upload your logo",
-                      style: TextStyle(
-                          color: Colors.deepPurple,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
-                    )),
-              ),
-              const SizedBox(
                 height: 20,
               ),
-              const FormWidget(hinttext: "Name of the agency"),
-              const SizedBox(
+              FormWidget(hinttext: "Name of the agency"),
+              SizedBox(
                 height: 20,
               ),
-              const FormWidget(hinttext: "Name of the Director"),
-              const SizedBox(
+              FormWidget(hinttext: "Name of the Director"),
+              SizedBox(
                 height: 20,
               ),
-              const AreaOfExpertise(),
-              const SizedBox(
+              AreaOfExpertise(),
+              SizedBox(
                 height: 20,
               ),
-              const LocationContainer(),
-              const SizedBox(
+              LocationContainer(),
+              SizedBox(
                 height: 50,
               ),
-              Container(
-                height: 50,
-                width: 200,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepPurpleAccent,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: ((context) => const HomeScreen()),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Register",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                ),
-              )
+              RegisterButton()
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class FormWidget extends StatelessWidget {
-  const FormWidget({super.key, required this.hinttext});
-  final String hinttext;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 60,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.transparent, width: 0),
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15, top: 5),
-        child: TextField(
-          decoration: InputDecoration(
-            hintText: hinttext,
-            hintStyle: const TextStyle(
-              fontWeight: FontWeight.normal,
-              color: Colors.black54,
-            ),
-            border: InputBorder.none,
           ),
         ),
       ),
@@ -297,6 +209,37 @@ class _LocationContainerState extends State<LocationContainer> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class RegisterButton extends StatelessWidget {
+  const RegisterButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      width: 200,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurpleAccent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => const HomeScreen()),
+            ),
+          );
+        },
+        child: const Text(
+          "Register",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
     );
