@@ -48,7 +48,7 @@ void sortBottomSheet(BuildContext context) {
                           context: context,
                           builder: (BuildContext context) {
                             return FilterWidget(
-                              index: 0,
+                              index: index,
                               filterOptions: filterOptionsAvailable[index],
                             );
                           },

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/ui/agency/expanded_agency_screen.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
@@ -106,7 +107,15 @@ class AssociateAgencyLayout extends StatelessWidget {
                   ),
                 );
               } else {
-                print("Not Found Bro");
+                Fluttertoast.showToast(
+                  msg: "The agency is not registered",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.white,
+                  textColor: Colors.black,
+                  fontSize: 16.0,
+                );
               }
             },
             child: const Row(

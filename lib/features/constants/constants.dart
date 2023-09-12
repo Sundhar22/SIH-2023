@@ -84,3 +84,11 @@ Map<int, IconData> agencyLogo = {
   12: Icons.school,
   13: Icons.food_bank,
 };
+
+List weatherAPI = [
+  ["Chennai", "Sunny"],
+  ["Coimabtore", "Haze"],
+  ["Madurai", "Sunny"],
+  ["Dindugal", "Sunny"],
+  ["Salem", "Mild Haze"]
+];

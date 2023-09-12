@@ -3,7 +3,7 @@ import 'package:sih_2023/features/ui/agencymap/agency_map.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
-import 'package:sih_2023/features/ui/map/view/map.dart';
+// import 'package
 import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -79,7 +79,9 @@ class HomeState extends StatelessWidget {
         children: [
           GreetMessage(),
           WeatherAlerts(),
-          Expanded(child: AgencyComponent()),
+          Expanded(
+            child: AgencyComponent(),
+          ),
         ],
       ),
     );
