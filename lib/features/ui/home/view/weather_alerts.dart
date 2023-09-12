@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 
 class WeatherAlerts extends StatelessWidget {
-  const WeatherAlerts({
+  WeatherAlerts({
     super.key,
   });
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,16 @@ class WeatherAlerts extends StatelessWidget {
         enableInfiniteScroll: true,
       ),
     );
+  }
+
+  void scrollToItem(int index) {
+    if (index >= 0 && index < 3) {
+      _scrollController.animateTo(
+        index * 56.0, // Adjust this value according to your item height
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }
 

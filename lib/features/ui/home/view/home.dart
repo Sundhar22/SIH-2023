@@ -5,6 +5,7 @@ import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
 // import 'package
 import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
+import 'package:sih_2023/features/ui/responsehub/response_hub_map.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,8 +18,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
     const AgencyMapScreen(),
+    const ResponseHubMapScreen(),
+    const ResponseHub(),
     const HomeState(),
-    const ResponseHub()
   ];
 
   late int curPage;
@@ -73,13 +75,13 @@ class HomeState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GreetMessage(),
+          const GreetMessage(),
           WeatherAlerts(),
-          Expanded(
+          const Expanded(
             child: AgencyComponent(),
           ),
         ],
