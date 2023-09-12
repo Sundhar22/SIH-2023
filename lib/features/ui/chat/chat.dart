@@ -1,25 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sih_2023/features/ui/chat/chat_messenger.dart';
-
 import 'package:sih_2023/features/ui/chat/message_model.dart';
 import 'package:sih_2023/features/ui/chat/play_video.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key, required this.roomId, required this.roomName});
-  String roomId;
-  String roomName;
+  const ChatScreen({super.key, required this.roomId, required this.roomName});
+  final String roomId;
+  final String roomName;
 
   @override
   Widget build(BuildContext context) {
-    Stream<QuerySnapshot> getMessagesStream() {
-      return FirebaseFirestore.instance
-          .collection('messages')
-          .orderBy('timestamp')
-          .snapshots();
-    }
+    // Stream<QuerySnapshot> getMessagesStream() {
+    //   return FirebaseFirestore.instance
+    //       .collection('messages')
+    //       .orderBy('timestamp')
+    //       .snapshots();
+    // }
 
-    String _getLogoText(String text) {
+    
+
+    String getLogoText(String text) {
       List<String> words = text.split(' ');
       String logoText = '';
 
@@ -28,7 +29,10 @@ class ChatScreen extends StatelessWidget {
           logoText += word[0].toUpperCase();
         }
       }
-      return logoText.substring(0, 3).toUpperCase();
+      if (logoText.length > 3) {
+        return logoText.substring(0, 3).toUpperCase();
+      }
+      return logoText.toUpperCase();
     }
 
     return Scaffold(
@@ -48,7 +52,7 @@ class ChatScreen extends StatelessWidget {
                     radius: 25,
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: Text(_getLogoText(roomName)),
+                      child: Text(getLogoText(roomName)),
                     ),
                   ),
                   const SizedBox(width: 20),
@@ -57,7 +61,7 @@ class ChatScreen extends StatelessWidget {
                     child: Text(
                       roomName,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
@@ -139,3 +143,4 @@ class ChatScreen extends StatelessWidget {
     });
   }
 }
+

@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/chat/chat.dart';
 import 'package:sih_2023/features/ui/map/view/map.dart';
 import 'package:sih_2023/features/ui/map/view/scenario_map.dart';
 
-class TemporaryEmergencyRooms extends StatelessWidget {
+class TemporaryEmergencyRooms extends StatefulWidget {
   const TemporaryEmergencyRooms(
       {super.key,
       required this.integratedReliefRoomName,
@@ -26,6 +27,11 @@ class TemporaryEmergencyRooms extends StatelessWidget {
   final double radius;
 
   @override
+  State<TemporaryEmergencyRooms> createState() => _TemporaryEmergencyRoomsState();
+}
+
+class _TemporaryEmergencyRoomsState extends State<TemporaryEmergencyRooms> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -35,8 +41,8 @@ class TemporaryEmergencyRooms extends StatelessWidget {
               context,
               MaterialPageRoute(
                   builder: (context) => ChatScreen(
-                        roomName: integratedReliefRoomName,
-                        roomId: integratedroomId,
+                        roomName: widget.integratedReliefRoomName,
+                        roomId: widget.integratedroomId,
                       )));
         },
         child: Container(
@@ -53,18 +59,36 @@ class TemporaryEmergencyRooms extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                integratedReliefRoomName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(color: Colors.black, fontSize: 18),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.integratedReliefRoomName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.black, fontSize: 18),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        deleteDocumentById(
+                          context,
+                          'rooms',
+                          widget.integratedroomId,
+                        );
+                        setState(() {});
+                      },
+                      icon: Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ))
+                ],
               ),
               Description(
-                createdOn: integratedCreatedOn,
+                createdOn: widget.integratedCreatedOn,
               ),
               LocationInfo(
-                  cause: integratedReliefRoomCause,
-                  location: integratedReliefLocation),
+                  cause: widget.integratedReliefRoomCause,
+                  location: widget.integratedReliefLocation),
               TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -72,8 +96,8 @@ class TemporaryEmergencyRooms extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ScenarioMapScreen(
                               initialLocation: LatLng(
-                                  integratedlatLng[0], integratedlatLng[1]),
-                              radius: radius,
+                                  widget.integratedlatLng[0], widget.integratedlatLng[1]),
+                              radius: widget.radius,
                             )),
                   );
                 },
@@ -84,6 +108,35 @@ class TemporaryEmergencyRooms extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> deleteDocumentById(
+      context, String collectionName, String documentId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(collectionName)
+          .doc(documentId)
+          .delete();
+      showAdaptiveDialog(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              title: const Text("Success"),
+              content: const Text("Room Deleted Successfully"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text("Ok"))
+              ],
+            );
+          });
+         
+          
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
   }
 }
 

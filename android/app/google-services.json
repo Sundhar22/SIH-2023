@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "888561835044",
+    "firebase_url": "https://sih-23-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "sih-23",
     "storage_bucket": "sih-23.appspot.com"
   },
@@ -14,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "888561835044-fhpaho71kh3njju4asfl5ff86186vnbs.apps.googleusercontent.com",
+          "client_id": "888561835044-kmr16ibgt2fjn97s6tauv82262ousema.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sih_2023",
+            "certificate_hash": "52f445a692bb9824026d6c36a6f9b366fc80335f"
+          }
+        },
+        {
+          "client_id": "888561835044-5kckbfdq6q6mm0o6n5e4454og5knv3nk.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,8 +36,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "888561835044-fhpaho71kh3njju4asfl5ff86186vnbs.apps.googleusercontent.com",
+              "client_id": "888561835044-5kckbfdq6q6mm0o6n5e4454og5knv3nk.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "888561835044-0i0komtfddqudr713p5busacdl5h92uv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.sih2023.RunnerTests"
+              }
             }
           ]
         }

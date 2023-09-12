@@ -77,11 +77,13 @@ class _PinMapScreenState extends State<PinMapScreen> {
                                 title: 'Selected Location',
                               ),
                               draggable: true, // Make the marker draggable
-                              onDragEnd: (newPosition) {
+                              onDrag: (newPosition) {
                                 setState(() {
                                   _selectedLocation = newPosition;
-                                  _fetchAddress(newPosition);
                                 });
+                              },
+                              onDragEnd: (value) {
+                                 _fetchAddress(value);
                               },
                             ),
                           }
