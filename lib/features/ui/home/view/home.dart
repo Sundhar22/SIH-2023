@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedLabelStyle: const TextStyle(fontSize: 0),
         unselectedFontSize: 0,
         iconSize: 30,
-        selectedIconTheme: const IconThemeData(color: Colors.deepPurpleAccent),
+        selectedIconTheme: const IconThemeData(color: Colors.blueAccent),
         unselectedIconTheme: const IconThemeData(color: Colors.grey),
         items: const [
           BottomNavigationBarItem(

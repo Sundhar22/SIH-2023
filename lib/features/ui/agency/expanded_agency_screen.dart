@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/constants/agencies.dart';
 import 'package:sih_2023/features/ui/agency/agency_associates.dart';
 import 'package:sih_2023/features/ui/agency/agency_description.dart';
 import 'package:sih_2023/features/ui/agency/agency_information.dart';
@@ -12,13 +11,15 @@ class AgencyDetailsScreen extends StatelessWidget {
       required this.agencyName,
       required this.agencyLocation,
       required this.agencyExpertise,
-      required this.agencyAssociates});
+      required this.agencyAssociates,
+      required this.angencyDescription});
 
   final String imageLink;
   final String agencyName;
   final String agencyLocation;
   final String agencyExpertise;
-  final List<String> agencyAssociates;
+  final String angencyDescription;
+  final List agencyAssociates;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,9 @@ class AgencyDetailsScreen extends StatelessWidget {
                 area: agencyExpertise,
                 location: agencyLocation,
               ),
-              const AgencyDescription(),
+              AgencyDescription(
+                agencyDescription: angencyDescription,
+              ),
               agencyAssociates[0] != ""
                   ? AgencyAssociates(
                       imageLink: imageLink,
@@ -49,7 +52,8 @@ class AgencyDetailsScreen extends StatelessWidget {
                   : const SizedBox(),
               const ExpansionTile(
                 title: Text("Employee Details"),
-              )
+              ),
+              const SizedBox(height: 50),
             ],
           ),
         ),

@@ -21,17 +21,24 @@ class QueryResults extends StatelessWidget {
               ],
             );
           }
-          return ListView.builder(
-            itemCount: getxController.searchResults.length,
-            itemBuilder: (context, index) {
-              return AgencyTile(
-                agencyName: getxController.searchResults[index].agencyName,
-                agencySpecialisation: "",
-                agencyImage: getxController.searchResults[index].agencyLogo,
-                agencyLocation: "agencyLocation",
-                agencyAssociates: const [],
-              );
-            },
+          return Scrollbar(
+            interactive: true,
+            thickness: 5,
+            thumbVisibility: true,
+            child: ListView.builder(
+              itemCount: getxController.searchResults.length,
+              itemBuilder: (context, index) {
+                return AgencyTile(
+                  agencyName: getxController.searchResults[index].agencyName,
+                  agencySpecialisation:
+                      getxController.searchResults[index].agencyName,
+                  agencyImage: getxController.searchResults[index].agencyLogo,
+                  agencyLocation: "agencyLocation",
+                  agencyAssociates: const [],
+                  agecnyDescription: "",
+                );
+              },
+            ),
           );
         },
       ),
