@@ -328,8 +328,7 @@ class _CreateRoomState extends State<CreateRoom> {
                               builder: (context) => PinMapScreen(
                                   initialLocation: value,
                                   roomName: roomNameController.value.text,
-                                  disasterType:
-                                      disasterTypeController.value.text,
+                                  disasterType: selectedDisaster,
                                   selectedState: selectedState,
                                   selectedDistrict: selectedDistrict),
                             ),

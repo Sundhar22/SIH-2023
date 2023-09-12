@@ -26,7 +26,8 @@ class PinMapScreen extends StatefulWidget {
 class _PinMapScreenState extends State<PinMapScreen> {
   GoogleMapController? _mapController;
   LatLng? _selectedLocation;
-  late Placemark _selectedAddress;
+  Placemark? _selectedAddress;
+  double radius = 500;
   FirebaseService firebaseService = FirebaseService();
 
   @override
@@ -42,114 +43,138 @@ class _PinMapScreenState extends State<PinMapScreen> {
       appBar: AppBar(
         title: Text('Location Map'),
       ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: GoogleMap(
-              onMapCreated: (controller) {
-                setState(() {
-                  _mapController = controller;
-                });
-              },
-              initialCameraPosition: CameraPosition(
-                target: widget.initialLocation,
-                zoom: 15.0,
-              ),
-              markers: _selectedLocation != null
-                  ? {
-                      Marker(
-                        markerId: MarkerId('selected_location'),
-                        position: _selectedLocation!,
-                        infoWindow: InfoWindow(
-                          title: 'Selected Location',
-                        ),
-                        draggable: true, // Make the marker draggable
-                        onDragEnd: (newPosition) {
-                          setState(() {
-                            _selectedLocation = newPosition;
-                            _fetchAddress(newPosition);
-                          });
-                        },
-                      ),
-                    }
-                  : {},
-            ),
-          ),
-          Text(
-            'Tap and hold to pin your location',
-            style: TextStyle(
-              fontSize: 16.0,
-              color: Colors.grey[500],
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 30.0),
-          Text(
-            'Selected Location: ${_selectedAddress.street},  ${_selectedAddress.locality},${_selectedAddress.administrativeArea}, ${_selectedAddress.country}',
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 10.0),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              width: double.maxFinite,
-              height: 50,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.deepPurpleAccent,
-                  shape: StadiumBorder(),
-                ),
-                onPressed: () {
-                  firebaseService.pushRoomData(Room(
-                    createdOn: Timestamp.now(),
-                    roomName: widget.roomName,
-                    disasterType: widget.disasterType,
-                    state: widget.selectedState,
-                    district: widget.selectedDistrict,
-                    location: [
-                      _selectedLocation!.latitude,
-                      _selectedLocation!.longitude
-                    ],
-                    agencies: [],
-                  ));
-                  showAdaptiveDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Room Created'),
-                          content:
-                              const Text('Room has been created successfully'),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        );
+      body: _selectedAddress == null
+          ? Center(child: CircularProgressIndicator())
+          : Column(
+              children: <Widget>[
+                Expanded(
+                  child: GoogleMap(
+                    onMapCreated: (controller) {
+                      setState(() {
+                        _mapController = controller;
                       });
-                },
-                child: const Text(
-                  'Create Room',
-                  style: TextStyle(fontSize: 20),
+                    },
+                    initialCameraPosition: CameraPosition(
+                      target: widget.initialLocation,
+                      zoom: 15.0,
+                    ),
+                    circles: {
+                      Circle(
+                        circleId: const CircleId('radius_circle'),
+                        center: _selectedLocation!,
+                        radius: radius,
+                        fillColor: Colors.red.withOpacity(0.3),
+                        strokeColor: Colors.red,
+                        strokeWidth: 2,
+                      ),
+                    },
+                    markers: _selectedLocation != null
+                        ? {
+                            Marker(
+                              markerId: MarkerId('selected_location'),
+                              position: _selectedLocation!,
+                              infoWindow: InfoWindow(
+                                title: 'Selected Location',
+                              ),
+                              draggable: true, // Make the marker draggable
+                              onDragEnd: (newPosition) {
+                                setState(() {
+                                  _selectedLocation = newPosition;
+                                  _fetchAddress(newPosition);
+                                });
+                              },
+                            ),
+                          }
+                        : {},
+                  ),
                 ),
-              ),
+                Text(
+                  'Tap and hold to pin your location',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Slider(
+                    value: radius,
+                    onChanged: (value) {
+                      setState(() {
+                        radius = value;
+                      });
+                    },
+                    min: 100,
+                    max: 1000),
+                Text('selected radius: ${radius.ceil()} Meters'),
+                SizedBox(height: 30.0),
+                Text(
+                  'Selected Location: ${_selectedAddress!.street},  ${_selectedAddress!.locality},${_selectedAddress!.administrativeArea}, ${_selectedAddress!.country}',
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 10.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: double.maxFinite,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.deepPurpleAccent,
+                        shape: StadiumBorder(),
+                      ),
+                      onPressed: () {
+                        firebaseService.pushRoomData(Room(
+                          radius: radius,
+                          createdOn: Timestamp.now(),
+                          roomName: widget.roomName,
+                          disasterType: widget.disasterType,
+                          state: widget.selectedState,
+                          district: widget.selectedDistrict,
+                          location: [
+                            _selectedLocation!.latitude,
+                            _selectedLocation!.longitude
+                          ],
+                          agencies: [],
+                        ));
+                        showAdaptiveDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Room Created'),
+                                content: const Text(
+                                    'Room has been created successfully'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            });
+                      },
+                      child: const Text(
+                        'Create Room',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10.0)
+              ],
             ),
-          ),
-          SizedBox(height: 10.0)
-        ],
-      ),
     );
   }
 
   Future<void> _fetchAddress(LatLng coordinates) async {
     print('fetching....');
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        coordinates.latitude, coordinates.longitude,localeIdentifier: "en");
+        coordinates.latitude, coordinates.longitude,
+        localeIdentifier: "en");
     if (placemarks.isNotEmpty) {
       final selectedAddress = placemarks[0];
       setState(() {

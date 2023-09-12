@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ScenarioMapScreen extends StatefulWidget {
-  ScenarioMapScreen({super.key, required this.initialLocation});
+  ScenarioMapScreen(
+      {super.key, required this.initialLocation, required this.radius});
   LatLng initialLocation;
+  double radius;
 
   @override
   State createState() => _ScenarioMapScreenState();
@@ -14,7 +16,6 @@ class ScenarioMapScreen extends StatefulWidget {
 class _ScenarioMapScreenState extends State<ScenarioMapScreen> {
   late GoogleMapController mapController;
 
-  double radius = 500;
   List<Marker> markers = [];
 
   @override
@@ -29,17 +30,6 @@ class _ScenarioMapScreenState extends State<ScenarioMapScreen> {
       position: widget.initialLocation,
       icon: await _createCustomMarker('assets/images/fire.png'),
     ));
-    // markers.add(Marker(
-    //   markerId: const MarkerId('tree_marker'),
-    //   position: tree,
-    //   icon: await _createCustomMarker('assets/images/tree.png'),
-    // ));
-
-    //  markers.add(Marker(
-    //     markerId: const MarkerId('center_marker'),
-    //     position: center,
-    //     icon: await _createCustomMarker('assets/images/NDA.png'),
-    //   ));
 
     if (mounted) {
       setState(() {});
@@ -64,7 +54,7 @@ class _ScenarioMapScreenState extends State<ScenarioMapScreen> {
           Circle(
             circleId: const CircleId('radius_circle'),
             center: widget.initialLocation,
-            radius: radius,
+            radius: widget.radius,
             fillColor: Colors.red.withOpacity(0.3),
             strokeColor: Colors.red,
             strokeWidth: 2,
