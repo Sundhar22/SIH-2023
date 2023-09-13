@@ -45,6 +45,7 @@ class _FilterWidgetState extends State<FilterWidget> {
             } else if (widget.index == 2) {
               sortModel.defaultAgencyType = selectedState;
             }
+            print("The Values are ${sortModel.defaultLocation}");
             Navigator.pop(context);
           },
           child: const Text(
@@ -62,19 +63,14 @@ class _FilterWidgetState extends State<FilterWidget> {
           );
         }).toList(),
         onChanged: (newValue) {
+          sortModel.defaultLocation = newValue ?? 'TamilNadu';
           setState(
             () {
               isSelected = true;
               selectedState = newValue ?? "";
+              print("The new value is $newValue");
             },
           );
-          if (widget.index == 0) {
-            sortModel.defaultLocation = newValue ?? 'Null';
-          } else if (widget.index == 1) {
-            sortModel.defaultExpertise = newValue ?? 'Null';
-          } else if (widget.index == 2) {
-            sortModel.defaultAgencyType = newValue ?? 'Null';
-          }
         },
       ),
     );

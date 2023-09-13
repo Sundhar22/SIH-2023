@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 List<List<String>> filterOptionsAvailable = [
   [
-    'Tamilnadu',
+    'TamilNadu',
     'Telangana',
     'Karnataka',
     'NewDelhi',
     'Kerala',
-    'Mahatarashtra',
+    'Maharastra',
     'Uttarakhand',
     'Bihar',
     'Kolkata',

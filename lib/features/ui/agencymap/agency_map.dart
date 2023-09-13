@@ -29,7 +29,7 @@ class _AgencyMapScreenState extends State<AgencyMapScreen> {
     List<String> expertise = expertiseMapping.values.toList();
     for (int index = 0; index < expertise.length; index++) {
       mapMarkers[expertise[index]] = await _createImageToBitMapDescriptor(
-        "assets/images/markers/$index.jpg",
+        "assets/images/markers/$index.png",
       );
     }
     _addCustomMarkers();

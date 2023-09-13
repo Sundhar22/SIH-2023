@@ -24,8 +24,6 @@ void sortBottomSheet(BuildContext context) {
     shape: Border.all(color: Colors.transparent),
     context: context,
     builder: (BuildContext context) {
-      sortModel.defaultAgencyType = "Null";
-      sortModel.defaultExpertise = "Null";
       sortModel.defaultLocation = "Null";
       return SizedBox(
         width: double.maxFinite,
@@ -84,10 +82,11 @@ void sortBottomSheet(BuildContext context) {
                         elevation: MaterialStatePropertyAll(1)),
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SortPage(),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SortPage(),
+                        ),
+                      );
                     },
                     icon: const Icon(Icons.auto_awesome_outlined),
                     label: const Text(

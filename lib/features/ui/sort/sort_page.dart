@@ -13,14 +13,17 @@ class SortPage extends StatefulWidget {
 
 class _SortPageState extends State<SortPage> {
   late List<AgencyModel> agencySortResults;
+  late int resultFound;
   @override
   void initState() {
     super.initState();
     agencySortResults = findSortFilters();
-    print("Called");
-    sortModel.defaultAgencyType = "Null";
-    sortModel.defaultLocation = "Null";
-    sortModel.defaultExpertise = "Null";
+    resultFound = agencySortResults.length;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -28,7 +31,7 @@ class _SortPageState extends State<SortPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Sort Results"),
+        title: Text("Sort Results $resultFound"),
       ),
       body: agencySortResults.isNotEmpty
           ? Scrollbar(
@@ -73,19 +76,15 @@ class _SortPageState extends State<SortPage> {
 }
 
 findSortFilters() {
-  print(
-    "${sortModel.defaultAgencyType}  ${sortModel.defaultExpertise} ${sortModel.defaultLocation}",
-  );
+  if (sortModel.defaultLocation == "Null") {
+    return allAgencyModels;
+  }
   Set<AgencyModel> results = {};
   for (AgencyModel agencyInfo in allAgencyModels) {
-    print(agencyInfo.agencyOperatingState);
-    if (sortModel.defaultLocation == agencyInfo.agencyOperatingState) {
+    if (agencyInfo.agencyOperatingState.toLowerCase() ==
+        sortModel.defaultLocation.toLowerCase()) {
       results.add(agencyInfo);
     }
-    if (sortModel.defaultAgencyType
-        .startsWith(agencyInfo.agencyExpertise.substring(0, 5))) {
-      results.add(agencyInfo);
-    }
-    return results.toList();
   }
+  return results.toList();
 }

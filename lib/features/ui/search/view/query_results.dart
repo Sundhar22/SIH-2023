@@ -47,20 +47,14 @@ class QueryResults extends StatelessWidget {
                 return AgencyTile(
                   agencyName: getxController.searchResults[index].agencyName,
                   agencySpecialisation:
-                      getxController.searchResults[index].agencyName,
+                      getxController.searchResults[index].agencyExpertise,
                   agencyImage: getxController.searchResults[index].agencyLogo,
-                  agencyLocation: getValue(
-                    getxController.searchResults[index].agencyName,
-                    'location',
-                  ),
-                  agencyAssociates: getValue(
-                    getxController.searchResults[index].agencyName,
-                    'associates',
-                  ),
-                  agecnyDescription: getValue(
-                    getxController.searchResults[index].agencyName,
-                    'description',
-                  ),
+                  agencyLocation: getxController
+                      .searchResults[index].agencyOperatingLocation,
+                  agencyAssociates:
+                      getxController.searchResults[index].agencyAssocaites,
+                  agecnyDescription:
+                      getxController.searchResults[index].agencyDescription,
                 );
               },
             ),

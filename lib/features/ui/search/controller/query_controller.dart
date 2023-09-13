@@ -16,13 +16,7 @@ class QueryController extends GetxController {
         if (agencyDetails.agencyName
             .toLowerCase()
             .startsWith(query.toLowerCase())) {
-          queryResult.add(
-            QueryResultModel(
-              agencyName: agencyDetails.agencyName,
-              agencyLogo: agencyDetails.agencyLogo,
-              agencyKey: agencyDetails.agencyKey,
-            ),
-          );
+          queryResult.add(agencyDetails);
         }
       }
       searchResults.value = queryResult;

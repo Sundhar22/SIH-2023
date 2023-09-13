@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sih_2023/features/ui/home/view/home.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
@@ -34,7 +35,17 @@ class _SignInPageState extends State<SignInPage> {
                       fontSize: 35),
                 ),
               ),
-              const LoginButton()
+              const LoginButton(),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(),
+                      ));
+                },
+                child: const Text("Skip registration for demo"),
+              )
             ],
           ),
         ),
