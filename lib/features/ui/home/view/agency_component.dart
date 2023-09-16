@@ -35,6 +35,7 @@ class AgencyList extends StatelessWidget {
         child: GetX<AgencyController>(
           builder: (getxController) {
             return ListView.builder(
+              reverse: false,
               itemCount: getxController.agecnyListLength.value,
               itemBuilder: (context, index) {
                 if (getxController.agencyList.isEmpty) {

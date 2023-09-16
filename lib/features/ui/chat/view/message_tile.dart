@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class MessageTile extends StatefulWidget {
   final Widget message;
@@ -21,50 +20,44 @@ class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-
-      // ALignment of User Chat
       alignment: widget.sentByMe ? Alignment.centerRight : Alignment.centerLeft,
-
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 2),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             !widget.sentByMe
-                ? CircleAvatar(
-                    radius: 15,
-                    backgroundColor: Colors.grey.withOpacity(.2),
+                ? const CircleAvatar(
+                    radius: 12,
+                    backgroundColor: Colors.white,
                   )
                 : const SizedBox(),
-            const SizedBox(width: 5),
+            const SizedBox(width: 3),
             Container(
               // Content Padding
               padding: const EdgeInsets.symmetric(
-                vertical: 10,
-                horizontal: 10,
+                vertical: 2,
+                horizontal: 3,
               ),
               decoration: BoxDecoration(
                 borderRadius: widget.sentByMe
                     ? const BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                        bottomLeft: Radius.circular(25),
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                        bottomLeft: Radius.circular(15),
                       )
                     : const BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                        bottomRight: Radius.circular(25),
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                        bottomRight: Radius.circular(15),
                       ),
                 color: widget.sentByMe
-                    ? Colors.blueAccent.withOpacity(.2)
-                    : Colors.grey.withOpacity(
-                        .1,
-                      ),
+                    ? Colors.greenAccent.shade100
+                    : Colors.white,
               ),
-              child: widget.message.paddingSymmetric(vertical: 5),
+              child: widget.message,
             ),
             widget.sentByMe ? const SizedBox(width: 5) : const SizedBox(),
           ],

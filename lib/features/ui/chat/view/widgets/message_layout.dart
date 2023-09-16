@@ -11,15 +11,17 @@ class MessageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-        ),
         widget,
         Padding(
           padding: const EdgeInsets.only(top: 10, left: 10),
-          child: Text(returnTime(dateTime)),
+          child: Text(
+            returnTime(dateTime),
+            style: const TextStyle(
+              color: Colors.grey,
+            ),
+          ),
         ),
       ],
     );

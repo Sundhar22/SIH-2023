@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/functions/show_messgae.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/select_media.dart';
 
@@ -18,6 +19,14 @@ class _ChatMessengerState extends State<ChatMessenger> {
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
     return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(
+            "assets/images/chat_bg.jpg",
+          ),
+        ),
+      ),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Row(
         children: [
@@ -96,7 +105,7 @@ class _ChatMessengerState extends State<ChatMessenger> {
           .collection('chatData')
           .add(message.toMap());
     } catch (error) {
-      print('Error sending message: $error');
+      showToast("Please connect to internt");
     }
   }
 }

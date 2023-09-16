@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 ThemeData buildTheme() {
   return ThemeData(
+    iconButtonTheme: const IconButtonThemeData(
+      style: ButtonStyle(),
+    ),
     dialogBackgroundColor: Colors.white,
     listTileTheme: const ListTileThemeData(
       contentPadding: EdgeInsets.all(0),
