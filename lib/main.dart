@@ -37,7 +37,9 @@ class MyApp extends StatelessWidget {
               return const RegistrationPage();
             }
           }
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

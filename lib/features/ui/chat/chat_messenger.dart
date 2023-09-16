@@ -59,20 +59,22 @@ class _ChatMessengerState extends State<ChatMessenger> {
               ? SelectMedia(roomId: widget.roomId)
               : const SizedBox(width: 4),
           CircleAvatar(
-            backgroundColor: Colors.blueAccent,
+            backgroundColor: Colors.blue,
             child: IconButton(
               onPressed: () {
-                Message textMessage = Message(
-                  type: 'Text',
-                  content: messageController.value.text,
-                  time: Timestamp.now(),
-                  sender: 'test',
-                );
-                sendMessageToRoom(widget.roomId, textMessage);
-                messageController.clear();
-                setState(() {
-                  textfieldActivated = !textfieldActivated;
-                });
+                if (messageController.value.text.length > 5) {
+                  Message textMessage = Message(
+                    type: 'Text',
+                    content: messageController.value.text,
+                    time: Timestamp.now(),
+                    sender: 'test',
+                  );
+                  sendMessageToRoom(widget.roomId, textMessage);
+                  messageController.clear();
+                  setState(() {
+                    textfieldActivated = !textfieldActivated;
+                  });
+                } else {}
               },
               icon: const Icon(
                 Icons.arrow_upward_rounded,

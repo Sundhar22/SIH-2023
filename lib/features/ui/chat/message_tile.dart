@@ -67,12 +67,6 @@ class _MessageTileState extends State<MessageTile> {
               child: widget.message.paddingSymmetric(vertical: 5),
             ),
             widget.sentByMe ? const SizedBox(width: 5) : const SizedBox(),
-            widget.sentByMe
-                ? CircleAvatar(
-                    radius: 15,
-                    backgroundColor: Colors.blueAccent.withOpacity(.2),
-                  )
-                : const SizedBox(),
           ],
         ),
       ),

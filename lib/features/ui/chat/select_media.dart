@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart' as picker;
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/chat/filetype.dart';
@@ -33,7 +32,6 @@ class SelectMedia extends StatelessWidget {
         ).then((_) async {
           if (selectedFileType != null) {
             List<String> allowedExtensions = [];
-
             switch (selectedFileType) {
               case FileType.photo:
                 allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -52,7 +50,6 @@ class SelectMedia extends StatelessWidget {
             picker.PlatformFile? file =
                 await pickFileWithTypeFilter(allowedExtensions);
             if (file != null) {
-              print('Started');
               pd.show(
                 max: 100,
                 msg: 'Sending ${file.name}',
@@ -60,9 +57,7 @@ class SelectMedia extends StatelessWidget {
                 progressType: ProgressType.valuable,
               );
               uploadFileToFirebase(file, selectedFileType!, pd);
-            } else {
-              print('Cancelled');
-            }
+            } else {}
           }
         });
       },
@@ -72,33 +67,31 @@ class SelectMedia extends StatelessWidget {
   Future<void> uploadFileToFirebase(
       picker.PlatformFile file, FileType type, ProgressDialog pd) async {
     try {
-      print(file.bytes);
       Reference storageReference =
           FirebaseStorage.instance.ref().child('${type.name}/${file.name}');
       UploadTask uploadTask = storageReference.putData(file.bytes!);
 
-      await uploadTask.whenComplete(() {
-        print('File uploaded to Firebase Storage');
-        pd.update(
-          value: 100,
-          msg: 'File uploaded to Firebase Storage',
-        );
-        pd.close();
-        print(
-          uploadTask.snapshot.ref.getDownloadURL().then((value) {
-            Message message = Message(
-              type: type.name,
-              content: value,
-              time: Timestamp.now(),
-              sender: 'test',
-            );
-            sendMessageToRoom(roomId, message);
-          }),
-        );
-      });
-    } catch (e) {
-      print('Error uploading file: $e');
-    }
+      await uploadTask.whenComplete(
+        () {
+          pd.update(
+            value: 100,
+            msg: 'File uploaded to Firebase Storage',
+          );
+          pd.close();
+          uploadTask.snapshot.ref.getDownloadURL().then(
+            (value) {
+              Message message = Message(
+                type: type.name,
+                content: value,
+                time: Timestamp.now(),
+                sender: 'test',
+              );
+              sendMessageToRoom(roomId, message);
+            },
+          );
+        },
+      );
+    } catch (e) {}
   }
 
   Future<void> sendMessageToRoom(String roomId, Message message) async {
@@ -109,9 +102,7 @@ class SelectMedia extends StatelessWidget {
           .doc(roomId)
           .collection('chatData')
           .add(message.toMap());
-    } catch (error) {
-      print('Error sending message: $error');
-    }
+    } catch (error) {}
   }
 
   Future<picker.PlatformFile?> pickFileWithTypeFilter(

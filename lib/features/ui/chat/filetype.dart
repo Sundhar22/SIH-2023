@@ -10,74 +10,86 @@ class FileTypeSelectionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        surfaceTintColor: Colors.white,
-        insetPadding: const EdgeInsets.only(bottom: 20),
-        alignment: Alignment.bottomCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(25),
-          child: Wrap(
-            spacing: 20.0,
-            runSpacing: 20.0,
-            children: [
-              InkWell(
+      surfaceTintColor: Colors.white,
+      insetPadding: const EdgeInsets.only(bottom: 20),
+      alignment: Alignment.bottomCenter,
+      child: Padding(
+        padding: const EdgeInsets.all(25),
+        child: Wrap(
+          spacing: 20.0,
+          runSpacing: 20.0,
+          children: [
+            InkWell(
+              onTap: () {
+                onTypeSelected(FileType.photo);
+                Navigator.pop(context);
+              },
+              child: MediaButton(
+                icon: Icons.perm_media_outlined,
+                name: 'Image',
+              ),
+            ),
+            InkWell(
                 onTap: () {
-                  onTypeSelected(FileType.photo);
+                  onTypeSelected(FileType.video);
                   Navigator.pop(context);
                 },
                 child: MediaButton(
-                  icon: Icons.perm_media_rounded,
-                  name: 'Image',
-                ),
+                    icon: Icons.video_file_outlined, name: 'Video')),
+            InkWell(
+              onTap: () {
+                onTypeSelected(FileType.document);
+                Navigator.pop(context);
+              },
+              child: MediaButton(
+                icon: Icons.file_copy_outlined,
+                name: 'Document',
               ),
-              InkWell(
-                  onTap: () {
-                    onTypeSelected(FileType.video);
-                    Navigator.pop(context);
-                  },
-                  child: MediaButton(icon: Icons.video_file, name: 'Video')),
-              InkWell(
-                onTap: () {
-                  onTypeSelected(FileType.document);
-                  Navigator.pop(context);
-                },
-                child: MediaButton(
-                  icon: Icons.file_copy_sharp,
-                  name: 'Document',
-                ),
+            ),
+            InkWell(
+              onTap: () {
+                onTypeSelected(FileType.document);
+                Navigator.pop(context);
+              },
+              child: MediaButton(
+                icon: Icons.location_on_outlined,
+                name: 'Location',
               ),
-              InkWell(
-                onTap: () {
-                  onTypeSelected(FileType.document);
-                  Navigator.pop(context);
-                },
-                child: MediaButton(
-                  icon: Icons.location_on,
-                  name: 'Location',
-                ),
+            ),
+            InkWell(
+              onTap: () {
+                onTypeSelected(FileType.audio);
+                Navigator.pop(context);
+              },
+              child: MediaButton(
+                icon: Icons.audio_file_outlined,
+                name: 'Audio',
               ),
-              InkWell(
-                onTap: () {
-                  onTypeSelected(FileType.audio);
-                  Navigator.pop(context);
-                },
-                child: MediaButton(
-                  icon: Icons.audio_file,
-                  name: 'Audio',
-                ),
+            ),
+            InkWell(
+              onTap: () {
+                onTypeSelected(FileType.document);
+                Navigator.pop(context);
+              },
+              child: MediaButton(
+                icon: Icons.menu_sharp,
+                name: 'Pin Loc',
               ),
-              InkWell(
-                onTap: () {
-                  onTypeSelected(FileType.document);
-                  Navigator.pop(context);
-                },
-                child: MediaButton(
-                  icon: Icons.poll,
-                  name: 'Poll',
-                ),
+            ),
+            InkWell(
+              onTap: () {
+                onTypeSelected(FileType.document);
+                Navigator.pop(context);
+              },
+              child: MediaButton(
+                icon: Icons.videocam_outlined,
+                name: 'Meet',
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

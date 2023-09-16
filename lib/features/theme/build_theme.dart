@@ -6,7 +6,9 @@ ThemeData buildTheme() {
     listTileTheme: const ListTileThemeData(
       contentPadding: EdgeInsets.all(0),
     ),
-    bottomSheetTheme: const BottomSheetThemeData(surfaceTintColor: Colors.grey),
+    bottomSheetTheme: const BottomSheetThemeData(
+      surfaceTintColor: Colors.grey,
+    ),
     dividerColor: Colors.transparent,
     fontFamily: 'Poppins',
     expansionTileTheme: ExpansionTileThemeData(
@@ -18,6 +20,7 @@ ThemeData buildTheme() {
       seedColor: Colors.blueAccent,
     ),
     dialogTheme: const DialogTheme(
+      shape: BeveledRectangleBorder(),
       titleTextStyle: TextStyle(
         fontFamily: 'Poppins',
         color: Colors.black,
