@@ -1,28 +1,27 @@
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-enum FileType { Photo, Document, Video, Audio }
+enum FileType { photo, document, video, audio }
 
 class FileTypeSelectionDialog extends StatelessWidget {
   final Function(FileType) onTypeSelected;
 
-  FileTypeSelectionDialog({required this.onTypeSelected});
+  const FileTypeSelectionDialog({super.key, required this.onTypeSelected});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        insetPadding: EdgeInsets.only(bottom: 20),
+        surfaceTintColor: Colors.white,
+        insetPadding: const EdgeInsets.only(bottom: 20),
         alignment: Alignment.bottomCenter,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(25),
           child: Wrap(
             spacing: 20.0,
             runSpacing: 20.0,
             children: [
               InkWell(
                 onTap: () {
-                  onTypeSelected(FileType.Photo);
+                  onTypeSelected(FileType.photo);
                   Navigator.pop(context);
                 },
                 child: MediaButton(
@@ -32,13 +31,13 @@ class FileTypeSelectionDialog extends StatelessWidget {
               ),
               InkWell(
                   onTap: () {
-                    onTypeSelected(FileType.Video);
+                    onTypeSelected(FileType.video);
                     Navigator.pop(context);
                   },
                   child: MediaButton(icon: Icons.video_file, name: 'Video')),
               InkWell(
                 onTap: () {
-                  onTypeSelected(FileType.Document);
+                  onTypeSelected(FileType.document);
                   Navigator.pop(context);
                 },
                 child: MediaButton(
@@ -48,7 +47,7 @@ class FileTypeSelectionDialog extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  onTypeSelected(FileType.Document);
+                  onTypeSelected(FileType.document);
                   Navigator.pop(context);
                 },
                 child: MediaButton(
@@ -58,7 +57,7 @@ class FileTypeSelectionDialog extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  onTypeSelected(FileType.Audio);
+                  onTypeSelected(FileType.audio);
                   Navigator.pop(context);
                 },
                 child: MediaButton(
@@ -68,7 +67,7 @@ class FileTypeSelectionDialog extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  onTypeSelected(FileType.Document);
+                  onTypeSelected(FileType.document);
                   Navigator.pop(context);
                 },
                 child: MediaButton(
@@ -80,10 +79,9 @@ class FileTypeSelectionDialog extends StatelessWidget {
           ),
         ));
   }
-  
-
 }
 
+// ignore: must_be_immutable
 class MediaButton extends StatelessWidget {
   MediaButton({super.key, required this.icon, required this.name});
   IconData icon;
@@ -95,13 +93,20 @@ class MediaButton extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Colors.blue.withOpacity(.2),
           child: Icon(
             icon,
-            color: Colors.white,
+            color: Colors.blueAccent,
           ),
         ),
-        Text(name)
+        const SizedBox(height: 10),
+        Text(
+          name,
+          style: TextStyle(
+            color: Colors.black.withOpacity(.6),
+            fontWeight: FontWeight.bold,
+          ),
+        )
       ],
     );
   }

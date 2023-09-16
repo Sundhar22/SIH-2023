@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MessageTile extends StatefulWidget {
   final Widget message;
@@ -20,85 +21,61 @@ class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(
-          top: 4,
-          bottom: 4,
-          left: widget.sentByMe ? 0 : 4,
-          right: widget.sentByMe ? 24 : 0),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+
+      // ALignment of User Chat
       alignment: widget.sentByMe ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: widget.sentByMe
-            ? const EdgeInsets.only(left: 30)
-            : const EdgeInsets.only(right: 30),
-        padding: EdgeInsets.only(top: 17, bottom: 17, left: 20, right: 20),
-        decoration: BoxDecoration(
-            borderRadius: widget.sentByMe
-                ? BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                  )
-                : BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  ),
-            color: widget.sentByMe
-                ? Theme.of(context).primaryColor
-                : Colors.deepPurpleAccent.withOpacity(.2)),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: Colors.grey[100],
-                  child: Center(
-                      child: Text(
-                    getLogoText(widget.sender),
-                    style: TextStyle(
-                        color: Colors.black54,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600),
-                  )),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  widget.sender.toUpperCase(),
-                  textAlign: TextAlign.start,
-                  style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      letterSpacing: -0.5),
-                ),
-              ],
+            !widget.sentByMe
+                ? CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.grey.withOpacity(.2),
+                  )
+                : const SizedBox(),
+            const SizedBox(width: 5),
+            Container(
+              // Content Padding
+              padding: const EdgeInsets.symmetric(
+                vertical: 10,
+                horizontal: 10,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: widget.sentByMe
+                    ? const BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25),
+                        bottomLeft: Radius.circular(25),
+                      )
+                    : const BorderRadius.only(
+                        topLeft: Radius.circular(25),
+                        topRight: Radius.circular(25),
+                        bottomRight: Radius.circular(25),
+                      ),
+                color: widget.sentByMe
+                    ? Colors.blueAccent.withOpacity(.2)
+                    : Colors.grey.withOpacity(
+                        .1,
+                      ),
+              ),
+              child: widget.message.paddingSymmetric(vertical: 5),
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            widget.message,
+            widget.sentByMe ? const SizedBox(width: 5) : const SizedBox(),
+            widget.sentByMe
+                ? CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.blueAccent.withOpacity(.2),
+                  )
+                : const SizedBox(),
           ],
         ),
       ),
     );
   }
-}
-
-String getLogoText(String text) {
-  List<String> words = text.split(' ');
-  String logoText = '';
-
-  for (String word in words) {
-    if (word.isNotEmpty) {
-      logoText += word[0].toUpperCase();
-    }
-  }
-  if (logoText.length > 3) {
-    return logoText.substring(0, 3).toUpperCase();
-  }
-  return logoText.toUpperCase();
 }

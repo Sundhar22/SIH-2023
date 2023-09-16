@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 import 'package:sih_2023/features/ui/responsehub/pin_map.dart';
-import 'package:sih_2023/features/ui/responsehub/push_room_data.dart';
-import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
-import 'package:sih_2023/features/ui/responsehub/room_model.dart';
 
 class CreateRoom extends StatefulWidget {
   const CreateRoom({super.key});
@@ -163,7 +160,7 @@ class _CreateRoomState extends State<CreateRoom> {
     'Hailstorms',
     'Winter Storms',
     'Ice Storms',
-    'Dust Storms',
+    'Dust Storms',
   ];
 
   List manmadeDisaster = [
@@ -188,6 +185,11 @@ class _CreateRoomState extends State<CreateRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Create Room"),
+        elevation: 5,
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -195,28 +197,25 @@ class _CreateRoomState extends State<CreateRoom> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Create Room", style: TextStyle(fontSize: 30)),
                 const SizedBox(height: 20),
-                const Text('Name of the room', style: TextStyle(fontSize: 20)),
-                const SizedBox(
-                  height: 10,
-                ),
+                const CustomTitleWidget(titleContent: "Name of the State"),
+                const SizedBox(height: 10),
                 TextField(
                   controller: roomNameController,
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
                 ),
                 const SizedBox(height: 20),
-                Text(
+                const Text(
                   'Select the Disaster Type:',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 RadioListTile<String>(
-                  title: Text('Manmade Disaster'),
+                  title: const Text('Manmade Disaster'),
                   value: 'Manmade Disaster',
                   groupValue: selectedDisasterType,
                   onChanged: (value) {
@@ -228,7 +227,7 @@ class _CreateRoomState extends State<CreateRoom> {
                   },
                 ),
                 RadioListTile<String>(
-                  title: Text('Natural Disaster'),
+                  title: const Text('Natural Disaster'),
                   value: 'Natural Disaster',
                   groupValue: selectedDisasterType,
                   onChanged: (value) {
@@ -239,12 +238,9 @@ class _CreateRoomState extends State<CreateRoom> {
                     });
                   },
                 ),
-                SizedBox(height: 32),
-                const Text('Name of the disaster',
-                    style: TextStyle(fontSize: 20)),
-                const SizedBox(
-                  height: 10,
-                ),
+                const SizedBox(height: 32),
+                const CustomTitleWidget(titleContent: "Disaster Name"),
+                const SizedBox(height: 10),
                 DropdownButtonFormField<String>(
                   decoration:
                       const InputDecoration(border: OutlineInputBorder()),
@@ -263,7 +259,7 @@ class _CreateRoomState extends State<CreateRoom> {
                   }).toList(),
                 ),
                 const SizedBox(height: 20),
-                const Text('Name of the State', style: TextStyle(fontSize: 20)),
+                const CustomTitleWidget(titleContent: "Name of the State"),
                 const SizedBox(
                   height: 10,
                 ),
@@ -287,8 +283,7 @@ class _CreateRoomState extends State<CreateRoom> {
                   }).toList(),
                 ),
                 const SizedBox(height: 25),
-                const Text('Name of the District',
-                    style: TextStyle(fontSize: 20)),
+                const CustomTitleWidget(titleContent: "Name of the District"),
                 const SizedBox(
                   height: 10,
                 ),
@@ -309,18 +304,13 @@ class _CreateRoomState extends State<CreateRoom> {
                     );
                   }).toList(),
                 ),
-                const SizedBox(height: 50),
-                Center(
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.deepPurpleAccent,
-                        shape: const StadiumBorder(),
-                      ),
-                      onPressed: () {
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 30,
+                  ),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
                         _searchLocation(selectedDistrict).then((value) {
                           Navigator.push(
                             context,
@@ -335,9 +325,16 @@ class _CreateRoomState extends State<CreateRoom> {
                           );
                         });
                       },
-                      child: const Text(
-                        'Next',
-                        style: TextStyle(fontSize: 20),
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        width: double.maxFinite,
+                        color: Colors.blueAccent,
+                        child: const Center(
+                            child: Text(
+                          "Create a room",
+                          style: TextStyle(color: Colors.white),
+                        )),
                       ),
                     ),
                   ),

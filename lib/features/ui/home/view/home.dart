@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sih_2023/features/ui/agencymap/agency_map.dart';
+import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
+import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
-// import 'package
 import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
 import 'package:sih_2023/features/ui/responsehub/response_hub_map.dart';
 
@@ -28,6 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     curPage = 0;
     super.initState();
+    Get.put(AgencyController());
+    Get.put(FilterController());
   }
 
   @override

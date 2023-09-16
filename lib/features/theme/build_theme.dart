@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 ThemeData buildTheme() {
   return ThemeData(
+    dialogBackgroundColor: Colors.white,
+    listTileTheme: const ListTileThemeData(
+      contentPadding: EdgeInsets.all(0),
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(surfaceTintColor: Colors.grey),
     dividerColor: Colors.transparent,
     fontFamily: 'Poppins',
     expansionTileTheme: ExpansionTileThemeData(

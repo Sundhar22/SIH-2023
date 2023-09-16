@@ -51,10 +51,8 @@ class _ResponseHubState extends State<ResponseHub> {
             itemCount: roomsData.length,
             itemBuilder: (context, index) {
               Map<String, dynamic> room = roomsData[index];
-              print(room);
               return TemporaryEmergencyRooms(
-                
-                radius: room['radius'],
+                  radius: room['radius'],
                   integratedlatLng: room['location'],
                   integratedroomId: room['roomId'],
                   integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(

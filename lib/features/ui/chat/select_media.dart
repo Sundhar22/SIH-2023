@@ -10,7 +10,7 @@ import 'package:sih_2023/features/ui/chat/message_model.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class SelectMedia extends StatelessWidget {
- SelectMedia({super.key, required this.roomId});
+  SelectMedia({super.key, required this.roomId});
 
   String roomId;
   @override
@@ -19,7 +19,7 @@ class SelectMedia extends StatelessWidget {
     FileType? selectedFileType;
 
     return IconButton(
-      icon: Icon(Icons.attach_file),
+      icon: const Icon(Icons.attach_file),
       onPressed: () async {
         showDialog(
           context: context,
@@ -35,16 +35,16 @@ class SelectMedia extends StatelessWidget {
             List<String> allowedExtensions = [];
 
             switch (selectedFileType) {
-              case FileType.Photo:
+              case FileType.photo:
                 allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
                 break;
-              case FileType.Document:
+              case FileType.document:
                 allowedExtensions = ['pdf', 'doc', 'docx', 'txt'];
                 break;
-              case FileType.Video:
+              case FileType.video:
                 allowedExtensions = ['mp4', 'avi', 'mkv'];
                 break;
-              case FileType.Audio:
+              case FileType.audio:
                 allowedExtensions = ['mp3', 'wav'];
                 break;
               case null:
@@ -85,23 +85,22 @@ class SelectMedia extends StatelessWidget {
         );
         pd.close();
         print(
-          uploadTask.snapshot.ref
-              .getDownloadURL()
-              .then((value) {
-                Message message = Message(
-                type: type.name,
-                content: value,
-                time: Timestamp.now(),
-                sender: 'test',
-              );
-                sendMessageToRoom(roomId, message);
-              }),
+          uploadTask.snapshot.ref.getDownloadURL().then((value) {
+            Message message = Message(
+              type: type.name,
+              content: value,
+              time: Timestamp.now(),
+              sender: 'test',
+            );
+            sendMessageToRoom(roomId, message);
+          }),
         );
       });
     } catch (e) {
       print('Error uploading file: $e');
     }
   }
+
   Future<void> sendMessageToRoom(String roomId, Message message) async {
     try {
       // Reference the room's "chatData" subcollection and add the message

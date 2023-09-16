@@ -26,7 +26,6 @@ class AgencyComponent extends StatelessWidget {
 class AgencyList extends StatelessWidget {
   const AgencyList({super.key});
 
-  //
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -36,7 +35,6 @@ class AgencyList extends StatelessWidget {
         child: GetX<AgencyController>(
           builder: (getxController) {
             return ListView.builder(
-              reverse: true,
               itemCount: getxController.agecnyListLength.value,
               itemBuilder: (context, index) {
                 if (getxController.agencyList.isEmpty) {

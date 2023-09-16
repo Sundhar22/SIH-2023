@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/chat/chat.dart';
-import 'package:sih_2023/features/ui/map/view/map.dart';
 import 'package:sih_2023/features/ui/map/view/scenario_map.dart';
 
 class TemporaryEmergencyRooms extends StatefulWidget {
@@ -27,7 +26,8 @@ class TemporaryEmergencyRooms extends StatefulWidget {
   final double radius;
 
   @override
-  State<TemporaryEmergencyRooms> createState() => _TemporaryEmergencyRoomsState();
+  State<TemporaryEmergencyRooms> createState() =>
+      _TemporaryEmergencyRoomsState();
 }
 
 class _TemporaryEmergencyRoomsState extends State<TemporaryEmergencyRooms> {
@@ -38,12 +38,14 @@ class _TemporaryEmergencyRoomsState extends State<TemporaryEmergencyRooms> {
       child: GestureDetector(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ChatScreen(
-                        roomName: widget.integratedReliefRoomName,
-                        roomId: widget.integratedroomId,
-                      )));
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatScreen(
+                roomName: widget.integratedReliefRoomName,
+                roomId: widget.integratedroomId,
+              ),
+            ),
+          );
         },
         child: Container(
           margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
@@ -69,18 +71,19 @@ class _TemporaryEmergencyRoomsState extends State<TemporaryEmergencyRooms> {
                     style: const TextStyle(color: Colors.black, fontSize: 18),
                   ),
                   IconButton(
-                      onPressed: () {
-                        deleteDocumentById(
-                          context,
-                          'rooms',
-                          widget.integratedroomId,
-                        );
-                        setState(() {});
-                      },
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ))
+                    onPressed: () {
+                      deleteDocumentById(
+                        context,
+                        'rooms',
+                        widget.integratedroomId,
+                      );
+                      setState(() {});
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                  )
                 ],
               ),
               Description(
@@ -96,7 +99,8 @@ class _TemporaryEmergencyRoomsState extends State<TemporaryEmergencyRooms> {
                     MaterialPageRoute(
                         builder: (context) => ScenarioMapScreen(
                               initialLocation: LatLng(
-                                  widget.integratedlatLng[0], widget.integratedlatLng[1]),
+                                  widget.integratedlatLng[0],
+                                  widget.integratedlatLng[1]),
                               radius: widget.radius,
                             )),
                   );
@@ -132,8 +136,6 @@ class _TemporaryEmergencyRoomsState extends State<TemporaryEmergencyRooms> {
               ],
             );
           });
-         
-          
     } catch (e) {
       print('Error deleting document: $e');
     }
@@ -147,13 +149,13 @@ class Description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         vertical: 15,
       ),
       child: Row(
         children: [
-          Icon(Icons.gps_fixed, color: Colors.red),
-          SizedBox(width: 5),
+          const Icon(Icons.gps_fixed, color: Colors.red),
+          const SizedBox(width: 5),
           Text(createdOn),
         ],
       ),

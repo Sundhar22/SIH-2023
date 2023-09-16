@@ -4,10 +4,16 @@ import 'package:sih_2023/features/ui/chat/message_model.dart';
 import 'package:sih_2023/features/ui/chat/select_media.dart';
 
 // ignore: must_be_immutable
-class ChatMessenger extends StatelessWidget {
+class ChatMessenger extends StatefulWidget {
   ChatMessenger({super.key, required this.roomId});
   String roomId;
 
+  @override
+  State<ChatMessenger> createState() => _ChatMessengerState();
+}
+
+class _ChatMessengerState extends State<ChatMessenger> {
+  bool textfieldActivated = false;
   @override
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
@@ -16,42 +22,62 @@ class ChatMessenger extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: Colors.deepPurpleAccent,
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: TextField(
-                controller: messageController,
-                cursorColor: Colors.white,
-                maxLines: null,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: "Enter your chat",
-                  hintStyle: TextStyle(color: Colors.white),
-                  border: InputBorder.none,
-                ),
-              ),
-            ),
+            child: !textfieldActivated
+                ? GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        textfieldActivated = true;
+                      });
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 15),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.white,
+                      ),
+                      child: const Text("Enter your message"),
+                    ),
+                  )
+                : Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      color: Colors.white,
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: TextField(
+                      controller: messageController,
+                      maxLines: null,
+                      decoration: const InputDecoration(
+                        hintText: "Enter your message",
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
           ),
-          SelectMedia(
-            roomId: roomId,
-          ),
-          IconButton(
-            onPressed: () {
-              Message textMessage = Message(
-                type: 'Text',
-                content: messageController.value.text,
-                time: Timestamp.now(),
-                sender: 'test',
-              );
-              sendMessageToRoom(roomId, textMessage);
-              messageController.clear();
-            },
-            icon: const Icon(
-              Icons.send,
-              color: Colors.black,
+          !textfieldActivated
+              ? SelectMedia(roomId: widget.roomId)
+              : const SizedBox(width: 4),
+          CircleAvatar(
+            backgroundColor: Colors.blueAccent,
+            child: IconButton(
+              onPressed: () {
+                Message textMessage = Message(
+                  type: 'Text',
+                  content: messageController.value.text,
+                  time: Timestamp.now(),
+                  sender: 'test',
+                );
+                sendMessageToRoom(widget.roomId, textMessage);
+                messageController.clear();
+                setState(() {
+                  textfieldActivated = !textfieldActivated;
+                });
+              },
+              icon: const Icon(
+                Icons.arrow_upward_rounded,
+                color: Colors.white,
+              ),
             ),
           )
         ],

@@ -4,7 +4,7 @@ import 'package:video_player/video_player.dart';
 class VideoMessageWidget extends StatefulWidget {
   final String videoUrl;
 
-  VideoMessageWidget({required this.videoUrl});
+  const VideoMessageWidget({super.key, required this.videoUrl});
 
   @override
   _VideoMessageWidgetState createState() => _VideoMessageWidgetState();
@@ -43,7 +43,7 @@ class _VideoMessageWidgetState extends State<VideoMessageWidget> {
               children: [
                 VideoPlayer(_controller),
                 if (!_controller.value.isPlaying)
-                  Icon(
+                  const Icon(
                     Icons.play_circle_filled,
                     size: 50.0,
                     color: Colors.white,
@@ -52,7 +52,6 @@ class _VideoMessageWidgetState extends State<VideoMessageWidget> {
             ),
           ),
         ),
-        
       ],
     );
   }
