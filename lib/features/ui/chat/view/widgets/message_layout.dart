@@ -20,6 +20,7 @@ class MessageLayout extends StatelessWidget {
             returnTime(dateTime),
             style: const TextStyle(
               color: Colors.grey,
+              fontSize: 12,
             ),
           ),
         ),

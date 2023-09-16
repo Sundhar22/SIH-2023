@@ -27,7 +27,7 @@ class ChatMessageLayout extends StatelessWidget {
           ),
           Text(
             returnTime(msgTime),
-            style: const TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey, fontSize: 12),
           ),
         ],
       ),
