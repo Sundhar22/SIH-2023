@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sih_2023/features/ui/responsehub/push_room_data.dart';
-import 'package:sih_2023/features/ui/responsehub/room_model.dart';
+import 'package:sih_2023/features/ui/responsehub/view/push_room_data.dart';
+import 'package:sih_2023/features/ui/responsehub/view/room_model.dart';
 
 class PinMapScreen extends StatefulWidget {
   final LatLng initialLocation;
@@ -12,15 +12,16 @@ class PinMapScreen extends StatefulWidget {
   final String selectedState;
   final String selectedDistrict;
 
-  PinMapScreen(
-      {required this.initialLocation,
+  const PinMapScreen(
+      {super.key,
+      required this.initialLocation,
       required this.roomName,
       required this.disasterType,
       required this.selectedState,
       required this.selectedDistrict});
 
   @override
-  _PinMapScreenState createState() => _PinMapScreenState();
+  State createState() => _PinMapScreenState();
 }
 
 class _PinMapScreenState extends State<PinMapScreen> {
@@ -41,10 +42,10 @@ class _PinMapScreenState extends State<PinMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Location Map'),
+        title: const Text('Location Map'),
       ),
       body: _selectedAddress == null
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : Column(
               children: <Widget>[
                 Expanded(
@@ -71,9 +72,9 @@ class _PinMapScreenState extends State<PinMapScreen> {
                     markers: _selectedLocation != null
                         ? {
                             Marker(
-                              markerId: MarkerId('selected_location'),
+                              markerId: const MarkerId('selected_location'),
                               position: _selectedLocation!,
-                              infoWindow: InfoWindow(
+                              infoWindow: const InfoWindow(
                                 title: 'Selected Location',
                               ),
                               draggable: true, // Make the marker draggable
@@ -83,7 +84,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                                 });
                               },
                               onDragEnd: (value) {
-                                 _fetchAddress(value);
+                                _fetchAddress(value);
                               },
                             ),
                           }
@@ -108,12 +109,12 @@ class _PinMapScreenState extends State<PinMapScreen> {
                     min: 100,
                     max: 1000),
                 Text('selected radius: ${radius.ceil()} Meters'),
-                SizedBox(height: 30.0),
+                const SizedBox(height: 30.0),
                 Text(
                   'Selected Location: ${_selectedAddress!.street},  ${_selectedAddress!.locality},${_selectedAddress!.administrativeArea}, ${_selectedAddress!.country}',
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 10.0),
+                const SizedBox(height: 10.0),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(
@@ -123,7 +124,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.deepPurpleAccent,
-                        shape: StadiumBorder(),
+                        shape: const StadiumBorder(),
                       ),
                       onPressed: () {
                         firebaseService.pushRoomData(Room(
@@ -166,7 +167,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                     ),
                   ),
                 ),
-                SizedBox(height: 10.0)
+                const SizedBox(height: 10.0)
               ],
             ),
     );

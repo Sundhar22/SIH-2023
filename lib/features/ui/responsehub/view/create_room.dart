@@ -3,7 +3,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
-import 'package:sih_2023/features/ui/responsehub/pin_map.dart';
+import 'package:sih_2023/features/ui/responsehub/view/pin_map.dart';
 
 class CreateRoom extends StatefulWidget {
   const CreateRoom({super.key});

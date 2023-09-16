@@ -1,9 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sih_2023/features/ui/chat/chat.dart';
-import 'package:sih_2023/features/ui/responsehub/push_room_data.dart';
+import 'package:sih_2023/features/ui/chat/view/chat.dart';
+import 'package:sih_2023/features/ui/responsehub/view/push_room_data.dart';
 
 class ResponseHubMapScreen extends StatefulWidget {
   const ResponseHubMapScreen({super.key});
@@ -83,7 +82,7 @@ class _ResponseHubMapScreenState extends State<ResponseHubMapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: roomsData.length == 0 && markers.length == 0 && circles.length == 0
+      body: roomsData.isEmpty && markers.isEmpty && circles.isEmpty
           ? const CircularProgressIndicator()
           : GoogleMap(
               initialCameraPosition: CameraPosition(
@@ -110,9 +109,8 @@ class LocationInfoBottomSheet extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-
     return Padding(
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -121,17 +119,17 @@ class LocationInfoBottomSheet extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               roomData['disasterType'],
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text('Room Name: ${roomData['roomName']}'),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text('Location: ${roomData['district']}, ${roomData['state']}'),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Center(
             child: SizedBox(
               width: double.maxFinite,
@@ -165,7 +163,7 @@ class LocationInfoBottomSheet extends StatelessWidget {
 }
 
 Future<BitmapDescriptor> _createCustomMarker(String imagePath) async {
-  final ImageConfiguration config = const ImageConfiguration();
+  const ImageConfiguration config = ImageConfiguration();
   final BitmapDescriptor bitmapDescriptor =
       await BitmapDescriptor.fromAssetImage(config, imagePath);
   return bitmapDescriptor;

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sih_2023/features/functions/return_time.dart';
-import 'package:sih_2023/features/ui/chat/chat_messenger.dart';
-import 'package:sih_2023/features/ui/chat/message_model.dart';
-import 'package:sih_2023/features/ui/chat/message_tile.dart';
-import 'package:sih_2023/features/ui/chat/pdf_viwer.dart';
-import 'package:sih_2023/features/ui/chat/play_video.dart';
+import 'package:sih_2023/features/ui/chat/view/chat_messenger.dart';
+import 'package:sih_2023/features/ui/chat/view/message_model.dart';
+import 'package:sih_2023/features/ui/chat/view/message_tile.dart';
+import 'package:sih_2023/features/ui/chat/view/pdf_viwer.dart';
+import 'package:sih_2023/features/ui/chat/view/play_video.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/message_layout.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, required this.roomId, required this.roomName});
@@ -59,47 +60,14 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leadingWidth: MediaQuery.of(context).size.width,
-          leading: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.arrow_back)),
-                  CircleAvatar(
-                    radius: 25,
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(getLogoText(widget.roomName)),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    child: Text(
-                      widget.roomName,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              IconButton(
-                splashRadius: 5,
-                onPressed: () {
-                  showListViewPopup(context);
-                },
-                icon: const Icon(Icons.add),
-              )
-            ],
-          ),
+          elevation: 2,
+          title: Text(widget.roomName),
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.more_vert),
+            ),
+          ],
         ),
         bottomSheet: ChatMessenger(
           roomId: widget.roomId,
@@ -110,7 +78,14 @@ class _ChatScreenState extends State<ChatScreen> {
             stream: getRoomChatStream(widget.roomId),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return const CircularProgressIndicator();
+                return const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ],
+                );
               }
               List<Message> messages = snapshot.data!;
               return Scrollbar(
@@ -142,7 +117,6 @@ class _ChatScreenState extends State<ChatScreen> {
                           sender: widget.roomName,
                           sentByMe: false,
                         );
-
                       case 'Document':
                         return MessageTile(
                           message: GestureDetector(
@@ -183,7 +157,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       case 'Text':
                         return MessageTile(
                           message: Container(
-                            width: MediaQuery.of(context).size.width / 2.3,
+                            width: MediaQuery.of(context).size.width / 2.4,
                             padding: const EdgeInsets.all(10),
                             child: Text(
                               message.content,
@@ -218,45 +192,5 @@ class _ChatScreenState extends State<ChatScreen> {
           .map((doc) => Message.fromFirestore(doc))
           .toList();
     });
-  }
-}
-
-String getLogoText(String text) {
-  List<String> words = text.split(' ');
-  String logoText = '';
-
-  for (String word in words) {
-    if (word.isNotEmpty) {
-      logoText += word[0].toUpperCase();
-    }
-  }
-  if (logoText.length > 3) {
-    return logoText.substring(0, 3).toUpperCase();
-  }
-  return logoText.toUpperCase();
-}
-
-class MessageLayout extends StatelessWidget {
-  const MessageLayout(
-      {super.key, required this.widget, required this.dateTime});
-
-  final Widget widget;
-  final DateTime dateTime;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-        ),
-        widget,
-        Padding(
-          padding: const EdgeInsets.only(top: 10, left: 10),
-          child: Text(returnTime(dateTime)),
-        ),
-      ],
-    );
   }
 }

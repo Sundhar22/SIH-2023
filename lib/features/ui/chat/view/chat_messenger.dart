@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/ui/chat/message_model.dart';
-import 'package:sih_2023/features/ui/chat/select_media.dart';
+import 'package:sih_2023/features/ui/chat/view/message_model.dart';
+import 'package:sih_2023/features/ui/chat/view/select_media.dart';
 
 // ignore: must_be_immutable
 class ChatMessenger extends StatefulWidget {

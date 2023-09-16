@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/ui/chat/filetype.dart';
-import 'package:sih_2023/features/ui/chat/message_model.dart';
+import 'package:sih_2023/features/ui/chat/view/filetype.dart';
+import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class SelectMedia extends StatelessWidget {

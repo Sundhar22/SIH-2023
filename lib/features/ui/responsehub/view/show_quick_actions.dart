@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/delete_document.dart';
-import 'package:sih_2023/features/functions/show_messgae.dart';
-import 'package:sih_2023/features/ui/chat/chat.dart';
+import 'package:sih_2023/features/ui/chat/view/chat.dart';
 
 Future<dynamic> showQuickActions(
   BuildContext context,
