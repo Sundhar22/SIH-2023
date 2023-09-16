@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
+import 'package:sih_2023/features/ui/employee/employee_info.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
-import 'package:sih_2023/features/ui/home/view/home.dart';
-import 'package:sih_2023/features/ui/onboarding/signin.dart';
+import 'package:sih_2023/features/ui/onboarding/view/signin.dart';
 
 import 'firebase_options.dart';
 
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
               return SignInPage();
             }
             else {
-              return HomeScreen();
+              return EmployeeInfoPage();
             }
           }
           return Center(child: CircularProgressIndicator());

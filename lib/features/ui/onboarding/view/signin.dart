@@ -4,7 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
-
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
@@ -27,16 +26,15 @@ class _SignInPageState extends State<SignInPage> {
                 child: Image.asset("assets/images/signinlogo.png"),
               ),
               const Center(
-                child:  Text(
+                child: Text(
                   "Login",
-                  textAlign: TextAlign.start,
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.normal,
-                      fontSize: 25),
+                      fontSize: 35),
                 ),
               ),
-               LoginButton()
+              const LoginButton()
             ],
           ),
         ),
@@ -59,9 +57,10 @@ class _LoginButtonState extends State<LoginButton> {
       padding: const EdgeInsets.all(15.0),
       child: SizedBox(
         height: 50,
-        width: 250,
+        width: 240,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.lightBlueAccent,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -71,16 +70,17 @@ class _LoginButtonState extends State<LoginButton> {
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 height: 30,
-                width: 65,
+                width: 40,
                 child: Image.asset("assets/images/google.png"),
               ),
               const Text(
                 "SignIn With Google",
                 style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               )
             ],
           ),
@@ -88,15 +88,14 @@ class _LoginButtonState extends State<LoginButton> {
       ),
     );
   }
+
   signInWithGoogle() async {
     GoogleSignInAccount? googleuser = await GoogleSignIn().signIn();
     GoogleSignInAuthentication? googleAuth = await googleuser?.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken
-    );
-    UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
-
+        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+    UserCredential userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
     print(userCredential.user?.displayName);
   }
 }
