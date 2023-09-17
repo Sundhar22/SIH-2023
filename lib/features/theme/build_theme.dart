@@ -23,6 +23,8 @@ ThemeData buildTheme() {
       seedColor: Colors.blueAccent,
     ),
     dialogTheme: const DialogTheme(
+      backgroundColor: Colors.white,
+      surfaceTintColor: Colors.white,
       shape: BeveledRectangleBorder(),
       titleTextStyle: TextStyle(
         fontFamily: 'Poppins',
