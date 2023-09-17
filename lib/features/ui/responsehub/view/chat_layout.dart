@@ -5,16 +5,17 @@ import 'package:sih_2023/features/ui/chat/view/chat.dart';
 import 'package:sih_2023/features/ui/responsehub/view/show_quick_actions.dart';
 
 class TemprorayEmergencyRoomWidget extends StatelessWidget {
-  const TemprorayEmergencyRoomWidget(
-      {super.key,
-      required this.integratedReliefRoomName,
-      required this.integratedReliefRoomCause,
-      required this.integratedReliefLocation,
-      required this.integratedReliefRoomAgencies,
-      required this.integratedCreatedOn,
-      required this.integratedroomId,
-      required this.integratedlatLng,
-      required this.radius});
+  const TemprorayEmergencyRoomWidget({
+    super.key,
+    required this.integratedReliefRoomName,
+    required this.integratedReliefRoomCause,
+    required this.integratedReliefLocation,
+    required this.integratedReliefRoomAgencies,
+    required this.integratedCreatedOn,
+    required this.integratedroomId,
+    required this.integratedlatLng,
+    required this.radius,
+  });
 
   final String integratedReliefRoomName;
   final String integratedReliefRoomCause;

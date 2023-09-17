@@ -66,8 +66,8 @@ Future<dynamic> showQuickActions(
                     icon: const Icon(Icons.person_add_alt),
                   ),
                   IconButton(
-                    onPressed: () {
-                      deleteDocumentById(context, roomName, roomID);
+                    onPressed: () async {
+                      await deleteDocumentById(context, 'rooms', roomID);
                     },
                     icon: const Icon(
                       Icons.delete_outline_sharp,

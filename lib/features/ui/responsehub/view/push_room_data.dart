@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sih_2023/features/functions/show_messgae.dart';
 import 'package:sih_2023/features/ui/responsehub/view/room_model.dart';
 
 class FirebaseService {
@@ -8,11 +9,13 @@ class FirebaseService {
     try {
       String roomId = FirebaseFirestore.instance.collection('rooms').doc().id;
       await _firestore.collection('rooms').doc(roomId).set(room.toJson());
-      await _firestore.collection('rooms').doc(roomId).update({
-        'roomId': roomId,
-      });
+      await _firestore.collection('rooms').doc(roomId).update(
+        {
+          'roomId': roomId,
+        },
+      );
     } catch (error) {
-      print('Error pushing room data: $error');
+      showToast("Errror Creating Room");
     }
   }
 
@@ -20,19 +23,16 @@ class FirebaseService {
     try {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await _firestore.collection('rooms').get();
-
       List<Map<String, dynamic>> roomsData = [];
-
       for (QueryDocumentSnapshot<Map<String, dynamic>> document
           in querySnapshot.docs) {
-        // Access individual document data
         Map<String, dynamic> data = document.data();
         roomsData.add(data);
       }
 
       return roomsData;
     } catch (error) {
-      print('Error fetching data: $error');
+      showToast("Errror Fetching Data");
       return [];
     }
   }

@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sih_2023/features/ui/responsehub/controller/hub_controller.dart';
 import 'package:sih_2023/features/ui/responsehub/view/chat_layout.dart';
 import 'package:sih_2023/features/ui/responsehub/view/create_room.dart';
-import 'package:sih_2023/features/ui/responsehub/view/push_room_data.dart';
+import 'package:sih_2023/features/ui/universal/widgets/empty.dart';
 
 class ResponseHub extends StatefulWidget {
   const ResponseHub({super.key});
@@ -12,20 +14,15 @@ class ResponseHub extends StatefulWidget {
 }
 
 class _ResponseHubState extends State<ResponseHub> {
-  FirebaseService firebaseService = FirebaseService();
-  List<Map<String, dynamic>> roomsData = [];
-
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    Get.put(ResponseHubController());
   }
 
-  Future<void> _fetchData() async {
-    List<Map<String, dynamic>> data = await firebaseService.fetchAllRooms();
-    setState(() {
-      roomsData = data;
-    });
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -53,29 +50,36 @@ class _ResponseHubState extends State<ResponseHub> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: RefreshIndicator(
-          onRefresh: () => _fetchData(),
-          child: Scrollbar(
-            child: ListView.builder(
-              itemCount: roomsData.length,
-              itemBuilder: (context, index) {
-                Map<String, dynamic> room = roomsData[index];
-                return TemprorayEmergencyRoomWidget(
-                  radius: room['radius'],
-                  integratedlatLng: room['location'],
-                  integratedroomId: room['roomId'],
-                  integratedCreatedOn: Timestamp.fromMillisecondsSinceEpoch(
-                          room['createdOn'].millisecondsSinceEpoch)
-                      .toDate()
-                      .toString(),
-                  integratedReliefRoomName: room['roomName'],
-                  integratedReliefRoomCause: room['disasterType'],
-                  integratedReliefRoomAgencies: room['agencies'],
-                  integratedReliefLocation: room['district'],
-                );
-              },
-            ),
-          ),
+        child: GetX<ResponseHubController>(
+          builder: (getxController) {
+            return RefreshIndicator(
+              onRefresh: () => getxController.fetchResponseHubs(),
+              child: getxController.roomsData.isNotEmpty
+                  ? Scrollbar(
+                      child: ListView.builder(
+                      itemCount: getxController.roomsData.length,
+                      itemBuilder: (context, index) {
+                        Map curRoom = getxController.roomsData[index];
+                        return TemprorayEmergencyRoomWidget(
+                          radius: curRoom['radius'],
+                          integratedlatLng: curRoom['location'],
+                          integratedroomId: curRoom['roomId'],
+                          integratedCreatedOn:
+                              Timestamp.fromMillisecondsSinceEpoch(
+                                      curRoom['createdOn']
+                                          .millisecondsSinceEpoch)
+                                  .toDate()
+                                  .toString(),
+                          integratedReliefRoomName: curRoom['roomName'],
+                          integratedReliefRoomCause: curRoom['disasterType'],
+                          integratedReliefRoomAgencies: curRoom['agencies'],
+                          integratedReliefLocation: curRoom['district'],
+                        );
+                      },
+                    ))
+                  : const EmptyScreen(),
+            );
+          },
         ),
       ),
     );

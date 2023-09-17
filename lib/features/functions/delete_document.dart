@@ -3,6 +3,8 @@ import 'package:sih_2023/features/functions/show_messgae.dart';
 
 Future<void> deleteDocumentById(
     context, String collectionName, String documentId) async {
+  print(
+      " The collectio name is $collectionName. The document id is $documentId");
   try {
     await FirebaseFirestore.instance
         .collection(collectionName)
@@ -10,6 +12,6 @@ Future<void> deleteDocumentById(
         .delete();
     showToast("Room Deleted Succesfully");
   } catch (e) {
-    showToast("Document Deleted");
+    showToast("Something went wrong");
   }
 }

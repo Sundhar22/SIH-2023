@@ -198,7 +198,8 @@ class _CreateRoomState extends State<CreateRoom> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                const CustomTitleWidget(titleContent: "Name of the State"),
+                const CustomTitleWidget(
+                    titleContent: "Name of the Emergency Room"),
                 const SizedBox(height: 10),
                 TextField(
                   controller: roomNameController,
