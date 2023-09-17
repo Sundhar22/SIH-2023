@@ -5,7 +5,6 @@ import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
 import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
 import 'features/ui/onboarding/view/signin.dart';
-import 'features/ui/onboarding/view/register.dart';
 import 'firebase_options.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.data == null) {
               return const SignInPage();
             } else {
-              return WidgetToMarker();
+              return const TestMapScreen();
             }
           }
           return const Center(
