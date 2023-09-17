@@ -4,6 +4,8 @@ import 'package:sih_2023/features/ui/responsehub/view/media_page.dart';
 class HubInfo extends StatelessWidget {
   const HubInfo({super.key});
 
+  // final String roomName;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -156,7 +158,7 @@ class MediaWidget extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                           MediaPage(roomName: "Madurai Flood Rescue"),
+                          MediaPage(roomName: "Madurai Flood Rescue"),
                     ),
                   );
                 },
@@ -237,7 +239,7 @@ class EmployeeListWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text("Participants"),
-              IconButton(onPressed: () {}, icon: Icon(Icons.search))
+              IconButton(onPressed: () {}, icon: const Icon(Icons.search))
             ],
           ),
           GestureDetector(
