@@ -56,16 +56,14 @@ dependencies:
   audioplayers:
   permission_handler:
   geocoding: ^2.1.0
-  tuple: ^2.0.2
   camera: ^0.10.5+4
   exif: ^3.1.4
   image: ^4.0.17
-  image_picker: ^1.0.4
   firebase_auth: ^4.9.0
   location: ^5.0.3
   google_sign_in: ^6.1.5
   advance_pdf_viewer: ^2.0.1
-  custom_marker: ^1.0.0
+  custom_map_markers: ^0.0.2+1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

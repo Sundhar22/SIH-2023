@@ -7,11 +7,11 @@ class AgencyController extends GetxController {
   RxList agencyList = <AgencyModel>[].obs;
   RxInt agecnyListLength = 10.obs;
 
-  // @override
-  // Future<void> onInit() async {
-  //   super.onInit();
-  //   await fetchAgency();
-  // }
+  @override
+  Future<void> onInit() async {
+    super.onInit();
+    // await fetchAgency();
+  }
 
   Future<void> fetchAgency() async {
     List<AgencyModel> finalData = [];

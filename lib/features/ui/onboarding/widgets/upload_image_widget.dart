@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 class UploadImageWidget extends StatefulWidget {
   const UploadImageWidget({super.key});
@@ -13,13 +13,17 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
   File? _image;
 
   Future<void> _pickImageFromGallery() async {
-    final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
+    try {
+      final result = await FilePicker.platform.pickFiles(type: FileType.image);
+      if (result != null) {
+        final filePath = result.files.single.path;
+        setState(() {
+          _image = File(filePath!);
+        });
       }
-    });
+    } catch (e) {
+      print("Error picking a file: $e");
+    }
   }
 
   @override
@@ -46,9 +50,10 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
             child: const Text(
               "Upload your logo",
               style: TextStyle(
-                  color: Colors.deepPurple,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
+                color: Colors.deepPurple,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
             ),
           ),
         ),

@@ -1,111 +1,96 @@
-import 'package:custom_marker/marker_icon.dart';
-import 'package:flutter/rendering.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
+class TestMapScreen extends StatefulWidget {
+  const TestMapScreen({Key? key}) : super(key: key);
 
-class WidgetToMarker extends StatefulWidget {
-  const WidgetToMarker({Key? key}) : super(key: key);
   @override
-  _WidgetToMarkerState createState() => _WidgetToMarkerState();
+  State<TestMapScreen> createState() => _TestMapScreenState();
 }
-class _WidgetToMarkerState extends State<WidgetToMarker> {
 
-  Set<Marker> _markers = <Marker>{};
-  
-  // declare a global key   
-  final GlobalKey globalKey = GlobalKey();
-  
+class _TestMapScreenState extends State<TestMapScreen> {
+  late List<MarkerData> _customMarkers;
+  Map<String, dynamic> mapMarkers = {};
+
+  // Functions
+
+  void _addCustomMarkers() async {
+    _customMarkers = [];
+    for (AgencyModel agencyEntry in allAgencyModels) {
+      if (agencyEntry.agencyLat != 0.0) {
+        _customMarkers.add(MarkerData(
+          marker: Marker(
+            markerId: MarkerId(agencyEntry.agencyName),
+            position: LatLng(agencyEntry.agencyLat, agencyEntry.agencyLong),
+          ),
+          child: mapMarkers[agencyEntry.agencyExpertise],
+        ));
+      }
+    }
+  }
+
+  // Function 2
+  Future<void> _createCustomMarkers() async {
+    List<String> expertise = expertiseMapping.values.toList();
+    List<IconData> icons = agencyLogo.values.toList();
+    for (int index = 0; index < expertise.length; index++) {
+      mapMarkers[expertise[index]] =
+          generateMarker(icons[index], agencyColors[index]);
+    }
+    _addCustomMarkers();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _createCustomMarkers();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Scaffold(
-          body: Stack(
-            children: [
-            
-              // you have to add your widget in the same widget tree
-              // add your google map in stack
-              // declare your marker before google map
-              // pass your global key to your widget
-              
-              MyMarker(globalKey),
-              
-              Positioned.fill(
-                child: GoogleMap(
-                  initialCameraPosition: CameraPosition(
-                      target: LatLng(32.4279, 53.6880), zoom: 15),
-                  markers: _markers,
-                ),
-              ),
-            ],
-          ),
-          floatingActionButton: FloatingActionButton.extended(
-            label: FittedBox(child: Text('Add Markers')),
-            onPressed: () async {
-            
-              // call widgetToIcon Function and pass the same global key
-              
-              _markers.add(
-                Marker(
-                  markerId: MarkerId('circleCanvasWithText'),
-                  icon: await MarkerIcon.widgetToIcon(globalKey),
-                  position: LatLng(35.8400, 50.9391),
-                ),
-              );
-              setState(() {});
-            },
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-        ),
-      ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Agency Maps"),
+      ),
+      body: CustomGoogleMapMarkerBuilder(
+        screenshotDelay: const Duration(seconds: 3),
+        customMarkers: _customMarkers,
+        builder: (BuildContext context, Set<Marker>? markers) {
+          if (markers == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return GoogleMap(
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(18.931402, 78.930984),
+              zoom: 4,
+            ),
+            markers: markers,
+            onMapCreated: (GoogleMapController controller) {},
+          );
+        },
+      ),
     );
   }
-}
 
-class MyMarker extends StatelessWidget {
-  // declare a global key and get it trough Constructor
-
-  MyMarker(this.globalKeyMyWidget);
-  final GlobalKey globalKeyMyWidget;
-
-  @override
-  Widget build(BuildContext context) {
-    // wrap your widget with RepaintBoundary and
-    // pass your global key to RepaintBoundary
-    return RepaintBoundary(
-      key: globalKeyMyWidget,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: 250,
-            height: 180,
-            decoration:
-                BoxDecoration(color: Colors.black, shape: BoxShape.circle),
-          ),
-          Container(
-              width: 220,
-              height: 150,
-              decoration:
-                  BoxDecoration(color: Colors.amber, shape: BoxShape.circle),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.accessibility,
-                    color: Colors.white,
-                    size: 35,
-                  ),
-                  Text(
-                    'Widget',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  ),
-                ],
-              )),
-        ],
-      ),
+  generateMarker(IconData icon, Color color) {
+    return Column(
+      children: [
+        CircleAvatar(
+            radius: 15,
+            backgroundColor: color,
+            child: Icon(
+              icon,
+              color: Colors.white,
+            )),
+        const SizedBox(height: 1),
+        CircleAvatar(
+          radius: 2,
+          backgroundColor: color,
+        )
+      ],
     );
   }
 }

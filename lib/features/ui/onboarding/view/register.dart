@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
-
 import '../widgets/upload_image_widget.dart';
 
 

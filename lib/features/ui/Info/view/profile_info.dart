@@ -9,6 +9,7 @@ class ProfileInfo extends StatelessWidget {
       appBar: AppBar(
         leading: const Icon(Icons.arrow_back),
         title: const Text("Agency Info"),
+        centerTitle: true,
       ),
       body: SafeArea(
           child: Center(

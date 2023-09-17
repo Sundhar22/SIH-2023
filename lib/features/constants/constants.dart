@@ -72,8 +72,8 @@ Map<int, String> expertiseMapping = {
 };
 
 Map<int, IconData> agencyLogo = {
-  1: Icons.help_outline_sharp,
-  2: Icons.price_check_rounded,
+  1: Icons.emergency_outlined,
+  2: Icons.attach_money_outlined,
   3: Icons.train,
   4: Icons.escalator_warning_rounded,
   5: Icons.warning_rounded,
@@ -109,3 +109,19 @@ Map<String, String> monthMap = {
   "11": "Nov",
   "12": "Dec"
 };
+
+final List<Color> agencyColors = [
+  Colors.red,
+  Colors.blue,
+  Colors.pink,
+  Colors.amber,
+  Colors.purple,
+  Colors.orange,
+  Colors.green,
+  Colors.cyan,
+  Colors.teal,
+  Colors.blueGrey,
+  Colors.lime,
+  Colors.white,
+  Colors.lightBlueAccent,
+];

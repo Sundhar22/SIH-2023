@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
+import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 import 'features/ui/onboarding/view/signin.dart';
-import 'features/ui/onboarding/view/register.dart';
 import 'firebase_options.dart';
  
 final navigationKey = GlobalKey<NavigatorState>();
