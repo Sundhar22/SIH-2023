@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/ui/responsehub/view/media_page.dart';
 
 class HubInfo extends StatelessWidget {
   const HubInfo({super.key});
@@ -150,7 +151,15 @@ class MediaWidget extends StatelessWidget {
             children: [
               const Text("media, links, docs"),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                           MediaPage(roomName: "Madurai Flood Rescue"),
+                    ),
+                  );
+                },
                 icon: const Icon(Icons.arrow_forward_ios_rounded),
               )
             ],
