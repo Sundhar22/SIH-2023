@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/delete_document.dart';
 import 'package:sih_2023/features/ui/chat/view/chat.dart';
+import 'package:sih_2023/features/ui/responsehub/view/hub_info.dart';
+import 'package:sih_2023/features/ui/responsehub/view/test.dart';
 
 Future<dynamic> showQuickActions(
   BuildContext context,
@@ -58,7 +60,15 @@ Future<dynamic> showQuickActions(
                     icon: const Icon(Icons.messenger_outline_sharp),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                             const HubInfo(),
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.info_outlined),
                   ),
                   IconButton(
