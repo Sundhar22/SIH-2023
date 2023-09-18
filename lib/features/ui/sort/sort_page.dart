@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
-import 'package:sih_2023/features/functions/filter_expertise.dart';
-import 'package:sih_2023/features/functions/filter_locations.dart';
+import 'package:sih_2023/features/functions/filter/filter_expertise.dart';
+import 'package:sih_2023/features/functions/filter/filter_locations.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 import 'package:sih_2023/features/ui/home/model/sort_model.dart';
 import 'package:sih_2023/features/ui/home/view/agency_tile.dart';
