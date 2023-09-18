@@ -17,6 +17,7 @@ class SortPage extends StatefulWidget {
 
 class _SortPageState extends State<SortPage> {
   late List<AgencyModel> agencySortResults;
+  late LocationData locationData;
   late int resultFound;
   @override
   void initState() {
@@ -77,40 +78,38 @@ class _SortPageState extends State<SortPage> {
             ),
     );
   }
-}
 
-findSortFilters() {
-  if (sortModel.defaultExpertise == "Null" &&
-      sortModel.defaultLocation == "Null") {
-    return allAgencyModels;
-  }
-  List resultArr = agencyBasedLocation(
-    allAgencyModels,
-    sortModel.defaultLocation,
-  );
-
-  if (resultArr.isEmpty) {
-    return [];
-  }
-  return agencyBasedExpertise(
-    resultArr,
-    sortModel.defaultExpertise,
-  );
-}
-
-Future<List> filterNearBy() async {
-  final List result = [];
-  late LocationData locationData;
-  Location location = Location();
-  locationData = await location.getLocation();
-  double userLat = locationData.latitude!;
-  double userLong = locationData.longitude!;
-  for (AgencyModel agencyEntry in allAgencyModels) {
-    double distance = measureDistance(
-        userLat, userLong, agencyEntry.agencyLat, agencyEntry.agencyLong);
-    if (distance < 60) {
-      result.add(agencyEntry);
+  findSortFilters() {
+    if (sortModel.defaultExpertise == "Null" &&
+        sortModel.defaultLocation == "Null") {
+      return filterNearBy();
     }
+    List resultArr = agencyBasedLocation(
+      allAgencyModels,
+      sortModel.defaultLocation,
+    );
+
+    if (resultArr.isEmpty) {
+      return [];
+    }
+    return agencyBasedExpertise(
+      resultArr,
+      sortModel.defaultExpertise,
+    );
   }
-  return result;
+
+  filterNearBy() {
+    final List<AgencyModel> result = [];
+    double userLat = 9.912083;
+    double userLong = 78.117329;
+    for (AgencyModel agencyEntry in allAgencyModels) {
+      double distance = measureDistance(
+          userLat, userLong, agencyEntry.agencyLat, agencyEntry.agencyLong);
+      if (distance < 60) {
+        result.add(agencyEntry);
+      }
+    }
+    print("The results are $result");
+    return result;
+  }
 }

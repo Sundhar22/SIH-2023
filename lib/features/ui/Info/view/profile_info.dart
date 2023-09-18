@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ProfileInfo extends StatelessWidget {
-  ProfileInfo({super.key});
+  const ProfileInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
+        leading: const SizedBox(),
         title: const Text("Agency Info"),
         centerTitle: true,
       ),
@@ -16,10 +16,9 @@ class ProfileInfo extends StatelessWidget {
         child: Column(
           children: [
             const InfoHeader(
-              agencyName: "Theni Disaster Management",
-              agencyLogo:
-                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/1200px-TamilNadu_Logo.svg.png"
-            ),
+                agencyName: "Theni Disaster Management",
+                agencyLogo:
+                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/1200px-TamilNadu_Logo.svg.png"),
             const SizedBox(
               height: 20,
             ),
@@ -50,7 +49,7 @@ class InfoHeader extends StatelessWidget {
         ),
         Text(
           agencyName,
-          style: TextStyle(fontSize: 17),
+          style: const TextStyle(fontSize: 17),
         ),
         const SizedBox(
           height: 15,
@@ -95,23 +94,21 @@ class Option extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.builder(
+      child: ListView.separated(
         itemCount: items.length,
+        separatorBuilder: (context, index) {
+          return const Divider();
+        },
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey[50],
-                  borderRadius: BorderRadius.circular(15)),
-              child: ListTile(
-                leading: Icon(items[index].iconData),
-                title: Text(items[index].name),
-                trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                onTap: () {},
-              ),
+          return ListTile(
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 2,
+              horizontal: 20,
             ),
+            leading: Icon(items[index].iconData),
+            title: Text(items[index].name),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded),
+            onTap: () {},
           );
         },
       ),
