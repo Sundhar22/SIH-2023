@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/ui/Info/view/employee_signin.dart';
 
 class ProfileInfo extends StatelessWidget {
   ProfileInfo({super.key});
@@ -78,18 +79,19 @@ class InfoHeader extends StatelessWidget {
 class Item {
   final String name;
   final IconData iconData;
-  Item(this.name, this.iconData);
+  final Widget Function() pageBuilder;
+  Item(this.name, this.iconData, this.pageBuilder);
 }
 
 class Option extends StatelessWidget {
   Option({super.key});
 
   final List<Item> items = [
-    Item("Privacy", Icons.privacy_tip_outlined),
-    Item("Add an Employee", Icons.person_add_alt),
-    Item("Help & Support", Icons.help_outline_outlined),
-    Item("History", Icons.history),
-    Item("Logout", Icons.logout),
+    Item("Privacy", Icons.privacy_tip_outlined, () => const EmployeeSignIn()),
+    Item("Add an Employee", Icons.person_add_alt, () => const EmployeeSignIn()),
+    Item("Help & Support", Icons.help_outline_outlined, () => const EmployeeSignIn()),
+    Item("History", Icons.history, () => const EmployeeSignIn()),
+    Item("Logout", Icons.logout, () => const EmployeeSignIn()),
   ];
 
   @override
@@ -109,7 +111,9 @@ class Option extends StatelessWidget {
                 leading: Icon(items[index].iconData),
                 title: Text(items[index].name),
                 trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                onTap: () {},
+                onTap: () {
+                  _navigateToPage(context, items[index].pageBuilder);
+                },
               ),
             ),
           );
@@ -117,4 +121,9 @@ class Option extends StatelessWidget {
       ),
     );
   }
+}
+
+void _navigateToPage(BuildContext context, Widget Function() pageBuilder) {
+  final page = pageBuilder();
+  Navigator.of(context).push(MaterialPageRoute(builder: (_) => page));
 }
