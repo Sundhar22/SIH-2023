@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
-import 'package:sih_2023/features/ui/agencymap/agency_map.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
@@ -20,7 +19,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
-    const TestMapScreen(),
+    const FinalAgencyMapScreen(),
     const HomeState(),
 
     // const WidgetToMarker(),

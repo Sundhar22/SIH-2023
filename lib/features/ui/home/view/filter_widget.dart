@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/home/model/sort_model.dart';
-import 'package:sih_2023/features/ui/sort/sort_page.dart';
 
 class FilterWidget extends StatefulWidget {
   const FilterWidget(
@@ -14,16 +13,14 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-  // List of available states
-
-  String selectedState = ""; // Default selected state;
+  String selectedOption = ""; // Default selected state;
   bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     setState(() {
       if (isSelected == false) {
-        selectedState = widget.filterOptions[0];
+        selectedOption = widget.filterOptions[0];
       }
     });
     return AlertDialog(
@@ -32,35 +29,29 @@ class _FilterWidgetState extends State<FilterWidget> {
         TextButton(
           onPressed: () {
             Navigator.pop(context);
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SortPage(),
-              ),
-            );
           },
           child: const Text(
-            "View Results",
+            "Cancel",
           ),
         ),
         TextButton(
           onPressed: () {
             if (widget.index == 0) {
-              sortModel.defaultLocation = selectedState;
-            } else if (widget.index == 1) {
-              sortModel.defaultExpertise = selectedState;
+              sortModel.defaultLocation = selectedOption;
+            } else {
+              sortModel.defaultExpertise = selectedOption;
             }
+
             Navigator.pop(context);
           },
           child: const Text(
-            "Apply More",
+            "Apply",
           ),
         ),
       ],
       title: const Text("Choose Agency Based on Location"),
       content: DropdownButton<String>(
-        value: selectedState,
+        value: selectedOption,
         items: widget.filterOptions.map((String state) {
           return DropdownMenuItem<String>(
             value: state,
@@ -68,11 +59,10 @@ class _FilterWidgetState extends State<FilterWidget> {
           );
         }).toList(),
         onChanged: (newValue) {
-          sortModel.defaultLocation = newValue ?? 'TamilNadu';
           setState(
             () {
               isSelected = true;
-              selectedState = newValue ?? "";
+              selectedOption = newValue!;
             },
           );
         },
