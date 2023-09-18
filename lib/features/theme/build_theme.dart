@@ -7,6 +7,7 @@ ThemeData buildTheme() {
     ),
     dialogBackgroundColor: Colors.white,
     listTileTheme: const ListTileThemeData(
+      iconColor: Colors.black,
       contentPadding: EdgeInsets.all(0),
     ),
     bottomSheetTheme: const BottomSheetThemeData(

@@ -14,16 +14,14 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-  // List of available states
-
-  String selectedState = ""; // Default selected state;
+  String selectedOption = ""; // Default selected state;
   bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     setState(() {
       if (isSelected == false) {
-        selectedState = widget.filterOptions[0];
+        selectedOption = widget.filterOptions[0];
       }
     });
     return AlertDialog(
@@ -47,20 +45,23 @@ class _FilterWidgetState extends State<FilterWidget> {
         TextButton(
           onPressed: () {
             if (widget.index == 0) {
-              sortModel.defaultLocation = selectedState;
-            } else if (widget.index == 1) {
-              sortModel.defaultExpertise = selectedState;
+              sortModel.defaultLocation = selectedOption;
+            } else {
+              sortModel.defaultExpertise = selectedOption;
             }
+            print(
+              "${sortModel.defaultLocation} ${sortModel.defaultExpertise}",
+            );
             Navigator.pop(context);
           },
           child: const Text(
-            "Apply More",
+            "Apply",
           ),
         ),
       ],
       title: const Text("Choose Agency Based on Location"),
       content: DropdownButton<String>(
-        value: selectedState,
+        value: selectedOption,
         items: widget.filterOptions.map((String state) {
           return DropdownMenuItem<String>(
             value: state,
@@ -68,11 +69,10 @@ class _FilterWidgetState extends State<FilterWidget> {
           );
         }).toList(),
         onChanged: (newValue) {
-          sortModel.defaultLocation = newValue ?? 'TamilNadu';
           setState(
             () {
               isSelected = true;
-              selectedState = newValue ?? "";
+              selectedOption = newValue!;
             },
           );
         },

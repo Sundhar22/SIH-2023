@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/functions/filter_expertise.dart';
+import 'package:sih_2023/features/functions/filter_locations.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
+import 'package:sih_2023/features/ui/home/model/sort_model.dart';
 import 'package:sih_2023/features/ui/home/view/agency_tile.dart';
 
 class SortPage extends StatefulWidget {
@@ -73,4 +77,20 @@ class _SortPageState extends State<SortPage> {
   }
 }
 
-findSortFilters() {}
+findSortFilters() {
+  print(
+    "Location to find : ${sortModel.defaultLocation} Expertise to find : ${sortModel.defaultExpertise}",
+  );
+  List resultArr = agencyBasedLocation(
+    allAgencyModels,
+    sortModel.defaultLocation,
+  );
+
+  if (resultArr.isEmpty) {
+    return [];
+  }
+  return agencyBasedExpertise(
+    resultArr,
+    sortModel.defaultExpertise,
+  );
+}

@@ -5,36 +5,43 @@ import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/show_dialog.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
-class TestMapScreen extends StatefulWidget {
-  const TestMapScreen({Key? key}) : super(key: key);
+class FinalAgencyMapScreen extends StatefulWidget {
+  const FinalAgencyMapScreen({Key? key}) : super(key: key);
 
   @override
-  State<TestMapScreen> createState() => _TestMapScreenState();
+  State<FinalAgencyMapScreen> createState() => _FinalAgencyMapScreenState();
 }
 
-class _TestMapScreenState extends State<TestMapScreen> {
+class _FinalAgencyMapScreenState extends State<FinalAgencyMapScreen> {
   late List<MarkerData> _customMarkers;
+  late String mapStyle;
   Map<String, dynamic> mapMarkers = {};
 
   void _addCustomMarkers() async {
     _customMarkers = [];
     for (AgencyModel agencyEntry in allAgencyModels) {
       if (agencyEntry.agencyLat != 0.0) {
-        _customMarkers.add(MarkerData(
-          marker: Marker(
-            markerId: MarkerId(agencyEntry.agencyName),
-            position: LatLng(agencyEntry.agencyLat, agencyEntry.agencyLong),
-            infoWindow: InfoWindow(
-              title: agencyEntry.agencyName,
-              snippet: agencyEntry.agencyExpertise,
-              onTap: () {
-                showDialogMap(context, agencyEntry.agencyName,
-                    agencyEntry.agencyLogo, agencyEntry.agencyDescription);
-              },
+        _customMarkers.add(
+          MarkerData(
+            marker: Marker(
+              markerId: MarkerId(agencyEntry.agencyName),
+              position: LatLng(agencyEntry.agencyLat, agencyEntry.agencyLong),
+              infoWindow: InfoWindow(
+                title: agencyEntry.agencyName,
+                snippet: agencyEntry.agencyExpertise,
+                onTap: () {
+                  showDialogMap(
+                    context,
+                    agencyEntry.agencyName,
+                    agencyEntry.agencyOperatingState,
+                    agencyEntry.agencyExpertise,
+                  );
+                },
+              ),
             ),
+            child: mapMarkers[agencyEntry.agencyExpertise],
           ),
-          child: mapMarkers[agencyEntry.agencyExpertise],
-        ));
+        );
       }
     }
   }
@@ -50,34 +57,48 @@ class _TestMapScreenState extends State<TestMapScreen> {
     _addCustomMarkers();
   }
 
+  void setMapStyle() {
+    DefaultAssetBundle.of(context)
+        .loadString(
+          "assets/map/agency_style.json",
+        )
+        .then((value) => mapStyle = value);
+  }
+
   @override
   void initState() {
     super.initState();
+    setMapStyle();
     _createCustomMarkers();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Agency Maps"),
-      ),
-      body: CustomGoogleMapMarkerBuilder(
-        screenshotDelay: const Duration(seconds: 3),
-        customMarkers: _customMarkers,
-        builder: (BuildContext context, Set<Marker>? markers) {
-          if (markers == null) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          return GoogleMap(
-            initialCameraPosition: const CameraPosition(
-              target: LatLng(18.931402, 78.930984),
-              zoom: 4,
-            ),
-            markers: markers,
-            onMapCreated: (GoogleMapController controller) {},
-          );
-        },
+      body: SafeArea(
+        child: CustomGoogleMapMarkerBuilder(
+          customMarkers: _customMarkers,
+          builder: (BuildContext context, Set<Marker>? markers) {
+            if (markers == null) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return GoogleMap(
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(10.390824, 77.596976),
+                zoom: 8,
+              ),
+              markers: markers,
+              onMapCreated: (GoogleMapController controller) {
+                controller.setMapStyle(mapStyle);
+              },
+            );
+          },
+        ),
       ),
     );
   }
