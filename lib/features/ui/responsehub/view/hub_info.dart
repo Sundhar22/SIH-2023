@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/responsehub/view/media_page.dart';
 
 class HubInfo extends StatelessWidget {
-  const HubInfo({super.key});
+  const HubInfo({super.key, required this.roomName});
 
-  // final String roomName;
+  final String roomName;
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +19,15 @@ class HubInfo extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                const HubInfoHeader(
-                  roomName: "Madurai Flood Rescue",
+                 HubInfoHeader(
+                  roomName: roomName,
                   roomCount: 7,
                   dateOfCreation: "17/2/24",
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                MediaWidget(),
+                MediaWidget(roomName: roomName,),
                 const SizedBox(
                   height: 5,
                 ),
@@ -124,7 +124,8 @@ class HubInfoHeader extends StatelessWidget {
 }
 
 class MediaWidget extends StatelessWidget {
-  MediaWidget({super.key});
+  MediaWidget({super.key, required this.roomName});
+  final String roomName;
 
   final List<Map<String, String>> media = [
     {
@@ -158,7 +159,7 @@ class MediaWidget extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          MediaPage(roomName: "Madurai Flood Rescue"),
+                          MediaPage(roomName: roomName),
                     ),
                   );
                 },

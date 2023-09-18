@@ -65,7 +65,7 @@ Future<dynamic> showQuickActions(
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                             const HubInfo(),
+                            HubInfo(roomName: roomName,)
                         ),
                       );
                     },

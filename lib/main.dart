@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
-import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
+import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 import 'features/ui/onboarding/view/signin.dart';
 import 'firebase_options.dart';
-
+ 
 final navigationKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.data == null) {
               return const SignInPage();
             } else {
-              return const TestMapScreen();
+              return const RegistrationPage();
             }
           }
           return const Center(

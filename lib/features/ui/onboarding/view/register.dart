@@ -1,247 +1,246 @@
-// import 'package:flutter/material.dart';
-// import 'package:location/location.dart';
-// import 'package:sih_2023/features/ui/home/view/home.dart';
-// import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
-
-// import '../widgets/upload_image_widget.dart';
-
+import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:sih_2023/features/ui/home/view/home.dart';
+import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
+import '../widgets/upload_image_widget.dart';
 
 
-// class RegistrationPage extends StatefulWidget {
-//   const RegistrationPage({super.key});
 
-//   @override
-//   State<RegistrationPage> createState() => _RegistrationPageState();
-// }
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
 
-// class _RegistrationPageState extends State<RegistrationPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.transparent,
-//         elevation: 0,
-//         centerTitle: true,
-//         title: const Text(
-//           "Registration Form",
-//           style: TextStyle(
-//             color: Colors.black87,
-//           ),
-//         ),
-//         leading: IconButton(
-//             icon: const Icon(Icons.arrow_back_ios_rounded),
-//             color: Colors.black87,
-//             onPressed: () {
-//               Navigator.pop(context, true);
-//             }),
-//       ),
-//       body: const SingleChildScrollView(
-//         child: Padding(
-//           padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
-//           child: Column(
-//             children: [
-//               UploadImageWidget(),
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               FormWidget(hinttext: "Name of the agency"),
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               FormWidget(hinttext: "Name of the Director"),
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               AreaOfExpertise(),
-//               SizedBox(
-//                 height: 20,
-//               ),
-//               LocationContainer(),
-//               SizedBox(
-//                 height: 50,
-//               ),
-//               RegisterButton()
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  State<RegistrationPage> createState() => _RegistrationPageState();
+}
 
-// class AreaOfExpertise extends StatefulWidget {
-//   const AreaOfExpertise({super.key});
+class _RegistrationPageState extends State<RegistrationPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: const Text(
+          "Registration Form",
+          style: TextStyle(
+            color: Colors.black87,
+          ),
+        ),
+        leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_rounded),
+            color: Colors.black87,
+            onPressed: () {
+              Navigator.pop(context, true);
+            }),
+      ),
+      body: const SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 20),
+          child: Column(
+            children: [
+              UploadImageWidget(),
+              SizedBox(
+                height: 20,
+              ),
+              FormWidget(hinttext: "Name of the agency"),
+              SizedBox(
+                height: 20,
+              ),
+              FormWidget(hinttext: "Name of the Director"),
+              SizedBox(
+                height: 20,
+              ),
+              AreaOfExpertise(),
+              SizedBox(
+                height: 20,
+              ),
+              LocationContainer(),
+              SizedBox(
+                height: 50,
+              ),
+              RegisterButton()
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-//   @override
-//   State<AreaOfExpertise> createState() => _AreaOfExpertiseState();
-// }
+class AreaOfExpertise extends StatefulWidget {
+  const AreaOfExpertise({super.key});
 
-// class _AreaOfExpertiseState extends State<AreaOfExpertise> {
-//   String? dropdownvalue;
+  @override
+  State<AreaOfExpertise> createState() => _AreaOfExpertiseState();
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         border: Border.all(color: Colors.transparent, width: 0),
-//         color: Colors.grey[200],
-//         borderRadius: BorderRadius.circular(20),
-//       ),
-//       child: DropdownButtonFormField(
-//         decoration: InputDecoration(
-//           border: OutlineInputBorder(
-//             borderSide: BorderSide.none,
-//             borderRadius: BorderRadius.circular(40),
-//           ),
-//         ),
-//         hint: const Text("Area of Expertise"),
-//         isExpanded: true,
-//         iconEnabledColor: Colors.deepPurpleAccent,
-//         value: dropdownvalue,
-//         icon: const Padding(
-//           padding: EdgeInsets.only(left: 20),
-//           child: Icon(
-//             Icons.arrow_circle_down_sharp,
-//             size: 30,
-//           ),
-//         ),
-//         onChanged: (String? newValue) {
-//           setState(
-//             () {
-//               dropdownvalue = newValue!;
-//             },
-//           );
-//         },
-//         items: <String>['Food', 'Health', 'Emergency', 'Fire', 'Police']
-//             .map<DropdownMenuItem<String>>((String value) {
-//           return DropdownMenuItem<String>(
-//             value: value,
-//             child: Text(value),
-//           );
-//         }).toList(),
-//       ),
-//     );
-//   }
-// }
+class _AreaOfExpertiseState extends State<AreaOfExpertise> {
+  String? dropdownvalue;
 
-// class LocationContainer extends StatefulWidget {
-//   const LocationContainer({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.transparent, width: 0),
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: DropdownButtonFormField(
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.circular(40),
+          ),
+        ),
+        hint: const Text("Area of Expertise"),
+        isExpanded: true,
+        iconEnabledColor: Colors.deepPurpleAccent,
+        value: dropdownvalue,
+        icon: const Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Icon(
+            Icons.arrow_circle_down_sharp,
+            size: 30,
+          ),
+        ),
+        onChanged: (String? newValue) {
+          setState(
+            () {
+              dropdownvalue = newValue!;
+            },
+          );
+        },
+        items: <String>['Food', 'Health', 'Emergency', 'Fire', 'Police']
+            .map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
+    );
+  }
+}
 
-//   @override
-//   State<LocationContainer> createState() => _LocationContainerState();
-// }
+class LocationContainer extends StatefulWidget {
+  const LocationContainer({super.key});
 
-// class _LocationContainerState extends State<LocationContainer> {
-//   String locationMessage = '';
+  @override
+  State<LocationContainer> createState() => _LocationContainerState();
+}
 
-//   void _getLocation() async {
-//     var location = Location();
-//     // Future<bool> requestLocationPermission() async {
-//     //   final permission = await location.requestPermission();
-//     //   if (permission == PermissionStatus.granted) {
-//     //     return true;
-//     //   } else {
-//     //     return false;
-//     //   }
-//     // };
+class _LocationContainerState extends State<LocationContainer> {
+  String locationMessage = '';
 
-//     // Future<bool> checkLocationPermission() async {
-//     //   final permission = await location.hasPermission();
-//     //   if (permission == PermissionStatus.granted) {
-//     //     return true;
-//     //   } else {
-//     //     return await requestLocationPermission();
-//     //   }
-//     // }
-//     try {
-//       var currentLocation = await location.getLocation();
-//       setState(() {
-//         locationMessage =
-//             "Lat: ${currentLocation.latitude}  Long: ${currentLocation.longitude}";
-//       });
-//     } catch (e) {
-//       print('Error: $e');
-//       setState(() {
-//         locationMessage = "Could not fetch location.";
-//       });
-//     }
-//   }
+  void _getLocation() async {
+    var location = Location();
+    // Future<bool> requestLocationPermission() async {
+    //   final permission = await location.requestPermission();
+    //   if (permission == PermissionStatus.granted) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // };
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 60,
-//       width: double.infinity,
-//       decoration: BoxDecoration(
-//         border: Border.all(color: Colors.transparent, width: 0),
-//         color: Colors.grey[200],
-//         borderRadius: BorderRadius.circular(20),
-//       ),
-//       child: Padding(
-//         padding: const EdgeInsets.only(left: 15, top: 1),
-//         child: Row(
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//           children: [
-//             const Icon(
-//               Icons.location_pin,
-//               color: Colors.deepPurpleAccent,
-//             ),
-//             Text(
-//               locationMessage,
-//               style: const TextStyle(fontSize: 12),
-//             ),
-//             TextButton(
-//               style: ButtonStyle(
-//                 overlayColor: MaterialStateProperty.resolveWith<Color>(
-//                   (Set<MaterialState> states) {
-//                     return Colors.white;
-//                   },
-//                 ),
-//               ),
-//               onPressed: _getLocation,
-//               child: const Text(
-//                 'Get Location',
-//                 style: TextStyle(
-//                     color: Colors.deepPurpleAccent,
-//                     fontSize: 15,
-//                     fontWeight: FontWeight.bold),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+    // Future<bool> checkLocationPermission() async {
+    //   final permission = await location.hasPermission();
+    //   if (permission == PermissionStatus.granted) {
+    //     return true;
+    //   } else {
+    //     return await requestLocationPermission();
+    //   }
+    // }
+    try {
+      var currentLocation = await location.getLocation();
+      setState(() {
+        locationMessage =
+            "Lat: ${currentLocation.latitude}  Long: ${currentLocation.longitude}";
+      });
+    } catch (e) {
+      print('Error: $e');
+      setState(() {
+        locationMessage = "Could not fetch location.";
+      });
+    }
+  }
 
-// class RegisterButton extends StatelessWidget {
-//   const RegisterButton({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.transparent, width: 0),
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15, top: 1),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Icon(
+              Icons.location_pin,
+              color: Colors.deepPurpleAccent,
+            ),
+            Text(
+              locationMessage,
+              style: const TextStyle(fontSize: 12),
+            ),
+            TextButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                    return Colors.white;
+                  },
+                ),
+              ),
+              onPressed: _getLocation,
+              child: const Text(
+                'Get Location',
+                style: TextStyle(
+                    color: Colors.deepPurpleAccent,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       height: 50,
-//       width: 200,
-//       child: ElevatedButton(
-//         style: ElevatedButton.styleFrom(
-//             backgroundColor: Colors.deepPurpleAccent,
-//             shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(10))),
-//         onPressed: () {
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//               builder: ((context) => const HomeScreen()),
-//             ),
-//           );
-//         },
-//         child: const Text(
-//           "Register",
-//           style: TextStyle(
-//               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-//         ),
-//       ),
-//     );
-//   }
-// }
+class RegisterButton extends StatelessWidget {
+  const RegisterButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      width: 200,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.deepPurpleAccent,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: ((context) => const HomeScreen()),
+            ),
+          );
+        },
+        child: const Text(
+          "Register",
+          style: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+      ),
+    );
+  }
+}
