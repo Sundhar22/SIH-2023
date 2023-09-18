@@ -2,6 +2,7 @@ import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/functions/show_dialog.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
 class TestMapScreen extends StatefulWidget {
@@ -15,8 +16,6 @@ class _TestMapScreenState extends State<TestMapScreen> {
   late List<MarkerData> _customMarkers;
   Map<String, dynamic> mapMarkers = {};
 
-  // Functions
-
   void _addCustomMarkers() async {
     _customMarkers = [];
     for (AgencyModel agencyEntry in allAgencyModels) {
@@ -25,6 +24,14 @@ class _TestMapScreenState extends State<TestMapScreen> {
           marker: Marker(
             markerId: MarkerId(agencyEntry.agencyName),
             position: LatLng(agencyEntry.agencyLat, agencyEntry.agencyLong),
+            infoWindow: InfoWindow(
+              title: agencyEntry.agencyName,
+              snippet: agencyEntry.agencyExpertise,
+              onTap: () {
+                showDialogMap(context, agencyEntry.agencyName,
+                    agencyEntry.agencyLogo, agencyEntry.agencyDescription);
+              },
+            ),
           ),
           child: mapMarkers[agencyEntry.agencyExpertise],
         ));
