@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/home/model/sort_model.dart';
-import 'package:sih_2023/features/ui/sort/sort_page.dart';
 
 class FilterWidget extends StatefulWidget {
   const FilterWidget(
@@ -30,16 +29,9 @@ class _FilterWidgetState extends State<FilterWidget> {
         TextButton(
           onPressed: () {
             Navigator.pop(context);
-
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const SortPage(),
-              ),
-            );
           },
           child: const Text(
-            "View Results",
+            "Cancel",
           ),
         ),
         TextButton(
@@ -49,9 +41,7 @@ class _FilterWidgetState extends State<FilterWidget> {
             } else {
               sortModel.defaultExpertise = selectedOption;
             }
-            print(
-              "${sortModel.defaultLocation} ${sortModel.defaultExpertise}",
-            );
+
             Navigator.pop(context);
           },
           child: const Text(
