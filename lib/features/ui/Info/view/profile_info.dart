@@ -60,13 +60,13 @@ class InfoHeader extends StatelessWidget {
           width: 150,
           child: ElevatedButton(
             onPressed: () {},
-            child: Text(
-              "Edit",
-              style: TextStyle(fontSize: 17),
-            ),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
+            ),
+            child: const Text(
+              "Edit",
+              style: TextStyle(fontSize: 17),
             ),
           ),
         )

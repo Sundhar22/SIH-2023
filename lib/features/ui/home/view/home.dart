@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
@@ -23,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     // const WidgetToMarker(),
     const ResponseHub(),
+    ProfileInfo()
   ];
 
   late int curPage;
@@ -39,9 +41,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
-          setState(() {
-            curPage = index;
-          });
+          if (index >= 0 && index < pages.length) {
+            setState(() {
+              curPage = index;
+            });
+          }
         },
         currentIndex: curPage,
         type: BottomNavigationBarType.fixed,
@@ -61,6 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.hub),
             label: "",
           ),
           BottomNavigationBarItem(
