@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:sih_2023/features/functions/show_messgae.dart';
+import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/responsehub/view/room_model.dart';
 
 class FirebaseService {

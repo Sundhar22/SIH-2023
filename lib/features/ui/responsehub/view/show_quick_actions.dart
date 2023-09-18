@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
-import 'package:sih_2023/features/functions/delete_document.dart';
+import 'package:sih_2023/features/functions/firebase/delete_document.dart';
 import 'package:sih_2023/features/ui/chat/view/chat.dart';
 import 'package:sih_2023/features/ui/responsehub/view/hub_info.dart';
 import 'package:sih_2023/features/ui/responsehub/view/test.dart';
@@ -64,9 +64,9 @@ Future<dynamic> showQuickActions(
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                            HubInfo(roomName: roomName,)
-                        ),
+                            builder: (context) => HubInfo(
+                                  roomName: roomName,
+                                )),
                       );
                     },
                     icon: const Icon(Icons.info_outlined),

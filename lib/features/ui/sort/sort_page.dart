@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/filter/filter_expertise.dart';
 import 'package:sih_2023/features/functions/filter/filter_locations.dart';
+import 'package:sih_2023/features/functions/filter/filter_nearby.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 import 'package:sih_2023/features/ui/home/model/sort_model.dart';
 import 'package:sih_2023/features/ui/home/view/agency_tile.dart';
+import 'package:location/location.dart';
 
 class SortPage extends StatefulWidget {
   const SortPage({super.key});
@@ -78,9 +80,10 @@ class _SortPageState extends State<SortPage> {
 }
 
 findSortFilters() {
-  print(
-    "Location to find : ${sortModel.defaultLocation} Expertise to find : ${sortModel.defaultExpertise}",
-  );
+  if (sortModel.defaultExpertise == "Null" &&
+      sortModel.defaultLocation == "Null") {
+    return allAgencyModels;
+  }
   List resultArr = agencyBasedLocation(
     allAgencyModels,
     sortModel.defaultLocation,
@@ -93,4 +96,21 @@ findSortFilters() {
     resultArr,
     sortModel.defaultExpertise,
   );
+}
+
+Future<List> filterNearBy() async {
+  final List result = [];
+  late LocationData locationData;
+  Location location = Location();
+  locationData = await location.getLocation();
+  double userLat = locationData.latitude!;
+  double userLong = locationData.longitude!;
+  for (AgencyModel agencyEntry in allAgencyModels) {
+    double distance = measureDistance(
+        userLat, userLong, agencyEntry.agencyLat, agencyEntry.agencyLong);
+    if (distance < 60) {
+      result.add(agencyEntry);
+    }
+  }
+  return result;
 }

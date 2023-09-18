@@ -5,7 +5,6 @@ class FilterController extends GetxController {
   RxString districtValue = "Madurai".obs;
   RxString expertiseValue = "Emergency".obs;
   RxString suppliesValue = "Food".obs;
-  RxBool isStateActivated = false.obs;
 
   List<String> filterOptions = [
     "District",

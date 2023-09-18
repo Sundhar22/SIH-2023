@@ -31,7 +31,7 @@ class AgencyInformation extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Location(
+                child: AgencyLocation(
                     location: location == '' ? 'All Regions' : location),
               ),
               AreaOfExpertise(area: area),
@@ -69,8 +69,8 @@ class AreaOfExpertise extends StatelessWidget {
   }
 }
 
-class Location extends StatelessWidget {
-  const Location({
+class AgencyLocation extends StatelessWidget {
+  const AgencyLocation({
     super.key,
     required this.location,
   });
