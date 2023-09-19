@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 import 'package:sih_2023/features/ui/responsehub/view/pin_map.dart';
+import 'package:file_picker/file_picker.dart';
 
 class CreateRoom extends StatefulWidget {
   const CreateRoom({super.key});
@@ -137,7 +138,7 @@ class _CreateRoomState extends State<CreateRoom> {
     'Andhra Pradesh',
     'Arunachal Pradesh',
     'Assam'
-  ]; // Add more states here
+  ];
 
   List<String> NaturalDisasters = [
     'Earthquakes',
@@ -181,6 +182,20 @@ class _CreateRoomState extends State<CreateRoom> {
 
   List<String> districts = [];
   String selectedDisasterType = '';
+
+  FilePickerResult? _result;
+
+  // Function to pick multiple files
+  void _pickFiles() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(allowMultiple: true);
+
+    if (result != null) {
+      setState(() {
+        _result = result;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -304,6 +319,45 @@ class _CreateRoomState extends State<CreateRoom> {
                       child: Text(district),
                     );
                   }).toList(),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                const CustomTitleWidget(titleContent: "Upload Document"),
+                const SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  height: 67,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.grey, width: 1.5)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      if (_result != null && _result!.files.isNotEmpty)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Text(
+                                _result!.files.map((file) => file.name).join(
+                                    ', '), // Join the file names with commas
+                                style: TextStyle(fontSize: 16.0),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                        ),
+                      IconButton(
+                        onPressed: _pickFiles,
+                        icon: const Icon(Icons.folder_outlined),
+                      ),
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(

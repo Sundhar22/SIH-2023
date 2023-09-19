@@ -50,7 +50,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
             child: const Text(
               "Upload your logo",
               style: TextStyle(
-                color: Colors.deepPurple,
+                color: Colors.lightBlue,
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
               ),

@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.data == null) {
               return const SignInPage();
             } else {
-              return const RegistrationPage();
+              return const EmployeeInfoPage();
             }
           }
           return const Center(

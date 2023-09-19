@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/ui/Info/view/employee_signin.dart';
+import 'package:sih_2023/features/ui/employee/employee_signin.dart';
+import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
 class ProfileInfo extends StatelessWidget {
   ProfileInfo({super.key});
@@ -8,6 +9,7 @@ class ProfileInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         leading: const Icon(Icons.arrow_back),
         title: const Text("Agency Info"),
         centerTitle: true,
@@ -60,7 +62,15 @@ class InfoHeader extends StatelessWidget {
           height: 50,
           width: 150,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const RegistrationPage(),
+                        ),
+                      );
+            },
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),

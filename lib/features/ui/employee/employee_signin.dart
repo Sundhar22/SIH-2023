@@ -90,7 +90,7 @@ class _PositionState extends State<Position> {
         ),
         hint: const Text("Select His Position"),
         isExpanded: true,
-        iconEnabledColor: Colors.deepPurpleAccent,
+        iconEnabledColor: Colors.black,
         value: dropdownvalue,
         icon: const Padding(
           padding: EdgeInsets.only(left: 20),
@@ -133,7 +133,7 @@ class AddButton extends StatelessWidget {
       width: 200,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.deepPurpleAccent,
+            backgroundColor: Colors.lightBlue,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
         onPressed: () {
