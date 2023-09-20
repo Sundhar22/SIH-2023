@@ -100,16 +100,14 @@ class _SortPageState extends State<SortPage> {
 
   filterNearBy() {
     final List<AgencyModel> result = [];
-    double userLat = 9.912083;
-    double userLong = 78.117329;
+
     for (AgencyModel agencyEntry in allAgencyModels) {
-      double distance = measureDistance(
-          userLat, userLong, agencyEntry.agencyLat, agencyEntry.agencyLong);
+      double distance = measureDistance(defaultLatitude, defaultLongititude,
+          agencyEntry.agencyLat, agencyEntry.agencyLong);
       if (distance < 60) {
         result.add(agencyEntry);
       }
     }
-    print("The results are $result");
     return result;
   }
 }

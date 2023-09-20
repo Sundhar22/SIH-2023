@@ -29,11 +29,6 @@ List<List<String>> filterOptionsAvailable = [
     "Disaster Training",
     "Food security"
   ],
-  [
-    "Central",
-    "State",
-    "District",
-  ],
 ];
 
 Color accentColor = Colors.blueAccent.withOpacity(.2);
@@ -71,7 +66,6 @@ Map<int, String> expertiseMapping = {
   12: "Disaster Training",
   13: "Food security",
 };
-
 Map<int, IconData> agencyLogo = {
   1: Icons.emergency_outlined,
   2: Icons.attach_money_outlined,
@@ -87,7 +81,6 @@ Map<int, IconData> agencyLogo = {
   12: Icons.school,
   13: Icons.food_bank,
 };
-
 List weatherAPI = [
   ["Chennai", "Sunny"],
   ["Coimabtore", "Haze"],
@@ -95,7 +88,6 @@ List weatherAPI = [
   ["Dindugal", "Sunny"],
   ["Salem", "Mild Haze"]
 ];
-
 Map<String, String> monthMap = {
   "01": "Jan",
   "02": "Feb",
@@ -110,7 +102,6 @@ Map<String, String> monthMap = {
   "11": "Nov",
   "12": "Dec"
 };
-
 final List<Color> agencyColors = [
   Colors.red,
   Colors.blue,
@@ -126,5 +117,6 @@ final List<Color> agencyColors = [
   Colors.white,
   Colors.lightBlueAccent,
 ];
-
-Location location = Location();
+Location locationInstance = Location();
+double defaultLatitude = 0.0;
+double defaultLongititude = 0.0;

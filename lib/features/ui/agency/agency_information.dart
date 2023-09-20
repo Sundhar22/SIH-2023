@@ -58,7 +58,10 @@ class AreaOfExpertise extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            const Icon(Icons.food_bank, color: Colors.amber),
+            const Icon(
+              Icons.food_bank,
+              color: Colors.amber,
+            ),
             const SizedBox(width: 5),
             Text(area),
             const SizedBox(width: 5),
