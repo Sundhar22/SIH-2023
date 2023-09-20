@@ -95,7 +95,7 @@ class _AreaOfExpertiseState extends State<AreaOfExpertise> {
         ),
         hint: const Text("Area of Expertise"),
         isExpanded: true,
-        iconEnabledColor: Colors.deepPurpleAccent,
+        iconEnabledColor: Colors.black,
         value: dropdownvalue,
         icon: const Padding(
           padding: EdgeInsets.only(left: 20),
@@ -184,7 +184,7 @@ class _LocationContainerState extends State<LocationContainer> {
           children: [
             const Icon(
               Icons.location_pin,
-              color: Colors.deepPurpleAccent,
+              color: Colors.black,
             ),
             Text(
               locationMessage,
@@ -202,7 +202,7 @@ class _LocationContainerState extends State<LocationContainer> {
               child: const Text(
                 'Get Location',
                 style: TextStyle(
-                    color: Colors.deepPurpleAccent,
+                    color: Colors.lightBlue,
                     fontSize: 15,
                     fontWeight: FontWeight.bold),
               ),
@@ -224,7 +224,7 @@ class RegisterButton extends StatelessWidget {
       width: 200,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.deepPurpleAccent,
+            backgroundColor: Colors.lightBlue,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
         onPressed: () {
