@@ -25,7 +25,7 @@ void sortBottomSheet(BuildContext context) {
       sortModel.defaultLocation = "Null";
       sortModel.defaultExpertise = "Null";
       return SizedBox(
-        height: 230,
+        height: 300,
         width: double.maxFinite,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
