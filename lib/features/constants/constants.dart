@@ -88,6 +88,22 @@ Map<int, IconData> agencyLogo = {
   13: Icons.food_bank,
 };
 
+Map<String, IconData> logos = {
+  "Emergency Services": Icons.emergency_outlined,
+  "Refund Services": Icons.attach_money_outlined,
+  "Railway Security": Icons.train,
+  "Disaster Response": Icons.escalator_warning_rounded,
+  "Warning & Forecast": Icons.warning_rounded,
+  "Relay Weather": Icons.cloud,
+  "Forecast": Icons.ac_unit_outlined,
+  "Warning Force": Icons.wrong_location_outlined,
+  "Disaster Management": Icons.manage_accounts,
+  "Civil Service": Icons.group,
+  "Technical Response": Icons.code,
+  "Disaster Training": Icons.school,
+  "Food security": Icons.food_bank,
+};
+
 List weatherAPI = [
   ["Chennai", "Sunny"],
   ["Coimabtore", "Haze"],

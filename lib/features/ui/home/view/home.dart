@@ -8,6 +8,7 @@ import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
 import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
 import 'package:sih_2023/features/ui/responsehub/view/response_hub.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
