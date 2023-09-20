@@ -5,20 +5,22 @@ import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_dialog.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
-class FinalAgencyMapScreen extends StatefulWidget {
-  const FinalAgencyMapScreen({Key? key}) : super(key: key);
+class SortMapScreen extends StatefulWidget {
+  const SortMapScreen({Key? key, required this.sortAgencies}) : super(key: key);
 
   @override
-  State<FinalAgencyMapScreen> createState() => _FinalAgencyMapScreenState();
+  State<SortMapScreen> createState() => _SortMapScreenState();
+
+  final List<AgencyModel> sortAgencies;
 }
 
-class _FinalAgencyMapScreenState extends State<FinalAgencyMapScreen> {
+class _SortMapScreenState extends State<SortMapScreen> {
   late List<MarkerData> _customMarkers;
   late String mapStyle;
 
   void _addCustomMarkers() async {
     _customMarkers = [];
-    for (AgencyModel agencyEntry in allAgencyModels) {
+    for (AgencyModel agencyEntry in widget.sortAgencies) {
       if (agencyEntry.agencyLat != 0.0) {
         _customMarkers.add(
           MarkerData(
@@ -83,6 +85,10 @@ class _FinalAgencyMapScreenState extends State<FinalAgencyMapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Sort Results (${widget.sortAgencies.length})"),
+      ),
       body: SafeArea(
         child: CustomGoogleMapMarkerBuilder(
           customMarkers: _customMarkers,
@@ -91,9 +97,12 @@ class _FinalAgencyMapScreenState extends State<FinalAgencyMapScreen> {
               return const Center(child: CircularProgressIndicator());
             }
             return GoogleMap(
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(10.390824, 77.596976),
-                zoom: 8,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                  widget.sortAgencies[0].agencyLat,
+                  widget.sortAgencies[0].agencyLong,
+                ),
+                zoom: 9,
               ),
               markers: markers,
               onMapCreated: (GoogleMapController controller) {

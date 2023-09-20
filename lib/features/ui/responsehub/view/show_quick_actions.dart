@@ -3,7 +3,6 @@ import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/firebase/delete_document.dart';
 import 'package:sih_2023/features/ui/chat/view/chat.dart';
 import 'package:sih_2023/features/ui/responsehub/view/hub_info.dart';
-import 'package:sih_2023/features/ui/responsehub/view/test.dart';
 
 Future<dynamic> showQuickActions(
   BuildContext context,
@@ -77,6 +76,7 @@ Future<dynamic> showQuickActions(
                   ),
                   IconButton(
                     onPressed: () async {
+                      Navigator.pop(context);
                       await deleteDocumentById(context, 'rooms', roomID);
                     },
                     icon: const Icon(

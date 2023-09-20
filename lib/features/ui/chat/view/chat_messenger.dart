@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/select_media.dart';
@@ -58,11 +59,14 @@ class _ChatMessengerState extends State<ChatMessenger> {
                       onTapOutside: (event) {
                         if (messageController.value.text.length > 5) {
                           Message textMessage = Message(
-                            type: 'Text',
+                            type: currentChatLayout == ""
+                                ? 'Text'
+                                : currentChatLayout,
                             content: messageController.value.text,
                             time: Timestamp.now(),
                             sender: 'test',
                           );
+                          currentChatLayout = "";
                           sendMessageToRoom(widget.roomId, textMessage);
                           messageController.clear();
                           setState(() {

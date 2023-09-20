@@ -10,7 +10,7 @@ Future<void> deleteDocumentById(
         .collection(collectionName)
         .doc(documentId)
         .delete();
-    showToast("Room Deleted Succesfully");
+    showToast("Room Deleted Succesfully. Refresh the feed");
   } catch (e) {
     showToast("Something went wrong");
   }

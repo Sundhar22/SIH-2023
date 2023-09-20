@@ -4,9 +4,14 @@ import 'package:sih_2023/features/ui/chat/view/chat_messenger.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/message_tile.dart';
 import 'package:sih_2023/features/ui/chat/view/play_video.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/announcement_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/chat_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/document_layout.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/emergency_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/image_layout.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/progress_widget.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/request_widget.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/resource_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, required this.roomId, required this.roomName});
@@ -18,18 +23,18 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  List<String> options = [
+    "Video Call",
+    "Audio Call",
+    "",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
         title: Text(widget.roomName),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
-          ),
-        ],
+        actions: const [],
       ),
       bottomSheet: ChatMessenger(roomId: widget.roomId),
       body: Container(
@@ -84,14 +89,48 @@ class _ChatScreenState extends State<ChatScreen> {
                         sender: widget.roomName,
                         sentByMe: false,
                       );
+
                     case 'Text':
                       return ChatMessageLayout(
                         chatMsg: message.content,
                         msgTime: message.time.toDate(),
                       );
+
+                    case 'Request':
+                      return RequestLayout(
+                        chatMsg: message.content,
+                        msgTime: message.time.toDate(),
+                      );
+
+                    case 'Resource':
+                      return ResouceLayout(
+                        chatMsg: message.content,
+                        msgTime: message.time.toDate(),
+                      );
+
+                    case 'Emergency':
+                      return EmergencyLayout(
+                        chatMsg: message.content,
+                        msgTime: message.time.toDate(),
+                      );
+
+                    case 'Progress':
+                      return ProgressLayout(
+                        chatMsg: message.content,
+                        msgTime: message.time.toDate(),
+                      );
+
+                    case 'Announcement':
+                      return AnnouncementLayout(
+                        chatMsg: message.content,
+                        msgTime: message.time.toDate(),
+                      );
+
                     default:
-                      return const SizedBox(
-                        child: Text("Not found"),
+                      return SizedBox(
+                        child: Text(
+                          "${message.content} ${message.type}",
+                        ),
                       );
                   }
                 },

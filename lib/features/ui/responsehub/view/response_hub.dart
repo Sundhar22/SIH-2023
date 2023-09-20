@@ -63,17 +63,21 @@ class _ResponseHubState extends State<ResponseHub> {
                         return TemprorayEmergencyRoomWidget(
                           radius: curRoom['radius'],
                           integratedlatLng: curRoom['location'],
-                          integratedroomId: curRoom['roomId'],
+                          integratedroomId: curRoom['roomId'] ?? "",
                           integratedCreatedOn:
                               Timestamp.fromMillisecondsSinceEpoch(
                                       curRoom['createdOn']
                                           .millisecondsSinceEpoch)
                                   .toDate()
                                   .toString(),
-                          integratedReliefRoomName: curRoom['roomName'],
-                          integratedReliefRoomCause: curRoom['disasterType'],
-                          integratedReliefRoomAgencies: curRoom['agencies'],
-                          integratedReliefLocation: curRoom['district'],
+                          integratedReliefRoomName:
+                              curRoom['roomName'] ?? "Unmaed",
+                          integratedReliefRoomCause:
+                              curRoom['disasterType'] ?? "Fight",
+                          integratedReliefRoomAgencies:
+                              curRoom['agencies'] ?? [],
+                          integratedReliefLocation:
+                              curRoom['district'] ?? "Tan",
                         );
                       },
                     ))

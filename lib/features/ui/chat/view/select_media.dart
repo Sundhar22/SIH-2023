@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,9 +8,12 @@ import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class SelectMedia extends StatelessWidget {
-  SelectMedia({super.key, required this.roomId});
+  const SelectMedia({
+    super.key,
+    required this.roomId,
+  });
 
-  String roomId;
+  final String roomId;
   @override
   Widget build(BuildContext context) {
     ProgressDialog pd = ProgressDialog(context: context);

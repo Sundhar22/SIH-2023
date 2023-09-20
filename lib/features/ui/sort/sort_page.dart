@@ -7,6 +7,7 @@ import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 import 'package:sih_2023/features/ui/home/model/sort_model.dart';
 import 'package:sih_2023/features/ui/home/view/agency_tile.dart';
 import 'package:location/location.dart';
+import 'package:sih_2023/features/ui/sort/sort_maps.dart';
 
 class SortPage extends StatefulWidget {
   const SortPage({super.key});
@@ -35,9 +36,40 @@ class _SortPageState extends State<SortPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text("Sort Results ($resultFound)"),
         centerTitle: true,
-        title: Text("Sort Results $resultFound"),
+        actions: const [],
       ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: agencySortResults.isNotEmpty
+          ? Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 1,
+                  ),
+                ],
+              ),
+              child: TextButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SortMapScreen(
+                        sortAgencies: agencySortResults,
+                      ),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.location_on_outlined),
+                label: const Text("View on Maps"),
+              ),
+            )
+          : null,
       body: agencySortResults.isNotEmpty
           ? Scrollbar(
               thumbVisibility: true,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class MessageTile extends StatefulWidget {
@@ -29,9 +30,13 @@ class _MessageTileState extends State<MessageTile> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             !widget.sentByMe
-                ? const CircleAvatar(
+                ? CircleAvatar(
                     radius: 12,
                     backgroundColor: Colors.white,
+                    child: CachedNetworkImage(
+                      imageUrl:
+                          "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/450px-TamilNadu_Logo.svg.png",
+                    ),
                   )
                 : const SizedBox(),
             const SizedBox(width: 3),

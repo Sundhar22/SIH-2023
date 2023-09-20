@@ -137,3 +137,7 @@ final List<Color> agencyColors = [
 Location locationInstance = Location();
 double defaultLatitude = 0.0;
 double defaultLongititude = 0.0;
+
+Map<String, dynamic> mapMarkers = {};
+
+String currentChatLayout = "";
