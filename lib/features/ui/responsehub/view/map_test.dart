@@ -2,7 +2,7 @@ import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/constants/constants.dart';
-import 'package:sih_2023/features/functions/show_dialog.dart';
+import 'package:sih_2023/features/functions/dialogs/show_dialog.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
 class FinalAgencyMapScreen extends StatefulWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 
 List<List<String>> filterOptionsAvailable = [
   [
@@ -125,3 +126,5 @@ final List<Color> agencyColors = [
   Colors.white,
   Colors.lightBlueAccent,
 ];
+
+Location location = Location();

@@ -21,10 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomeState(),
     const FinalAgencyMapScreen(),
     const HomeState(),
-
-    // const WidgetToMarker(),
     const ResponseHub(),
-    ProfileInfo()
+    const ProfileInfo()
   ];
 
   late int curPage;

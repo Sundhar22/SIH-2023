@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:sih_2023/features/constants/constants.dart';
-import 'package:sih_2023/features/functions/fetch_collection.dart';
+import 'package:sih_2023/features/functions/firebase/fetch_collection.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
 class AgencyController extends GetxController {
@@ -10,7 +10,7 @@ class AgencyController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // await fetchAgency();
+    await fetchAgency();
   }
 
   Future<void> fetchAgency() async {

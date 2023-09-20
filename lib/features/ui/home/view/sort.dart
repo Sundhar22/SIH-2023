@@ -10,13 +10,11 @@ void sortBottomSheet(BuildContext context) {
   final List<String> filterName = [
     "Location",
     "Expertise",
-    "Near By",
   ];
 
   final List<IconData> filterIcons = [
     Icons.location_on_rounded,
     Icons.work,
-    Icons.emergency_share,
   ];
 
   showModalBottomSheet(
@@ -27,12 +25,12 @@ void sortBottomSheet(BuildContext context) {
       sortModel.defaultLocation = "Null";
       sortModel.defaultExpertise = "Null";
       return SizedBox(
-        height: 230,
+        height: 300,
         width: double.maxFinite,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: ListView.builder(
-            itemCount: filterIcons.length,
+            itemCount: filterIcons.length + 2,
             itemBuilder: (context, index) {
               if (index < 2) {
                 return ListTile(
@@ -53,12 +51,30 @@ void sortBottomSheet(BuildContext context) {
                     );
                   },
                 );
+              } else if (index == 2) {
+                return ListTile(
+                  leading: const Icon(Icons.location_history),
+                  title: const Text("Near By me"),
+                  trailing: const Icon(Icons.filter_alt_outlined),
+                  subtitle: const Text(
+                    "Narrow down agencies near you",
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SortPage(),
+                      ),
+                    );
+                  },
+                );
               } else {
                 return ListTile(
-                  leading: const Icon(Icons.auto_awesome),
+                  leading: const Icon(Icons.filter_list),
                   title: const Text("View Results"),
                   subtitle: const Text(
                       "Apply the magic filters & narrow down the agencies"),
+                  trailing: const Icon(Icons.auto_awesome_outlined),
                   onTap: () {
                     Navigator.push(
                       context,

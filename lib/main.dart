@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
-import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
 import 'package:sih_2023/features/ui/employee/employee_info.dart';
+import 'package:sih_2023/features/ui/employee/employee_signin.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 import 'features/ui/onboarding/view/signin.dart';
 import 'firebase_options.dart';
- 
+
 final navigationKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
