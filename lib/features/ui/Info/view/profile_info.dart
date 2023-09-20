@@ -65,7 +65,7 @@ class InfoHeader extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const RegistrationPage(),
+                              const SignUpPage(),
                         ),
                       );
             },

@@ -5,6 +5,8 @@ import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
 import 'package:sih_2023/features/ui/employee/employee_info.dart';
 import 'package:sih_2023/features/ui/employee/employee_signin.dart';
+import 'package:sih_2023/features/ui/home/view/home.dart';
+import 'package:sih_2023/features/ui/onboarding/view/first.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 import 'features/ui/onboarding/view/signin.dart';
 import 'firebase_options.dart';
@@ -34,9 +36,9 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.data == null) {
-              return const SignInPage();
+              return const FirstPage();
             } else {
-              return const EmployeeInfoPage();
+              return const HomeScreen();
             }
           }
           return const Center(

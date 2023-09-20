@@ -10,15 +10,14 @@ class UploadImageWidget extends StatefulWidget {
 }
 
 class _UploadImageWidgetState extends State<UploadImageWidget> {
-  File? _image;
-
-  Future<void> _pickImageFromGallery() async {
+  File? image;
+  Future<void> pickImageFromGallery() async {
     try {
       final result = await FilePicker.platform.pickFiles(type: FileType.image);
       if (result != null) {
         final filePath = result.files.single.path;
         setState(() {
-          _image = File(filePath!);
+          image = File(filePath!);
         });
       }
     } catch (e) {
@@ -33,7 +32,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
         CircleAvatar(
           radius: 75,
           backgroundColor: Colors.grey,
-          backgroundImage: _image != null ? FileImage(_image!) : null,
+          backgroundImage: image != null ? FileImage(image!) : null,
         ),
         SizedBox(
           height: 65,
@@ -46,7 +45,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
                 },
               ),
             ),
-            onPressed: _pickImageFromGallery,
+            onPressed: pickImageFromGallery,
             child: const Text(
               "Upload your logo",
               style: TextStyle(
@@ -57,6 +56,49 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
             ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+class SignInUpload extends StatefulWidget {
+  const SignInUpload({super.key});
+
+  @override
+  State<SignInUpload> createState() => _SignInUploadState();
+}
+
+class _SignInUploadState extends State<SignInUpload> {
+  File? image;
+  Future<void> pickImageFromGallery() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(type: FileType.image);
+      if (result != null) {
+        final filePath = result.files.single.path;
+        setState(() {
+          image = File(filePath!);
+        });
+      }
+    } catch (e) {
+      print("Error picking a file: $e");
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: pickImageFromGallery,
+          child: Stack(
+            children: <Widget>[
+              CircleAvatar(
+              radius: 65,
+              backgroundColor: Colors.grey,
+              backgroundImage: image != null ? FileImage(image!) : null,
+            ),
+            ] 
+          ),
+        )
       ],
     );
   }

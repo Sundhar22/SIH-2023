@@ -2,9 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
+import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
+
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
@@ -12,87 +14,75 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 50, bottom: 15),
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(25),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 0.5 * screenHeight,
-                width: 0.9 * screenWidth,
-                child: Image.asset("assets/images/signinlogo.png"),
-              ),
-              const Center(
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 35),
-                ),
-              ),
-              const LoginButton(),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ));
-                },
-                child: const Text("Skip registration for demo"),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class LoginButton extends StatefulWidget {
-  const LoginButton({super.key});
-
-  @override
-  State<LoginButton> createState() => _LoginButtonState();
-}
-
-class _LoginButtonState extends State<LoginButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: SizedBox(
-        height: 50,
-        width: 240,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightBlueAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          onPressed: () {
-            signInWithGoogle();
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 30,
-                width: 40,
-                child: Image.asset("assets/images/google.png"),
+              const Image(
+                  image: AssetImage("assets/images/signinlogo.png"),
+                  height: 250, width: double.infinity,),
+              const SizedBox(
+                height: 20,
               ),
               const Text(
-                "SignIn With Google",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              )
+                "Welcome \nBack",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(
+                height: 50,
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "LogIn",
+                        style: TextStyle(color: Colors.black, fontSize: 25),
+                      ),
+                      FloatingActionButton(
+                        onPressed: () {
+                          signInWithGoogle();
+                        },
+                        child: Image.asset("assets/images/google.png"),
+                        shape: const CircleBorder(),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "SignUp",
+                        style: TextStyle(color: Colors.black, fontSize: 25),
+                      ),
+                      FloatingActionButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignUpPage(),
+                            ),
+                          );
+                        },
+                        child: Icon(Icons.arrow_forward_rounded),
+                        shape: const CircleBorder(),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ],
           ),
         ),

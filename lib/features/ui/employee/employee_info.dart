@@ -132,7 +132,7 @@ class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const RegistrationPage(),
+                                builder: (context) => const SignUpPage(),
                               ),
                             );
                           },
