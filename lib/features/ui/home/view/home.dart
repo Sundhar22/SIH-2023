@@ -8,7 +8,6 @@ import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
 import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
 import 'package:sih_2023/features/ui/responsehub/view/response_hub.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +20,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
     const FinalAgencyMapScreen(),
-    const HomeState(),
     const ResponseHub(),
     const ProfileInfo()
   ];
@@ -48,31 +46,27 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         currentIndex: curPage,
         type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: const TextStyle(fontSize: 0),
-        unselectedFontSize: 0,
-        iconSize: 30,
+        iconSize: 28,
         selectedIconTheme: const IconThemeData(color: Colors.blueAccent),
-        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        unselectedIconTheme: IconThemeData(
+          color: Colors.grey.shade500,
+        ),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "",
+            label: "Home",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.location_on),
-            label: "",
+            label: "Map",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: "",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.hub),
-            label: "",
+            icon: Icon(Icons.running_with_errors_sharp),
+            label: "Hub",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "",
+            label: "Profile",
           ),
         ],
       ),

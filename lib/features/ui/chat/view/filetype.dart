@@ -105,7 +105,7 @@ class MediaButton extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.blueAccent,
           child: Icon(
             icon,
             color: Colors.white,

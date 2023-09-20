@@ -55,6 +55,24 @@ class _ChatMessengerState extends State<ChatMessenger> {
                     ),
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: TextField(
+                      onTapOutside: (event) {
+                        if (messageController.value.text.length > 5) {
+                          Message textMessage = Message(
+                            type: 'Text',
+                            content: messageController.value.text,
+                            time: Timestamp.now(),
+                            sender: 'test',
+                          );
+                          sendMessageToRoom(widget.roomId, textMessage);
+                          messageController.clear();
+                          setState(() {
+                            textfieldActivated = !textfieldActivated;
+                          });
+                        } else {}
+                        setState(() {
+                          textfieldActivated = !textfieldActivated;
+                        });
+                      },
                       controller: messageController,
                       maxLines: null,
                       decoration: const InputDecoration(
