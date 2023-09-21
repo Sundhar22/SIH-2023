@@ -16,74 +16,81 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-
+  
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const Row(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(25),
+            child: Container(
+              width: double.infinity,
+              height: size * 0.9,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
-                    "Create \nAccount",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.start,
+                  const Row(
+                    children: [
+                      Text(
+                        "Create \nAccount",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.start,
+                      ),
+                      SizedBox(
+                        width: 25,
+                      ),
+                      SignInUpload()
+                    ],
                   ),
-                  SizedBox(
-                    width: 25,
+                  const Column(
+                    children: [
+                      FormWidget(hinttext: "Name of Agency"),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      FormWidget(hinttext: "Name of Head"),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      FormWidget(hinttext: "Phone Number"),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      AreaOfExpertise(),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      LocationContainer(),
+                    ],
                   ),
-                  SignInUpload()
-                ],
-              ),
-              const Column(
-                children: [
-                  FormWidget(hinttext: "Name of Agency"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  FormWidget(hinttext: "Name of Head"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  FormWidget(hinttext: "Phone Number"),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  AreaOfExpertise(),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  LocationContainer(),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("Register",
-                      style: TextStyle(color: Colors.black, fontSize: 30)),
-                  FloatingActionButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignInPage(),
-                        ),
-                      );
-                    },
-                    child: const Icon(Icons.arrow_forward_rounded),
-                    shape: const CircleBorder(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text("Register",
+                          style: TextStyle(color: Colors.black, fontSize: 30)),
+                      FloatingActionButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignInPage(),
+                            ),
+                          );
+                        },
+                        child: const Icon(Icons.arrow_forward_rounded),
+                        shape: const CircleBorder(),
+                      )
+                    ],
                   )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
         ),
       ),

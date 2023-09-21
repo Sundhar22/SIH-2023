@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/constants/constants.dart';
 
 class AgencyInformation extends StatelessWidget {
   const AgencyInformation({
@@ -58,7 +59,7 @@ class AreaOfExpertise extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            const Icon(Icons.food_bank, color: Colors.amber),
+            Icon(logos[area], color: Colors.amber),
             const SizedBox(width: 5),
             Text(area),
             const SizedBox(width: 5),

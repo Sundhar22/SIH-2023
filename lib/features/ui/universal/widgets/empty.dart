@@ -11,7 +11,7 @@ class EmptyScreen extends StatelessWidget {
       children: [
         Center(
           child: Text("Nothing to show here"),
-        )
+        ),
       ],
     );
   }

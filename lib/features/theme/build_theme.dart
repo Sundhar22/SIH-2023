@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 ThemeData buildTheme() {
   return ThemeData(
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.white,
+      elevation: 0,
+      shadowColor: Colors.transparent,
+      scrolledUnderElevation: 0,
+    ),
     iconButtonTheme: const IconButtonThemeData(
       style: ButtonStyle(),
     ),
@@ -16,7 +22,7 @@ ThemeData buildTheme() {
     dividerColor: Colors.transparent,
     fontFamily: 'Poppins',
     expansionTileTheme: ExpansionTileThemeData(
-      childrenPadding: const EdgeInsets.all(10),
+      childrenPadding: const EdgeInsets.all(15),
       backgroundColor: Colors.grey.withOpacity(.05),
       collapsedBackgroundColor: Colors.grey.withOpacity(.05),
     ),

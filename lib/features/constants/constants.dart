@@ -29,11 +29,6 @@ List<List<String>> filterOptionsAvailable = [
     "Disaster Training",
     "Food security"
   ],
-  [
-    "Central",
-    "State",
-    "District",
-  ],
 ];
 
 Color accentColor = Colors.blueAccent.withOpacity(.2);
@@ -71,7 +66,6 @@ Map<int, String> expertiseMapping = {
   12: "Disaster Training",
   13: "Food security",
 };
-
 Map<int, IconData> agencyLogo = {
   1: Icons.emergency_outlined,
   2: Icons.attach_money_outlined,
@@ -111,7 +105,6 @@ List weatherAPI = [
   ["Dindugal", "Sunny"],
   ["Salem", "Mild Haze"]
 ];
-
 Map<String, String> monthMap = {
   "01": "Jan",
   "02": "Feb",
@@ -126,7 +119,6 @@ Map<String, String> monthMap = {
   "11": "Nov",
   "12": "Dec"
 };
-
 final List<Color> agencyColors = [
   Colors.red,
   Colors.blue,
@@ -142,5 +134,17 @@ final List<Color> agencyColors = [
   Colors.white,
   Colors.lightBlueAccent,
 ];
+Location locationInstance = Location();
+double defaultLatitude = 0.0;
+double defaultLongititude = 0.0;
 
-Location location = Location();
+Map<String, dynamic> mapMarkers = {};
+
+String currentChatLayout = "";
+
+String targetUserRoomId = '';
+
+Map<String, IconData> requestIcons = {
+  'Food': Icons.food_bank_outlined,
+  'Shelters': Icons.night_shelter_outlined,
+};

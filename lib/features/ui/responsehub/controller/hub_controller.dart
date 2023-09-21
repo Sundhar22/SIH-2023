@@ -8,7 +8,7 @@ class ResponseHubController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    //await fetchResponseHubs();
+    await fetchResponseHubs();
   }
 
   Future<void> fetchResponseHubs() async {
@@ -20,5 +20,6 @@ class ResponseHubController extends GetxController {
       fetchResults.add(roomData);
     }
     roomsData.value = fetchResults;
+    print(roomsData);
   }
 }

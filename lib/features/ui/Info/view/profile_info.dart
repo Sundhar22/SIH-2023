@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/employee/employee_signin.dart';
+import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
 class ProfileInfo extends StatelessWidget {
@@ -8,33 +11,60 @@ class ProfileInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const SizedBox(),
-        title: const Text("Agency Info"),
-        centerTitle: true,
-      ),
       body: SafeArea(
-          child: Center(
-        child: Column(
-          children: [
-            const InfoHeader(
-                agencyName: "Theni Disaster Management",
-                agencyLogo:
-                    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/1200px-TamilNadu_Logo.svg.png"),
-            const SizedBox(
-              height: 20,
+          child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const CustomTitleWidget(titleContent: "Agency Profile"),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ),
+                    );
+                  },
+                  child: const Row(
+                    children: [
+                      Text(
+                        "edit",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blueAccent,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
             ),
-            Option()
-          ],
-        ),
+          ),
+          const SizedBox(height: 20),
+          const InfoHeader(
+              agencyName: "Dindugal Disaster Management",
+              agencyLogo:
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/1200px-TamilNadu_Logo.svg.png"),
+          const SizedBox(
+            height: 20,
+          ),
+          Option()
+        ],
       )),
     );
   }
 }
 
 class InfoHeader extends StatelessWidget {
-  const InfoHeader(
-      {super.key, required this.agencyName, required this.agencyLogo});
+  const InfoHeader({
+    super.key,
+    required this.agencyName,
+    required this.agencyLogo,
+  });
 
   final String agencyName;
   final String agencyLogo;
@@ -42,43 +72,21 @@ class InfoHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          radius: 75,
-          backgroundImage: NetworkImage(agencyLogo),
-        ),
-        const SizedBox(
-          height: 15,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 200,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: CachedNetworkImageProvider(agencyLogo),
+              ),
+            ),
+          ),
         ),
         Text(
           agencyName,
           style: const TextStyle(fontSize: 17),
         ),
-        const SizedBox(
-          height: 15,
-        ),
-        SizedBox(
-          height: 50,
-          width: 150,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const SignUpPage(),
-                        ),
-                      );
-            },
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-            ),
-            child: const Text(
-              "Edit",
-              style: TextStyle(fontSize: 17),
-            ),
-          ),
-        )
       ],
     );
   }
@@ -97,35 +105,31 @@ class Option extends StatelessWidget {
   final List<Item> items = [
     Item("Privacy", Icons.privacy_tip_outlined, () => const EmployeeSignIn()),
     Item("Add an Employee", Icons.person_add_alt, () => const EmployeeSignIn()),
-    Item("Help & Support", Icons.help_outline_outlined, () => const EmployeeSignIn()),
-    Item("History", Icons.history, () => const EmployeeSignIn()),
+    Item("Help & Support", Icons.help_outline_outlined,
+        () => const EmployeeSignIn()),
+    Item("Response Hub History", Icons.history, () => const EmployeeSignIn()),
     Item("Logout", Icons.logout, () => const EmployeeSignIn()),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ListView.separated(
+      child: ListView.builder(
         itemCount: items.length,
-        separatorBuilder: (context, index) {
-          return const Divider();
-        },
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 13, horizontal: 15),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey[50],
-                  borderRadius: BorderRadius.circular(15)),
-              child: ListTile(
-                leading: Icon(items[index].iconData),
-                title: Text(items[index].name),
-                trailing: const Icon(Icons.arrow_forward_ios_rounded),
-                onTap: () {
-                   _navigateToPage(context, items[index].pageBuilder);
-                },
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+              leading: CircleAvatar(
+                radius: 18,
+                child: Icon(items[index].iconData),
               ),
+              title: Text(items[index].name),
+              trailing: const Icon(Icons.arrow_right),
+              onTap: () {
+                _navigateToPage(context, items[index].pageBuilder);
+              },
             ),
           );
         },

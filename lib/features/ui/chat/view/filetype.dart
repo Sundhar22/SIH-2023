@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
+import 'package:sih_2023/features/functions/firebase/fetch_collection.dart';
 
 enum FileType { photo, document, video, audio }
 
@@ -68,22 +72,20 @@ class FileTypeSelectionDialog extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                onTypeSelected(FileType.document);
                 Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const AlertDialog(
+                      title: Text("Choose Layouts"),
+                      content: ChooseLayout(),
+                    );
+                  },
+                );
               },
               child: MediaButton(
                 icon: Icons.menu_sharp,
-                name: 'Pin Loc',
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                onTypeSelected(FileType.document);
-                Navigator.pop(context);
-              },
-              child: MediaButton(
-                icon: Icons.videocam_outlined,
-                name: 'Meet',
+                name: 'Chat Layouts',
               ),
             ),
           ],
@@ -105,7 +107,7 @@ class MediaButton extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.greenAccent,
+          backgroundColor: Colors.blueAccent,
           child: Icon(
             icon,
             color: Colors.white,
@@ -120,6 +122,55 @@ class MediaButton extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+}
+
+List<String> layoutNames = [
+  "Announcement", // deone
+  "Progress", // done
+  "Request", // done
+  "Resource",
+  "Emergency",
+];
+
+List<IconData> layoutIcons = [
+  Icons.info_outline_rounded,
+  Icons.trending_up,
+  Icons.people_outline_outlined,
+  Icons.auto_awesome_outlined,
+  Icons.emergency_outlined,
+];
+
+class ChooseLayout extends StatelessWidget {
+  const ChooseLayout({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (int i = 0; i < layoutNames.length; i++)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: ListTile(
+                  leading: CircleAvatar(
+                    child: Icon(layoutIcons[i]),
+                  ),
+                  title: Text("${layoutNames[i]} Layout"),
+                  onTap: () {
+                    currentChatLayout = layoutNames[i];
+                    showToast("Layout set to ${layoutNames[i]} ");
+                    Navigator.pop(context);
+                  },
+                ),
+              )
+          ],
+        ),
+      ),
     );
   }
 }
