@@ -25,11 +25,12 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
           ),
         ),
         leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_rounded),
-            color: Colors.black87,
-            onPressed: () {
-              Navigator.pop(context, true);
-            }),
+          icon: const Icon(Icons.arrow_back_ios_rounded),
+          color: Colors.black87,
+          onPressed: () {
+            Navigator.pop(context, true);
+          },
+        ),
       ),
       body: const SingleChildScrollView(
         child: Padding(

@@ -17,75 +17,103 @@ class _SignInPageState extends State<SignInPage> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(25),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Image(
-                image: AssetImage("assets/images/signinlogo.png"),
-                height: 250,
-                width: double.infinity,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 25),
               const Text(
-                "Welcome \nBack",
+                "Welcome \nBack to Sonic !!",
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 40,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.start,
               ),
-              const SizedBox(
-                height: 50,
+              const SizedBox(height: 20),
+              const Image(
+                fit: BoxFit.cover,
+                image: AssetImage("assets/images/signinlogo.png"),
+                height: 300,
+                width: double.infinity,
               ),
+              const SizedBox(height: 15),
               Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "LogIn",
-                        style: TextStyle(color: Colors.black, fontSize: 25),
-                      ),
-                      FloatingActionButton(
-                        heroTag: "google",
-                        onPressed: ()async {
-                         if (await signInWithGoogle()!=null) {
-                           Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
-                         }
-                        
-                        },
-                        child: Image.asset("assets/images/google.png"),
-                        shape: const CircleBorder(),
-                      )
-                    ],
+                  const SizedBox(height: 20),
+                  ListTile(
+                    onTap: () async {
+                      if (await signInWithGoogle() != null) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
+                      }
+                    },
+                    contentPadding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 5,
+                    ),
+                    leading: const Icon(Icons.login, size: 25),
+                    title: const Text("LogIn With Google"),
+                    trailing: IconButton.filledTonal(
+                      onPressed: () async {},
+                      icon: const Icon(Icons.g_mobiledata),
+                    ),
+                    subtitle: const Column(
+                      children: [
+                        SizedBox(height: 5),
+                        Text(
+                          "Existing user Quickly Login to acess the application",
+                        ),
+                      ],
+                    ),
                   ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "SignUp",
-                        style: TextStyle(color: Colors.black, fontSize: 25),
-                      ),
-                      FloatingActionButton(
-                        onPressed: () {
+                  const SizedBox(height: 20),
+                  ListTile(
+                    onTap: () async {
+                      if (await signInWithGoogle() != null) {
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
+                      }
+                    },
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 5,
+                    ),
+                    leading:
+                        const Icon(Icons.app_registration_outlined, size: 25),
+                    title: const Text("SignUp With Google"),
+                    trailing: IconButton.filledTonal(
+                      onPressed: () async {
+                        if (await signInWithGoogle() != null) {
+                          // ignore: use_build_context_synchronously
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => const SignUpPage(),
                             ),
                           );
-                        },
-                        child: Icon(Icons.arrow_forward_rounded),
-                        shape: const CircleBorder(),
-                      )
-                    ],
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_right),
+                    ),
+                    subtitle: const Column(
+                      children: [
+                        SizedBox(height: 5),
+                        Text(
+                          "SignIn your agency to register into the centralised database",
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -96,14 +124,13 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-   signInWithGoogle() async {
+  signInWithGoogle() async {
     GoogleSignInAccount? googleuser = await GoogleSignIn().signIn();
     GoogleSignInAuthentication? googleAuth = await googleuser?.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-  return userCredential.user?.displayName;
-    
+    return userCredential.user?.displayName;
   }
 }

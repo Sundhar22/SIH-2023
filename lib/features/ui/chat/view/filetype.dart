@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
-import 'package:sih_2023/features/functions/firebase/fetch_collection.dart';
 
 enum FileType { photo, document, video, audio }
 
