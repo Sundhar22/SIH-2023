@@ -5,14 +5,13 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Center(
+        Center(
           child: Text("Nothing to show here"),
         ),
-        Expanded(child: Container()),
       ],
     );
   }

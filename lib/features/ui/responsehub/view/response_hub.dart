@@ -71,9 +71,9 @@ class _ResponseHubState extends State<ResponseHub> {
                                   .toDate()
                                   .toString(),
                           integratedReliefRoomName:
-                              curRoom['roomName'] ?? "Unmaed",
+                              curRoom['roomName'] ?? "Unnamed",
                           integratedReliefRoomCause:
-                              curRoom['disasterType'] ?? "Fight",
+                              curRoom['disasterType'] ?? "Floods",
                           integratedReliefRoomAgencies:
                               curRoom['agencies'] ?? [],
                           integratedReliefLocation:

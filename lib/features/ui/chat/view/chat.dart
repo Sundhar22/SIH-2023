@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sih_2023/features/functions/get_logo_text.dart';
 import 'package:sih_2023/features/ui/chat/view/chat_messenger.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/message_tile.dart';
@@ -32,9 +33,29 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Row(
+          children: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back)),
+            CircleAvatar(
+              radius: 20,
+              child: Text(getLogoText(widget.roomName)),
+            ),
+          ],
+        ),
         elevation: 2,
-        title: Text(widget.roomName),
-        actions: const [],
+        title: const Text("Emergency Room"),
+        leadingWidth: MediaQuery.of(context).size.width / 4.4,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.more_vert,
+              ))
+        ],
       ),
       bottomSheet: ChatMessenger(roomId: widget.roomId),
       body: Container(
