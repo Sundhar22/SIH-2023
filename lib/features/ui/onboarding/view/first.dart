@@ -23,7 +23,7 @@ class FirstPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 30),
                 GestureDetector(
-                  onTap: signInWithGoogle,
+                  onTap: () {signInWithGoogle();},
                   child: const Forms(
                     name: "Employee",
                     icons: Icons.person,

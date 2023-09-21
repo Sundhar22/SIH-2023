@@ -5,7 +5,7 @@ import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   State<SignInPage> createState() => _SignInPageState();
@@ -23,8 +23,10 @@ class _SignInPageState extends State<SignInPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const Image(
-                  image: AssetImage("assets/images/signinlogo.png"),
-                  height: 250, width: double.infinity,),
+                image: AssetImage("assets/images/signinlogo.png"),
+                height: 250,
+                width: double.infinity,
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -49,8 +51,12 @@ class _SignInPageState extends State<SignInPage> {
                         style: TextStyle(color: Colors.black, fontSize: 25),
                       ),
                       FloatingActionButton(
-                        onPressed: () {
-                          signInWithGoogle();
+                        heroTag: "google",
+                        onPressed: ()async {
+                         if (await signInWithGoogle()!=null) {
+                           Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(),));
+                         }
+                        
                         },
                         child: Image.asset("assets/images/google.png"),
                         shape: const CircleBorder(),
@@ -90,13 +96,14 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  signInWithGoogle() async {
+   signInWithGoogle() async {
     GoogleSignInAccount? googleuser = await GoogleSignIn().signIn();
     GoogleSignInAuthentication? googleAuth = await googleuser?.authentication;
     AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user?.displayName);
+  return userCredential.user?.displayName;
+    
   }
 }
