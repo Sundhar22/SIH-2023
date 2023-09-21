@@ -63,7 +63,7 @@ class UserRequestScreen extends StatelessWidget {
                       requestIcons[helpRequestData["helpType"]],
                     ),
                     title: Text(
-                      helpRequestData["helpType"],
+                      "${helpRequestData["helpType"]} Assitance",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
