@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SIH-23',
       theme: buildTheme(),
+      home: HomeScreen(),
       // home: StreamBuilder<User?>(
       //   stream: FirebaseAuth.instance.authStateChanges(),
       //   builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -45,7 +46,6 @@ class MyApp extends StatelessWidget {
       //     );
       //   },
       // ),
-      home: const HomeScreen(),
     );
   }
 }
