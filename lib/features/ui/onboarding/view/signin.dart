@@ -75,16 +75,13 @@ class _SignInPageState extends State<SignInPage> {
                   ),
                   const SizedBox(height: 20),
                   ListTile(
-                    onTap: () async {
-                      if (await signInWithGoogle() != null) {
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ),
-                        );
-                      }
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                      );
                     },
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 5,
@@ -93,17 +90,25 @@ class _SignInPageState extends State<SignInPage> {
                         const Icon(Icons.app_registration_outlined, size: 25),
                     title: const Text("SignUp With Google"),
                     trailing: IconButton.filledTonal(
-                      onPressed: () async {
-                        if (await signInWithGoogle() != null) {
-                          // ignore: use_build_context_synchronously
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SignUpPage(),
-                            ),
-                          );
-                        }
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpPage(),
+                          ),
+                        );
                       },
+                      // onPressed: () async {
+                      //   if (await signInWithGoogle() != null) {
+                      //     // ignore: use_build_context_synchronously
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => const SignUpPage(),
+                      //       ),
+                      //     );
+                      //   }
+                      // },
                       icon: const Icon(Icons.arrow_right),
                     ),
                     subtitle: const Column(
