@@ -27,24 +27,25 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SIH-23',
       theme: buildTheme(),
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) {
-            return Text(snapshot.error.toString());
-          }
-          if (snapshot.connectionState == ConnectionState.active) {
-            if (snapshot.data == null) {
-              return const FirstPage();
-            } else {
-              return LoadingPage();
-            }
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+      // home: StreamBuilder<User?>(
+      //   stream: FirebaseAuth.instance.authStateChanges(),
+      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //     if (snapshot.hasError) {
+      //       return Text(snapshot.error.toString());
+      //     }
+      //     if (snapshot.connectionState == ConnectionState.active) {
+      //       if (snapshot.data == null) {
+      //         return const FirstPage();
+      //       } else {
+      //         return LoadingPage();
+      //       }
+      //     }
+      //     return const Center(
+      //       child: CircularProgressIndicator(),
+      //     );
+      //   },
+      // ),
+      home: const HomeScreen(),
     );
   }
 }
