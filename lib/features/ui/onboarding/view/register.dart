@@ -1,9 +1,6 @@
-import 'dart:io';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:sih_2023/features/ui/chat/view/filetype.dart';
-import 'package:sih_2023/features/ui/home/view/home.dart';
+
 import 'package:sih_2023/features/ui/onboarding/view/signin.dart';
 import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
 import '../widgets/upload_image_widget.dart';
@@ -16,7 +13,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.height;
@@ -25,7 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(25),
-            child: Container(
+            child: SizedBox(
               width: double.infinity,
               height: size * 0.9,
               child: Column(
@@ -83,8 +79,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             ),
                           );
                         },
-                        child: const Icon(Icons.arrow_forward_rounded),
                         shape: const CircleBorder(),
+                        child: const Icon(Icons.arrow_forward_rounded),
                       )
                     ],
                   )
@@ -168,23 +164,6 @@ class LocationContainer extends StatefulWidget {
 }
 
 class _LocationContainerState extends State<LocationContainer> {
-  // Future<bool> requestLocationPermission() async {
-  //   final permission = await location.requestPermission();
-  //   if (permission == PermissionStatus.granted) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-
-  // Future<bool> checkLocationPermission() async {
-  //   final permission = await location.hasPermission();
-  //   if (permission == PermissionStatus.granted) {
-  //     return true;
-  //   } else {
-  //     return await requestLocationPermission();
-  //   }
-  // }
   String locationMessage = 'Location';
   bool isLocationUpdated = false;
 
@@ -198,7 +177,6 @@ class _LocationContainerState extends State<LocationContainer> {
         isLocationUpdated = true;
       });
     } catch (e) {
-      print('Error: $e');
       setState(() {
         locationMessage = "Could not fetch location.";
       });

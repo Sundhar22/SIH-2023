@@ -69,35 +69,35 @@ class SignInUpload extends StatefulWidget {
 }
 
 class _SignInUploadState extends State<SignInUpload> {
-  File? image;
-  Future<void> pickImageFromGallery() async {
-    try {
-      final result = await FilePicker.platform.pickFiles(type: FileType.image);
-      if (result != null) {
-        final filePath = result.files.single.path;
-        setState(() {
-          image = File(filePath!);
-        });
-      }
-    } catch (e) {
-      print("Error picking a file: $e");
-    }
-  }
+  // File? image;
+  // Future<void> pickImageFromGallery() async {
+  //   try {
+  //     final result = await FilePicker.platform.pickFiles(type: FileType.image);
+  //     if (result != null) {
+  //       final filePath = result.files.single.path;
+  //       setState(() {
+  //         image = File(filePath!);
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print("Error picking a file: $e");w
+  //   }
+  // }
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         GestureDetector(
-          onTap: pickImageFromGallery,
-          child: Stack(
-            children: <Widget>[
-              CircleAvatar(
+          // onTap: pickImageFromGallery,
+          child: const Stack(children: <Widget>[
+            CircleAvatar(
               radius: 65,
               backgroundColor: Colors.grey,
-              backgroundImage: image != null ? FileImage(image!) : null,
+              backgroundImage: NetworkImage(
+                  "https://upload.wikimedia.org/wikipedia/en/6/6b/National_Disaster_Management_Authority_Logo.png"),
+              // backgroundImage: image != null ? FileImage(image!) : null,
             ),
-            ] 
-          ),
+          ]),
         )
       ],
     );

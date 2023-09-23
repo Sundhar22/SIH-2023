@@ -8,47 +8,73 @@ class FirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(30),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 40),
+          const Padding(
+            padding: EdgeInsets.all(12),
+            child: Center(
+              child: Text(
+                "Welcome to Soinc, LogIn/ Sign Up using your E-mail Account",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+          const Image(
+            height: 350,
+            image: AssetImage(
+              "assets/images/login.png",
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              signInWithGoogle();
+            },
+            contentPadding: const EdgeInsets.all(10),
+            leading: const CircleAvatar(
+              child: Icon(Icons.person_outline),
+            ),
+            title: const Text("Employee Login"),
+            trailing: const Icon(Icons.arrow_right_alt),
+            subtitle: const Column(
               children: [
-                const Text(
-                  "Choose Your Area",
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                ),
-                const SizedBox(height: 30),
-                GestureDetector(
-                  onTap: () {signInWithGoogle();},
-                  child: const Forms(
-                    name: "Employee",
-                    icons: Icons.person,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                const Text("OR"),
-                const SizedBox(height: 10),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SignInPage(),
-                        ));
-                  },
-                  child: Forms(
-                    name: "Agency",
-                    icons: Icons.group,
-                  ),
-                )
+                SizedBox(height: 5),
+                Text(
+                    "SignIn as a employee of an agency & have access to the database"),
               ],
             ),
           ),
-        ),
+          ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SignInPage(),
+                ),
+              );
+            },
+            contentPadding: const EdgeInsets.all(10),
+            leading: const CircleAvatar(
+              child: Icon(Icons.assignment_outlined),
+            ),
+            title: const Text("Agency Login"),
+            trailing: const Icon(Icons.arrow_right_alt),
+            subtitle: const Column(
+              children: [
+                SizedBox(height: 5),
+                Text(
+                    "SignIn as an agency & have the access to update your details and progress."),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -60,7 +86,7 @@ class FirstPage extends StatelessWidget {
         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user?.displayName);
+    // print(userCredential.user?.displayName);
   }
 }
 

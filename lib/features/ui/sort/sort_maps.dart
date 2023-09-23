@@ -99,8 +99,8 @@ class _SortMapScreenState extends State<SortMapScreen> {
             return GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(
-                  widget.sortAgencies[0].agencyLat,
-                  widget.sortAgencies[0].agencyLong,
+                  widget.sortAgencies[1].agencyLat,
+                  widget.sortAgencies[1].agencyLong,
                 ),
                 zoom: 9,
               ),
