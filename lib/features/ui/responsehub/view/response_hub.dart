@@ -57,30 +57,31 @@ class _ResponseHubState extends State<ResponseHub> {
               child: getxController.roomsData.isNotEmpty
                   ? Scrollbar(
                       child: ListView.builder(
-                      itemCount: getxController.roomsData.length,
-                      itemBuilder: (context, index) {
-                        Map curRoom = getxController.roomsData[index];
-                        return TemprorayEmergencyRoomWidget(
-                          radius: curRoom['radius'],
-                          integratedlatLng: curRoom['location'],
-                          integratedroomId: curRoom['roomId'] ?? "",
-                          integratedCreatedOn:
-                              Timestamp.fromMillisecondsSinceEpoch(
-                                      curRoom['createdOn']
-                                          .millisecondsSinceEpoch)
-                                  .toDate()
-                                  .toString(),
-                          integratedReliefRoomName:
-                              curRoom['roomName'] ?? "Unnamed",
-                          integratedReliefRoomCause:
-                              curRoom['disasterType'] ?? "Floods",
-                          integratedReliefRoomAgencies:
-                              curRoom['agencies'] ?? [],
-                          integratedReliefLocation:
-                              curRoom['district'] ?? "Tan",
-                        );
-                      },
-                    ))
+                        itemCount: getxController.roomsData.length,
+                        itemBuilder: (context, index) {
+                          Map curRoom = getxController.roomsData[index];
+                          return TemprorayEmergencyRoomWidget(
+                            radius: curRoom['radius'],
+                            integratedlatLng: curRoom['location'],
+                            integratedroomId: curRoom['roomId'] ?? "",
+                            integratedCreatedOn:
+                                Timestamp.fromMillisecondsSinceEpoch(
+                                        curRoom['createdOn']
+                                            .millisecondsSinceEpoch)
+                                    .toDate()
+                                    .toString(),
+                            integratedReliefRoomName:
+                                curRoom['roomName'] ?? "Unnamed",
+                            integratedReliefRoomCause:
+                                curRoom['disasterType'] ?? "Floods",
+                            integratedReliefRoomAgencies:
+                                curRoom['agencies'] ?? [],
+                            integratedReliefLocation:
+                                curRoom['district'] ?? "Tan",
+                          );
+                        },
+                      ),
+                    )
                   : const EmptyScreen(),
             );
           },

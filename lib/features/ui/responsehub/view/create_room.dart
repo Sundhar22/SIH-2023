@@ -386,10 +386,11 @@ class _CreateRoomState extends State<CreateRoom> {
                         width: double.maxFinite,
                         color: Colors.blueAccent,
                         child: const Center(
-                            child: Text(
-                          "Create a room",
-                          style: TextStyle(color: Colors.white),
-                        )),
+                          child: Text(
+                            "Create a room",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
                     ),
                   ),

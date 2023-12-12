@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/firebase/delete_document.dart';
 import 'package:sih_2023/features/ui/chat/view/chat.dart';
+import 'package:sih_2023/features/ui/map/view/scenario_map.dart';
 import 'package:sih_2023/features/ui/responsehub/view/hub_info.dart';
 import 'package:sih_2023/features/ui/user/user.dart';
 
@@ -9,6 +11,8 @@ Future<dynamic> showQuickActions(
   BuildContext context,
   String roomName,
   String roomID,
+  List initialLoc,
+  double rad
 ) {
   return showDialog(
     context: context,
@@ -69,6 +73,20 @@ Future<dynamic> showQuickActions(
                       Navigator.push(
                         context,
                         MaterialPageRoute(
+                          builder: (context) => ScenarioMapScreen(initialLocation: LatLng(initialLoc[0], initialLoc[1]), radius: rad)
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.map,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      targetUserRoomId = roomID;
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
                           builder: (context) => UserRequestScreen(
                             roomId: roomID,
                           ),
@@ -79,26 +97,27 @@ Future<dynamic> showQuickActions(
                       Icons.emoji_people_sharp,
                     ),
                   ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) =>
+                  //             ChatScreen(roomId: roomID, roomName: roomName),
+                  //       ),
+                  //     );
+                  //   },
+                  //   icon: const Icon(Icons.messenger_outline_sharp),
+                  // ),
                   IconButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              ChatScreen(roomId: roomID, roomName: roomName),
+                          builder: (context) => HubInfo(
+                            roomName: roomName,
+                          ),
                         ),
-                      );
-                    },
-                    icon: const Icon(Icons.messenger_outline_sharp),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => HubInfo(
-                                  roomName: roomName,
-                                )),
                       );
                     },
                     icon: const Icon(Icons.info_outlined),

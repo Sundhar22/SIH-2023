@@ -115,12 +115,35 @@ class _PinMapScreenState extends State<PinMapScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    height: 50,
-                    child: ElevatedButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        showAdaptiveDialog(
+                            context: context,
+                            builder: (context) {
+                              return const AlertDialog(
+                                title: Text('AI Asst'),
+                                content:
+                                    Text('All the nearby agencies were added'),
+                              );
+                            });
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.deepPurpleAccent,
+                        shape: const StadiumBorder(),
+                      ),
+                      child: const Text(
+                        'AI Asst',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 25,
+                    ),
+                    ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.deepPurpleAccent,
@@ -165,8 +188,60 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                  ),
+                  ],
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: SizedBox(
+                //     width: double.maxFinite,
+                //     height: 50,
+                //     child: ElevatedButton(
+                //       style: ElevatedButton.styleFrom(
+                //         foregroundColor: Colors.white,
+                //         backgroundColor: Colors.deepPurpleAccent,
+                //         shape: const StadiumBorder(),
+                //       ),
+                //       onPressed: () {
+                //         firebaseService.pushRoomData(Room(
+                //           radius: radius,
+                //           createdOn: Timestamp.now(),
+                //           roomName: widget.roomName,
+                //           disasterType: widget.disasterType,
+                //           state: widget.selectedState,
+                //           district: widget.selectedDistrict,
+                //           location: [
+                //             _selectedLocation!.latitude,
+                //             _selectedLocation!.longitude
+                //           ],
+                //           agencies: [],
+                //         ));
+                //         showAdaptiveDialog(
+                //             context: context,
+                //             builder: (context) {
+                //               return AlertDialog(
+                //                 title: const Text('Room Created'),
+                //                 content: const Text(
+                //                     'Room has been created successfully'),
+                //                 actions: [
+                //                   TextButton(
+                //                     onPressed: () {
+                //                       Navigator.pop(context);
+                //                       Navigator.pop(context);
+                //                       Navigator.pop(context);
+                //                     },
+                //                     child: const Text('OK'),
+                //                   ),
+                //                 ],
+                //               );
+                //             });
+                //       },
+                //       child: const Text(
+                //         'Create Room',
+                //         style: TextStyle(fontSize: 20),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 const SizedBox(height: 10.0)
               ],
             ),

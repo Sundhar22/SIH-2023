@@ -14,68 +14,82 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: 25),
-              const Text(
-                "Welcome \nBack to Sonic !!",
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold),
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(height: 20),
-              const Image(
-                fit: BoxFit.cover,
-                image: AssetImage("assets/images/signinlogo.png"),
-                height: 300,
-                width: double.infinity,
-              ),
-              const SizedBox(height: 15),
-              Column(
-                children: [
-                  const SizedBox(height: 20),
-                  ListTile(
-                    onTap: () async {
-                      if (await signInWithGoogle() != null) {
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ),
-                        );
-                      }
-                    },
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 5,
-                    ),
-                    leading: const Icon(Icons.login, size: 25),
-                    title: const Text("LogIn With Google"),
-                    trailing: IconButton.filledTonal(
-                      onPressed: () async {},
-                      icon: const Icon(Icons.g_mobiledata),
-                    ),
-                    subtitle: const Column(
-                      children: [
-                        SizedBox(height: 5),
-                        Text(
-                          "Existing user Quickly Login to acess the application",
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 70),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 25),
+            const Text(
+              "Welcome \nBack to Sonic !!",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.start,
+            ),
+            const SizedBox(height: 20),
+            const Image(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/images/signinlogo.png"),
+              height: 300,
+              width: double.infinity,
+            ),
+            const SizedBox(height: 15),
+            Column(
+              children: [
+                const SizedBox(height: 20),
+                ListTile(
+                  onTap: () async {
+                    if (await signInWithGoogle() != null) {
+                      // ignore: use_build_context_synchronously
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
                         ),
-                      ],
-                    ),
+                      );
+                    }
+                  },
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 5,
                   ),
-                  const SizedBox(height: 20),
-                  ListTile(
-                    onTap: () {
+                  leading: const Icon(Icons.login, size: 25),
+                  title: const Text("LogIn With Google"),
+                  trailing: IconButton.filledTonal(
+                    onPressed: () async {},
+                    icon: const Icon(Icons.g_mobiledata),
+                  ),
+                  subtitle: const Column(
+                    children: [
+                      SizedBox(height: 5),
+                      Text(
+                        "Existing user Quickly Login to acess the application",
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ),
+                    );
+                  },
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  leading:
+                      const Icon(Icons.app_registration_outlined, size: 25),
+                  title: const Text("SignUp With Google"),
+                  trailing: IconButton.filledTonal(
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -83,47 +97,31 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       );
                     },
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 5,
-                    ),
-                    leading:
-                        const Icon(Icons.app_registration_outlined, size: 25),
-                    title: const Text("SignUp With Google"),
-                    trailing: IconButton.filledTonal(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignUpPage(),
-                          ),
-                        );
-                      },
-                      // onPressed: () async {
-                      //   if (await signInWithGoogle() != null) {
-                      //     // ignore: use_build_context_synchronously
-                      //     Navigator.push(
-                      //       context,
-                      //       MaterialPageRoute(
-                      //         builder: (context) => const SignUpPage(),
-                      //       ),
-                      //     );
-                      //   }
-                      // },
-                      icon: const Icon(Icons.arrow_right),
-                    ),
-                    subtitle: const Column(
-                      children: [
-                        SizedBox(height: 5),
-                        Text(
-                          "SignIn your agency to register into the centralised database",
-                        ),
-                      ],
-                    ),
+                    // onPressed: () async {
+                    //   if (await signInWithGoogle() != null) {
+                    //     // ignore: use_build_context_synchronously
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => const SignUpPage(),
+                    //       ),
+                    //     );
+                    //   }
+                    // },
+                    icon: const Icon(Icons.arrow_right),
                   ),
-                ],
-              ),
-            ],
-          ),
+                  subtitle: const Column(
+                    children: [
+                      SizedBox(height: 5),
+                      Text(
+                        "SignIn your agency to register into the centralised database",
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

@@ -50,6 +50,8 @@ class _ChatScreenState extends State<ChatScreen> {
         title: const Text("Emergency Room"),
         leadingWidth: MediaQuery.of(context).size.width / 4.4,
         actions: [
+          IconButton(onPressed: (){}, icon: const Icon(Icons.phone)),
+          IconButton(onPressed: (){}, icon: const Icon(Icons.videocam_rounded)),
           IconButton(
               onPressed: () {},
               icon: const Icon(
