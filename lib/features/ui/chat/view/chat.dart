@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sih_2023/features/functions/get_logo_text.dart';
+import 'package:sih_2023/features/ui/call/videocall/groupcall.dart';
+import 'package:sih_2023/features/ui/call/voicecall/voicecall.dart';
 import 'package:sih_2023/features/ui/chat/view/chat_messenger.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/message_tile.dart';
@@ -41,20 +45,41 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
                 icon: const Icon(Icons.arrow_back)),
             CircleAvatar(
-              radius: 20,
-              child: Text(getLogoText(widget.roomName)),
+              radius: 16.5.r,
+              child: Text(
+                getLogoText(
+                  widget.roomName,
+                ),
+                style: TextStyle(fontSize: 12.sp),
+              ),
             ),
           ],
         ),
         elevation: 2,
-        title: const Text("Emergency Room"),
+        title: Text("Emergency Room", style: TextStyle(fontSize: 14.sp)),
         leadingWidth: MediaQuery.of(context).size.width / 4.4,
         actions: [
+          GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VoiceCall('');
+                }));
+              },
+              child: const Icon(CupertinoIcons.phone)),
+          SizedBox(
+            width: 10.w,
+          ),
+          GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const GroupCall()));
+              },
+              child: const Icon(CupertinoIcons.video_camera)),
           IconButton(
               onPressed: () {},
               icon: const Icon(
                 Icons.more_vert,
-              ))
+              )),
         ],
       ),
       bottomSheet: ChatMessenger(roomId: widget.roomId),

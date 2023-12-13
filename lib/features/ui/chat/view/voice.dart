@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AudioPlayerPage extends StatefulWidget {
+  const AudioPlayerPage({super.key});
+
   @override
   _AudioPlayerPageState createState() => _AudioPlayerPageState();
 }
@@ -44,7 +46,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Audio Player'),
+        title: const Text('Audio Player'),
       ),
       body: Column(
         children: [
@@ -66,7 +68,7 @@ class _AudioPlayerPageState extends State<AudioPlayerPage> {
               Expanded(
                 child: TextField(
                   controller: _messageController,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter a message',
                   ),
                 ),

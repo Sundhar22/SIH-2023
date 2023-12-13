@@ -5,7 +5,7 @@ import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({Key? key}) : super(key: key);
+  const SignInPage({super.key});
 
   @override
   State<SignInPage> createState() => _SignInPageState();

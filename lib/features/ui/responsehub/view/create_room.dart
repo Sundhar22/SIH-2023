@@ -346,7 +346,7 @@ class _CreateRoomState extends State<CreateRoom> {
                               child: Text(
                                 _result!.files.map((file) => file.name).join(
                                     ', '), // Join the file names with commas
-                                style: TextStyle(fontSize: 16.0),
+                                style: const TextStyle(fontSize: 16.0),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
