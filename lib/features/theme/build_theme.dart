@@ -5,7 +5,7 @@ ThemeData buildTheme() {
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0,
-      shadowColor: Colors.transparent,
+      shadowColor: Colors.white,
       scrolledUnderElevation: 0,
     ),
     iconButtonTheme: const IconButtonThemeData(
@@ -17,7 +17,8 @@ ThemeData buildTheme() {
       contentPadding: EdgeInsets.all(0),
     ),
     bottomSheetTheme: const BottomSheetThemeData(
-      surfaceTintColor: Colors.grey,
+      backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
     ),
     dividerColor: Colors.transparent,
     fontFamily: 'Poppins',

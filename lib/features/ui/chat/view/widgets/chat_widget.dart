@@ -19,7 +19,7 @@ class ChatMessageLayout extends StatelessWidget {
       message: Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: isSentByMe
+          color: !isSentByMe
               ? const Color.fromRGBO(248, 248, 248, 1)
               : const Color.fromRGBO(0, 39, 136, 1),
           borderRadius: const BorderRadius.only(

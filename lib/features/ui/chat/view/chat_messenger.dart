@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/constants/constants.dart';
+import 'package:get/get.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
+import 'package:sih_2023/features/ui/chat/controller/messgae_controller.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/select_media.dart';
 
@@ -14,98 +15,83 @@ class ChatMessenger extends StatefulWidget {
 }
 
 class _ChatMessengerState extends State<ChatMessenger> {
-  bool textfieldActivated = false;
-  TextEditingController messageController = TextEditingController();
+  late final TextEditingController messageController;
+
+  @override
+  void initState() {
+    super.initState();
+    Get.put(MessageController());
+    messageController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Expanded(
-            child: !textfieldActivated
-                ? GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        textfieldActivated = true;
-                      });
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 15),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        color: Colors.white,
-                      ),
-                      child: const Text("Enter your message"),
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 10,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  color: Color.fromRGBO(249, 249, 249, 1),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: GetX<MessageController>(builder: (controller) {
+                  return TextField(
+                    onTapOutside: (event) =>
+                        controller.isTextFieldActivated.value = false,
+                    onTap: () => controller.isTextFieldActivated.value = true,
+                    controller: messageController,
+                    maxLines: null,
+                    decoration: InputDecoration(
+                      hintText: controller.textFieldSentence.value,
+                      border: InputBorder.none,
                     ),
-                  )
-                : Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: TextField(
-                      onTapOutside: (event) {
+                  );
+                }),
+              ),
+            ),
+            GetX<MessageController>(builder: (controller) {
+              return Row(
+                children: [
+                  !controller.isTextFieldActivated.value
+                      ? SelectMedia(roomId: widget.roomId)
+                      : const SizedBox(width: 5),
+                  CircleAvatar(
+                    backgroundColor: const Color.fromRGBO(0, 39, 136, 1),
+                    child: IconButton(
+                      onPressed: () {
                         if (messageController.value.text.length > 5) {
                           Message textMessage = Message(
-                            type: currentChatLayout == ""
-                                ? 'Text'
-                                : currentChatLayout,
+                            type: 'Text',
                             content: messageController.value.text,
                             time: Timestamp.now(),
                             sender: 'test',
                           );
-                          currentChatLayout = "";
                           sendMessageToRoom(widget.roomId, textMessage);
                           messageController.clear();
-                          setState(() {
-                            textfieldActivated = !textfieldActivated;
-                          });
-                        } else {}
-                        setState(() {
-                          textfieldActivated = !textfieldActivated;
-                        });
+                          controller.isTextFieldActivated.value = false;
+                        } else {
+                          controller.isTextFieldActivated.value = false;
+                        }
                       },
-                      controller: messageController,
-                      maxLines: null,
-                      decoration: const InputDecoration(
-                        hintText: "Enter your message",
-                        border: InputBorder.none,
+                      icon: const Icon(
+                        Icons.arrow_upward_rounded,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-          ),
-          !textfieldActivated
-              ? SelectMedia(roomId: widget.roomId)
-              : const SizedBox(width: 4),
-          CircleAvatar(
-            backgroundColor: Colors.blue,
-            child: IconButton(
-              onPressed: () {
-                if (messageController.value.text.length > 5) {
-                  Message textMessage = Message(
-                    type: 'Text',
-                    content: messageController.value.text,
-                    time: Timestamp.now(),
-                    sender: 'test',
-                  );
-                  sendMessageToRoom(widget.roomId, textMessage);
-                  messageController.clear();
-                  setState(() {
-                    textfieldActivated = !textfieldActivated;
-                  });
-                } else {}
-              },
-              icon: const Icon(
-                Icons.arrow_upward_rounded,
-                color: Colors.white,
-              ),
-            ),
-          )
-        ],
+                ],
+              );
+            })
+          ],
+        ),
       ),
     );
   }
