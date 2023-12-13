@@ -36,12 +36,12 @@ dependencies:
   cloud_firestore: ^4.9.1
   csc_picker: ^0.2.7
   cupertino_icons: ^1.0.2
-  file_picker: ^5.5.0
+  file_picker: ^6.1.1
   firebase_core: ^2.15.1
   firebase_database: ^10.2.5
   firebase_storage: ^11.2.6
   fluttertoast: ^8.2.2
-  syncfusion_flutter_pdfviewer: ^22.2.12
+  syncfusion_flutter_pdfviewer: ^23.2.7
   get: ^4.6.5
   google_maps_flutter: ^2.5.0
   http: ^1.1.0
@@ -62,7 +62,7 @@ dependencies:
   custom_map_markers: ^0.0.2+1
 
 dev_dependencies:
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
   flutter_test:
     sdk: flutter
 

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/model/sort_model.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -13,8 +15,15 @@ class FilterWidget extends StatefulWidget {
 }
 
 class _FilterWidgetState extends State<FilterWidget> {
-  String selectedOption = ""; // Default selected state;
-  bool isSelected = false;
+  late String selectedOption = ""; // Default selected state;
+  late bool isSelected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedOption = "";
+    isSelected = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +43,23 @@ class _FilterWidgetState extends State<FilterWidget> {
             "Cancel",
           ),
         ),
-        TextButton(
-          onPressed: () {
-            if (widget.index == 0) {
-              sortModel.defaultLocation = selectedOption;
-            } else {
-              sortModel.defaultExpertise = selectedOption;
-            }
+        GetX<FilterController>(builder: (controller) {
+          return TextButton(
+            onPressed: () {
+              if (widget.index == 0) {
+                sortModel.defaultLocation = selectedOption;
+                controller.isFilter.value = true;
+              } else {
+                sortModel.defaultExpertise = selectedOption;
+              }
 
-            Navigator.pop(context);
-          },
-          child: const Text(
-            "Apply",
-          ),
-        ),
+              Navigator.pop(context);
+            },
+            child: Text(
+              controller.value.value,
+            ),
+          );
+        }),
       ],
       title: const Text("Choose Agency Based on Location"),
       content: DropdownButton<String>(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/model/sort_model.dart';
 import 'package:sih_2023/features/ui/home/view/filter_widget.dart';
 import 'package:sih_2023/features/ui/sort/sort_page.dart';
@@ -13,8 +15,8 @@ void sortBottomSheet(BuildContext context) {
   ];
 
   final List<IconData> filterIcons = [
-    Icons.location_on_rounded,
-    Icons.work,
+    Icons.location_on_outlined,
+    Icons.work_outline,
   ];
 
   showModalBottomSheet(
@@ -53,7 +55,7 @@ void sortBottomSheet(BuildContext context) {
                 );
               } else if (index == 2) {
                 return ListTile(
-                  leading: const Icon(Icons.location_history),
+                  leading: const Icon(Icons.location_history_outlined),
                   title: const Text("Near By me"),
                   trailing: const Icon(Icons.filter_alt_outlined),
                   subtitle: const Text(
@@ -69,21 +71,7 @@ void sortBottomSheet(BuildContext context) {
                   },
                 );
               } else {
-                return ListTile(
-                  leading: const Icon(Icons.filter_list),
-                  title: const Text("View Results"),
-                  subtitle: const Text(
-                      "Apply the magic filters & narrow down the agencies"),
-                  trailing: const Icon(Icons.auto_awesome_outlined),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SortPage(),
-                      ),
-                    );
-                  },
-                );
+                return const ViewResults();
               }
             },
           ),
@@ -91,4 +79,33 @@ void sortBottomSheet(BuildContext context) {
       );
     },
   );
+}
+
+class ViewResults extends StatelessWidget {
+  const ViewResults({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GetX<FilterController>(builder: (controller) {
+      return controller.isFilter.value
+          ? ListTile(
+              leading: const Icon(Icons.filter_list),
+              title: const Text("View Results"),
+              subtitle: const Text(
+                  "Apply the magic filters & narrow down the agencies"),
+              trailing: const Icon(Icons.auto_awesome_outlined),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SortPage(),
+                  ),
+                );
+              },
+            )
+          : const SizedBox();
+    });
+  }
 }

@@ -12,7 +12,7 @@ class FirstPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 40),
+          const SizedBox(height: 100),
           const Padding(
             padding: EdgeInsets.all(12),
             child: Center(
