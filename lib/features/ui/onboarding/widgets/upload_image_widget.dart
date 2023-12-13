@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 class UploadImageWidget extends StatefulWidget {
   const UploadImageWidget({super.key});
@@ -10,16 +10,19 @@ class UploadImageWidget extends StatefulWidget {
 }
 
 class _UploadImageWidgetState extends State<UploadImageWidget> {
-  File? _image;
-
-  Future<void> _pickImageFromGallery() async {
-    final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
+  File? image;
+  Future<void> pickImageFromGallery() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(type: FileType.image);
+      if (result != null) {
+        final filePath = result.files.single.path;
+        setState(() {
+          image = File(filePath!);
+        });
       }
-    });
+    } catch (e) {
+      print("Error picking a file: $e");
+    }
   }
 
   @override
@@ -29,7 +32,7 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
         CircleAvatar(
           radius: 75,
           backgroundColor: Colors.grey,
-          backgroundImage: _image != null ? FileImage(_image!) : null,
+          backgroundImage: image != null ? FileImage(image!) : null,
         ),
         SizedBox(
           height: 65,
@@ -42,16 +45,60 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
                 },
               ),
             ),
-            onPressed: _pickImageFromGallery,
+            onPressed: pickImageFromGallery,
             child: const Text(
               "Upload your logo",
               style: TextStyle(
-                  color: Colors.deepPurple,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15),
+                color: Colors.lightBlue,
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+              ),
             ),
           ),
         ),
+      ],
+    );
+  }
+}
+
+class SignInUpload extends StatefulWidget {
+  const SignInUpload({super.key});
+
+  @override
+  State<SignInUpload> createState() => _SignInUploadState();
+}
+
+class _SignInUploadState extends State<SignInUpload> {
+  // File? image;
+  // Future<void> pickImageFromGallery() async {
+  //   try {
+  //     final result = await FilePicker.platform.pickFiles(type: FileType.image);
+  //     if (result != null) {
+  //       final filePath = result.files.single.path;
+  //       setState(() {
+  //         image = File(filePath!);
+  //       });
+  //     }
+  //   } catch (e) {
+  //     print("Error picking a file: $e");w
+  //   }
+  // }
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        GestureDetector(
+          // onTap: pickImageFromGallery,
+          child: const Stack(children: <Widget>[
+            CircleAvatar(
+              radius: 65,
+              backgroundColor: Colors.grey,
+              backgroundImage: NetworkImage(
+                  "https://upload.wikimedia.org/wikipedia/en/6/6b/National_Disaster_Management_Authority_Logo.png"),
+              // backgroundImage: image != null ? FileImage(image!) : null,
+            ),
+          ]),
+        )
       ],
     );
   }

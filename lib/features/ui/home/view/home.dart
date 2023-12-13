@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
+import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
+import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
-import 'package:sih_2023/features/ui/map/view/map.dart';
-import 'package:sih_2023/features/ui/responsehub/response_hub.dart';
-import 'package:sih_2023/features/ui/responsehub/response_hub_map.dart';
+import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
+import 'package:sih_2023/features/ui/responsehub/view/response_hub.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,9 +19,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final List pages = [
     const HomeState(),
-    const ResponseHubMapScreen(),
+    const FinalAgencyMapScreen(),
     const ResponseHub(),
-    const HomeState(),
+    const ProfileInfo()
   ];
 
   late int curPage;
@@ -26,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     curPage = 0;
     super.initState();
+    Get.put(AgencyController());
+    Get.put(FilterController());
   }
 
   @override
@@ -33,33 +38,35 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
-          setState(() {
-            curPage = index;
-          });
+          if (index >= 0 && index < pages.length) {
+            setState(() {
+              curPage = index;
+            });
+          }
         },
         currentIndex: curPage,
         type: BottomNavigationBarType.fixed,
-        selectedLabelStyle: const TextStyle(fontSize: 0),
-        unselectedFontSize: 0,
-        iconSize: 30,
+        iconSize: 28,
         selectedIconTheme: const IconThemeData(color: Colors.blueAccent),
-        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        unselectedIconTheme: IconThemeData(
+          color: Colors.grey.shade500,
+        ),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: "",
+            label: "Home",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.location_on),
-            label: "",
+            label: "Map",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: "",
+            icon: Icon(Icons.running_with_errors_sharp),
+            label: "Hub",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: "",
+            label: "Profile",
           ),
         ],
       ),
@@ -73,13 +80,15 @@ class HomeState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GreetMessage(),
+          const GreetMessage(),
           WeatherAlerts(),
-          Expanded(child: AgencyComponent()),
+          const Expanded(
+            child: AgencyComponent(),
+          ),
         ],
       ),
     );

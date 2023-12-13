@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/constants/constants.dart';
 
 class AgencyInformation extends StatelessWidget {
   const AgencyInformation({
@@ -13,35 +14,28 @@ class AgencyInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(5),
       child: ExpansionTile(
         initiallyExpanded: true,
-        childrenPadding: const EdgeInsets.all(10),
+        childrenPadding: const EdgeInsets.only(left: 15),
         title: const Text("Agency Details"),
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 5, left: 10),
-                child: Text(
-                  name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
+              Text(
+                name,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
-              const SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Location(location: location),
-                  AreaOfExpertise(area: area),
-                ],
-              )
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: AgencyLocation(
+                    location: location == '' ? 'All Regions' : location),
+              ),
+              AreaOfExpertise(area: area),
             ],
           ),
         ],
@@ -65,7 +59,7 @@ class AreaOfExpertise extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           children: [
-            const Icon(Icons.food_bank, color: Colors.amber),
+            Icon(logos[area], color: Colors.amber),
             const SizedBox(width: 5),
             Text(area),
             const SizedBox(width: 5),
@@ -76,8 +70,8 @@ class AreaOfExpertise extends StatelessWidget {
   }
 }
 
-class Location extends StatelessWidget {
-  const Location({
+class AgencyLocation extends StatelessWidget {
+  const AgencyLocation({
     super.key,
     required this.location,
   });

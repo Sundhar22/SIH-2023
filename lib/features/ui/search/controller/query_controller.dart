@@ -11,21 +11,15 @@ class QueryController extends GetxController {
     if (query.isEmpty) {
       searchResults.value = [];
     } else {
-      Set queryResult = {};
+      List queryResult = [];
       for (AgencyModel agencyDetails in allAgencyModels) {
         if (agencyDetails.agencyName
             .toLowerCase()
             .startsWith(query.toLowerCase())) {
-          queryResult.add(
-            QueryResultModel(
-              agencyName: agencyDetails.agencyName,
-              agencyLogo: agencyDetails.agencyLogo,
-              agencyKey: agencyDetails.agencyKey,
-            ),
-          );
+          queryResult.add(agencyDetails);
         }
       }
-      searchResults.value = queryResult.toList();
+      searchResults.value = queryResult;
     }
   }
 }

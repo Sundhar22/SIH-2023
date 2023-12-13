@@ -1,62 +1,30 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
-final List<String> weatherUpdates = [
-  "Thunder Shower",
-  "Flood",
-  "Tsunami",
-  "Moderate Thunderstorm",
-  "Very Heavy Rain"
-];
-
-final List<String> weatherLocation = [
-  "Jaunpur",
-  "Assam",
-  "Bardez and Tiswadi",
-  "Chennai",
-  "Narmada"
-];
+import 'package:sih_2023/features/constants/constants.dart';
 
 class WeatherAlerts extends StatelessWidget {
   WeatherAlerts({
     super.key,
   });
-    final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: SizedBox(
-        height: 45,
-        child: ListView.builder(
-          controller: ScrollController(),
-          scrollDirection: Axis.horizontal,
-          itemCount: weatherLocation.length,
-          itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
-                border: Border.all(
-                  color: Colors.grey,
-                ),
-              ),
-              child: WeatherTextIndicator(
-                weatherUpdate: weatherUpdates[index],
-                weatherLocation: weatherLocation[index],
-              ),
-            );
-          },
-        ),
+    return CarouselSlider(
+      items: getWeatherUpdate(),
+      options: CarouselOptions(
+        autoPlay: true,
+        aspectRatio: 8,
+        enableInfiniteScroll: true,
       ),
     );
   }
+
   void scrollToItem(int index) {
     if (index >= 0 && index < 3) {
       _scrollController.animateTo(
         index * 56.0, // Adjust this value according to your item height
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
     }
@@ -74,31 +42,56 @@ class WeatherTextIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 2),
-          child: Icon(Icons.cyclone, color: Colors.red),
-        ),
-        RichText(
-          text: TextSpan(
-            text: weatherUpdate,
-            style: const TextStyle(
-              fontFamily: 'Poppins',
-              color: Colors.black,
-            ),
-            children: <TextSpan>[
-              TextSpan(
-                text: " ($weatherLocation)",
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.red,
-                ),
-              ),
-            ],
+    return Center(
+      child: Row(
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 2),
+            child: Icon(Icons.cyclone, color: Colors.red),
           ),
-        ),
-      ],
+          RichText(
+            text: TextSpan(
+              text: weatherUpdate,
+              style: const TextStyle(
+                fontFamily: 'Poppins',
+                color: Colors.black,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: " ($weatherLocation)",
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
+}
+
+List<Widget> getWeatherUpdate() {
+  List<Widget> weatherSlides = [];
+  for (var element in weatherAPI) {
+    weatherSlides.add(
+      Container(
+        margin: const EdgeInsets.symmetric(horizontal: 5),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          border: Border.all(
+            color: Colors.grey,
+          ),
+        ),
+        child: WeatherTextIndicator(
+          weatherUpdate: element[0].toUpperCase(),
+          weatherLocation: element[1].toUpperCase(),
+        ),
+      ),
+    );
+  }
+  return weatherSlides;
 }

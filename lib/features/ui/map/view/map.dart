@@ -87,7 +87,7 @@ class _MapScreenState extends State<MapScreen> {
 }
 
 Future<BitmapDescriptor> _createCustomMarker(String imagePath) async {
-  final ImageConfiguration config = const ImageConfiguration();
+  const ImageConfiguration config = ImageConfiguration();
   final BitmapDescriptor bitmapDescriptor =
       await BitmapDescriptor.fromAssetImage(config, imagePath);
   return bitmapDescriptor;

@@ -1,9 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:sih_2023/features/ui/employee/employee_signin.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
-
 
 class EmployeeInfoPage extends StatefulWidget {
   const EmployeeInfoPage({super.key});
@@ -13,16 +12,20 @@ class EmployeeInfoPage extends StatefulWidget {
 }
 
 class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
-  File? _image;
-  final defaultImage = AssetImage('assets/default_image.png');
-  Future<void> _pickImageFromGallery() async {
-    final imagePicker = ImagePicker();
-    final pickedFile = await imagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
+  String? _filePath;
+  Future<void> _pickFileFromGallery() async {
+    try {
+      final result = await FilePicker.platform.pickFiles();
+      if (result != null) {
+        final filePath = result.files.single.path;
+        setState(() {
+          _filePath = filePath;
+        });
       }
-    });
+    } catch (e) {
+      // Handle any errors that might occur when picking a file
+      print("Error picking a file: $e");
+    }
   }
 
   @override
@@ -59,28 +62,30 @@ class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
                       children: <Widget>[
                         CircleAvatar(
                           radius: 100,
-                           backgroundColor: Colors.grey,
-                          backgroundImage:
-                              _image != null ? FileImage(_image!) : null,
+                          backgroundColor: Colors.grey,
+                          backgroundImage: _filePath != null
+                              ? FileImage(File(_filePath!))
+                              : null,
                         ),
-                        Positioned(
-                          top: 30,
-                          right: 1,
-                          left: 165,
-                          child: SizedBox(
-                            height: 65,
-                            width: 40,
-                            child: FloatingActionButton(
-                              elevation: 0,
-                              backgroundColor: Colors.deepPurpleAccent,
-                              onPressed: _pickImageFromGallery,
-                              child: const Icon(
-                                Icons.edit,
-                                size: 23,
-                              ),
-                            ),
-                          ),
-                        ),
+                        // Positioned(
+                        //   top: 30,
+                        //   right: 1,
+                        //   left: 165,
+                        //   child: SizedBox(
+                        //     height: 65,
+                        //     width: 40,
+                        //     child: FloatingActionButton(
+                        //       elevation: 0,
+                        //       backgroundColor: Colors.deepPurpleAccent,
+                        //       onPressed:
+                        //           _pickFileFromGallery, // Call the file picker method
+                        //       child: const Icon(
+                        //         Icons.edit,
+                        //         size: 23,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -127,7 +132,7 @@ class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const RegistrationPage(),
+                                builder: (context) => const SignUpPage(),
                               ),
                             );
                           },
@@ -143,7 +148,7 @@ class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
                       Expanded(
                         child: OutlinedButton(
                           style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.deepPurple,
+                              backgroundColor: Colors.lightBlue,
                               // ignore: deprecated_member_use
                               primary: Colors.white,
                               shape: RoundedRectangleBorder(
@@ -175,7 +180,7 @@ class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
                   subfield: "+91 8778807571",
                   icons: Icon(
                     Icons.phone,
-                    color: Colors.deepPurple,
+                    color: Colors.lightBlue,
                   ),
                 ),
                 const employeeDetailWidget(
@@ -183,16 +188,17 @@ class _EmployeeInfoPageState extends State<EmployeeInfoPage> {
                   subfield: "ramkumar@gmail.com",
                   icons: Icon(
                     Icons.mail,
-                    color: Colors.deepPurple,
+                    color: Colors.lightBlue,
                   ),
                 ),
                 const employeeDetailWidget(
-                    name: "Occupation",
-                    subfield: "Supervisor",
-                    icons: Icon(
-                      Icons.work,
-                      color: Colors.deepPurple,
-                    ))
+                  name: "Occupation",
+                  subfield: "Supervisor",
+                  icons: Icon(
+                    Icons.work,
+                    color: Colors.lightBlue,
+                  ),
+                )
               ],
             ),
           ),

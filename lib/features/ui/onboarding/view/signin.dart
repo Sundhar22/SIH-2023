@@ -1,9 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sih_2023/features/ui/home/view/home.dart';
+import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+  const SignInPage({Key? key}) : super(key: key);
+
   @override
   State<SignInPage> createState() => _SignInPageState();
 }
@@ -11,79 +14,114 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Center(
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, top: 50, bottom: 15),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 0.5 * screenHeight,
-                width: 0.9 * screenWidth,
-                child: Image.asset("assets/images/signinlogo.png"),
-              ),
-              const Center(
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 35),
-                ),
-              ),
-              const LoginButton()
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class LoginButton extends StatefulWidget {
-  const LoginButton({super.key});
-
-  @override
-  State<LoginButton> createState() => _LoginButtonState();
-}
-
-class _LoginButtonState extends State<LoginButton> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: SizedBox(
-        height: 50,
-        width: 240,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.lightBlueAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+      body: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: 60),
+            const Text(
+              "Welcome \nBack to Sonic !!",
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.start,
             ),
-          ),
-          onPressed: () {
-            signInWithGoogle();
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 30,
-                width: 40,
-                child: Image.asset("assets/images/google.png"),
-              ),
-              const Text(
-                "SignIn With Google",
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              )
-            ],
-          ),
+            const SizedBox(height: 20),
+            const Image(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/images/signinlogo.png"),
+              height: 300,
+              width: double.infinity,
+            ),
+            const SizedBox(height: 15),
+            Column(
+              children: [
+                const SizedBox(height: 20),
+                ListTile(
+                  onTap: () async {
+                    if (await signInWithGoogle() != null) {
+                      // ignore: use_build_context_synchronously
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeScreen(),
+                        ),
+                      );
+                    }
+                  },
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 10,
+                    horizontal: 5,
+                  ),
+                  leading: const Icon(Icons.login, size: 25),
+                  title: const Text("LogIn With Google"),
+                  trailing: IconButton.filledTonal(
+                    onPressed: () async {},
+                    icon: const Icon(Icons.g_mobiledata),
+                  ),
+                  subtitle: const Column(
+                    children: [
+                      SizedBox(height: 5),
+                      Text(
+                        "Existing user Quickly Login to acess the application",
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ListTile(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpPage(),
+                      ),
+                    );
+                  },
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 5,
+                  ),
+                  leading:
+                      const Icon(Icons.app_registration_outlined, size: 25),
+                  title: const Text("SignUp With Google"),
+                  trailing: IconButton.filledTonal(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPage(),
+                        ),
+                      );
+                    },
+                    // onPressed: () async {
+                    //   if (await signInWithGoogle() != null) {
+                    //     // ignore: use_build_context_synchronously
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => const SignUpPage(),
+                    //       ),
+                    //     );
+                    //   }
+                    // },
+                    icon: const Icon(Icons.arrow_right),
+                  ),
+                  subtitle: const Column(
+                    children: [
+                      SizedBox(height: 5),
+                      Text(
+                        "SignIn your agency to register into the centralised database",
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -96,6 +134,6 @@ class _LoginButtonState extends State<LoginButton> {
         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user?.displayName);
+    return userCredential.user?.displayName;
   }
 }

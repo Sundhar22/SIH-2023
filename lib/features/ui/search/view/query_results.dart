@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
+import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 import 'package:sih_2023/features/ui/home/view/agency_tile.dart';
 import 'package:sih_2023/features/ui/search/controller/query_controller.dart';
+
+getValue(String knownValue, desiredKey) {
+  dynamic key;
+  for (AgencyModel agencyModel in allAgencyModels) {
+    if (agencyModel.agencyName == knownValue) {
+      desiredKey == 'location'
+          ? key = agencyModel.agencyOperatingState
+          : desiredKey == 'description'
+              ? key = agencyModel.agencyDescription
+              : key = agencyModel.agencyAssocaites;
+    }
+  }
+  return key;
+}
 
 class QueryResults extends StatelessWidget {
   const QueryResults({
@@ -31,11 +47,14 @@ class QueryResults extends StatelessWidget {
                 return AgencyTile(
                   agencyName: getxController.searchResults[index].agencyName,
                   agencySpecialisation:
-                      getxController.searchResults[index].agencyName,
+                      getxController.searchResults[index].agencyExpertise,
                   agencyImage: getxController.searchResults[index].agencyLogo,
-                  agencyLocation: "agencyLocation",
-                  agencyAssociates: const [],
-                  agecnyDescription: "",
+                  agencyLocation: getxController
+                      .searchResults[index].agencyOperatingLocation,
+                  agencyAssociates:
+                      getxController.searchResults[index].agencyAssocaites,
+                  agecnyDescription:
+                      getxController.searchResults[index].agencyDescription,
                 );
               },
             ),
