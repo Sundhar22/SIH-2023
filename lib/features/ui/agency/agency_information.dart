@@ -16,8 +16,9 @@ class AgencyInformation extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(5),
       child: ExpansionTile(
+        tilePadding: const EdgeInsets.all(15),
         initiallyExpanded: true,
-        childrenPadding: const EdgeInsets.only(left: 15),
+        childrenPadding: const EdgeInsets.symmetric(horizontal: 10),
         title: const Text("Agency Details"),
         children: [
           Column(

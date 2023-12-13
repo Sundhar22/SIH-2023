@@ -25,31 +25,30 @@ class AgencyAssociates extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: ExpansionTile(
-        title: const Text("Child Agencies"),
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 250,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: agencyList.length,
-                  itemBuilder: (context, index) {
-                    return AssociateAgencyLayout(
-                      agencyLogo: imageLink,
-                      agencyName: agencyList[index],
-                    );
-                  },
-                ),
+    return ExpansionTile(
+      initiallyExpanded: true,
+      tilePadding: const EdgeInsets.symmetric(horizontal: 10),
+      title: const Text("Child Agencies"),
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 250,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: agencyList.length,
+                itemBuilder: (context, index) {
+                  return AssociateAgencyLayout(
+                    agencyLogo: imageLink,
+                    agencyName: agencyList[index],
+                  );
+                },
               ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

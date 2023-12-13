@@ -5,10 +5,9 @@ import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/select_media.dart';
 
-// ignore: must_be_immutable
 class ChatMessenger extends StatefulWidget {
-  ChatMessenger({super.key, required this.roomId});
-  String roomId;
+  const ChatMessenger({super.key, required this.roomId});
+  final String roomId;
 
   @override
   State<ChatMessenger> createState() => _ChatMessengerState();
@@ -16,19 +15,12 @@ class ChatMessenger extends StatefulWidget {
 
 class _ChatMessengerState extends State<ChatMessenger> {
   bool textfieldActivated = false;
+  TextEditingController messageController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController messageController = TextEditingController();
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(
-            "assets/images/chat_bg.jpg",
-          ),
-        ),
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Row(
         children: [
           Expanded(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
+import 'package:sih_2023/features/ui/agency/expanded_agency_screen.dart';
+// import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
@@ -8,6 +9,7 @@ import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
 import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
 import 'package:sih_2023/features/ui/responsehub/view/response_hub.dart';
+import 'package:sih_2023/test.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,9 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomeState(),
     const FinalAgencyMapScreen(),
     const ResponseHub(),
-    const ProfileInfo()
+    const ResponseHub(),
   ];
-
   late int curPage;
   @override
   void initState() {

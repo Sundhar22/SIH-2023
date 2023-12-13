@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/agency/agency_associates.dart';
 import 'package:sih_2023/features/ui/agency/agency_description.dart';
@@ -24,40 +26,110 @@ class AgencyDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.red,
       appBar: AppBar(
         title: const Text("Agency Details"),
         centerTitle: true,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AgencyImageHolder(imageLink: imageLink),
-              const SizedBox(height: 10),
-              AgencyInformation(
-                name: agencyName,
-                area: agencyExpertise,
-                location: agencyLocation,
+        child: CustomScrollView(
+          slivers: [
+            SliverPersistentHeader(
+              delegate: MyDelegate(imageLink: imageLink),
+              floating: true,
+              pinned: true,
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  const SizedBox(height: 20),
+                  AgencyInformation(
+                    name: agencyName,
+                    area: agencyExpertise,
+                    location: agencyLocation,
+                  ),
+                  AgencyDescription(
+                    agencyDescription: angencyDescription,
+                  ),
+                  agencyAssociates[0] != ""
+                      ? AgencyAssociates(
+                          imageLink: imageLink,
+                          agencyList: agencyAssociates,
+                        )
+                      : const SizedBox(),
+                  const ExpansionTile(
+                    title: Text("Employee Details"),
+                  ),
+                  const SizedBox(height: 50),
+                ],
               ),
-              AgencyDescription(
-                agencyDescription: angencyDescription,
-              ),
-              agencyAssociates[0] != ""
-                  ? AgencyAssociates(
-                      imageLink: imageLink,
-                      agencyList: agencyAssociates,
-                    )
-                  : const SizedBox(),
-              const ExpansionTile(
-                title: Text("Employee Details"),
-              ),
-              const SizedBox(height: 50),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
   }
 }
+
+class MyDelegate extends SliverPersistentHeaderDelegate {
+  final String imageLink;
+  MyDelegate({required this.imageLink});
+
+  @override
+  Widget build(context, double shrinkOffset, bool overlapsContent) {
+    var shrinkPercentage =
+        min(1, shrinkOffset / (maxExtent - minExtent)).toDouble();
+
+    return Stack(
+      clipBehavior: Clip.hardEdge,
+      fit: StackFit.expand,
+      children: [
+        Column(
+          children: [
+            Flexible(
+              flex: 1,
+              child: Stack(
+                children: [
+                  Opacity(
+                    opacity: 1 - shrinkPercentage,
+                    child: AgencyImageHolder(imageLink: imageLink),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  @override
+  double get maxExtent => 400;
+
+  @override
+  double get minExtent => 110;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+}
+
+//  AgencyImageHolder(imageLink: imageLink),
+//               const SizedBox(height: 10),
+//               AgencyInformation(
+//                 name: agencyName,
+//                 area: agencyExpertise,
+//                 location: agencyLocation,
+//               ),
+//               AgencyDescription(
+//                 agencyDescription: angencyDescription,
+//               ),
+//               agencyAssociates[0] != ""
+//                   ? AgencyAssociates(
+//                       imageLink: imageLink,
+//                       agencyList: agencyAssociates,
+//                     )
+//                   : const SizedBox(),
+//               const ExpansionTile(
+//                 title: Text("Employee Details"),
+//               ),
+//               const SizedBox(height: 50),
