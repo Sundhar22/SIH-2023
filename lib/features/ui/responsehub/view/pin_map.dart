@@ -4,6 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/responsehub/view/push_room_data.dart';
 import 'package:sih_2023/features/ui/responsehub/view/room_model.dart';
+import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 class PinMapScreen extends StatefulWidget {
   final LatLng initialLocation;
@@ -28,7 +29,8 @@ class _PinMapScreenState extends State<PinMapScreen> {
   GoogleMapController? _mapController;
   LatLng? _selectedLocation;
   Placemark? _selectedAddress;
-  double radius = 500;
+  double radius = 1500;
+  bool isFinished = false;
   FirebaseService firebaseService = FirebaseService();
 
   @override
@@ -42,132 +44,151 @@ class _PinMapScreenState extends State<PinMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Location Map'),
+        title: Text('Choose Location'),
+        centerTitle: true,
       ),
       body: _selectedAddress == null
           ? const Center(child: CircularProgressIndicator())
           : Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Expanded(
-                  child: GoogleMap(
-                    onMapCreated: (controller) {
-                      setState(() {
-                        _mapController = controller;
-                      });
-                    },
-                    initialCameraPosition: CameraPosition(
-                      target: widget.initialLocation,
-                      zoom: 15.0,
-                    ),
-                    circles: {
-                      Circle(
-                        circleId: const CircleId('radius_circle'),
-                        center: _selectedLocation!,
-                        radius: radius,
-                        fillColor: Colors.red.withOpacity(0.3),
-                        strokeColor: Colors.red,
-                        strokeWidth: 2,
-                      ),
-                    },
-                    markers: _selectedLocation != null
-                        ? {
-                            Marker(
-                              markerId: const MarkerId('selected_location'),
-                              position: _selectedLocation!,
-                              infoWindow: const InfoWindow(
-                                title: 'Selected Location',
-                              ),
-                              draggable: true, // Make the marker draggable
-                              onDrag: (newPosition) {
-                                setState(() {
-                                  _selectedLocation = newPosition;
-                                });
-                              },
-                              onDragEnd: (value) {
-                                _fetchAddress(value);
-                              },
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height / 2,
+                        child: GoogleMap(
+                          mapToolbarEnabled: false,
+                          mapType: MapType.normal,
+                          zoomControlsEnabled: false,
+                          onMapCreated: (controller) {
+                            setState(() {
+                              _mapController = controller;
+                            });
+                          },
+                          initialCameraPosition: CameraPosition(
+                            target: widget.initialLocation,
+                            zoom: 13.0,
+                          ),
+                          circles: {
+                            Circle(
+                              circleId: const CircleId('radius_circle'),
+                              center: _selectedLocation!,
+                              radius: radius,
+                              fillColor: Colors.red.withOpacity(0.3),
+                              strokeColor: Colors.red,
+                              strokeWidth: 2,
                             ),
-                          }
-                        : {},
-                  ),
+                          },
+                          markers: _selectedLocation != null
+                              ? {
+                                  Marker(
+                                    markerId:
+                                        const MarkerId('selected_location'),
+                                    position: _selectedLocation!,
+                                    draggable: true,
+                                    onDrag: (newPosition) {
+                                      setState(() {
+                                        _selectedLocation = newPosition;
+                                      });
+                                    },
+                                    onDragEnd: (value) {
+                                      _fetchAddress(value);
+                                    },
+                                  ),
+                                }
+                              : {},
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '${radius.ceil()} M',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Slider(
+                        activeColor: Colors.red,
+                        inactiveColor: Colors.red[100],
+                        value: radius,
+                        onChanged: (value) {
+                          setState(() {
+                            radius = value;
+                          });
+                        },
+                        min: 1000,
+                        max: 10000),
+                    const SizedBox(height: 30.0),
+                    Text(
+                        '${_selectedAddress!.street},  ${_selectedAddress!.locality},${_selectedAddress!.administrativeArea}, ${_selectedAddress!.country}',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 18)),
+                  ],
                 ),
-                Text(
-                  'Tap and hold to pin your location',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    color: Colors.grey[500],
-                    fontWeight: FontWeight.bold,
+                Center(
+                  child: SizedBox(
+                    width: 300,
+                    child: Center(
+                      child: SwipeableButtonView(
+                        buttonText: 'SLIDE TO CREATE ROOM',
+                        buttonWidget: Container(
+                          child: Icon(
+                            Icons.arrow_forward_ios_rounded,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        activeColor: Colors.red,
+                        isFinished: isFinished,
+                        onWaitingProcess: () {
+                          Future.delayed(Duration(seconds: 2), () {
+                            setState(() {
+                              isFinished = true;
+                            });
+                          });
+                        },
+                        // onFinish: () {},
+                        onFinish: () async {
+                          firebaseService.pushRoomData(Room(
+                            radius: radius,
+                            createdOn: Timestamp.now(),
+                            roomName: widget.roomName,
+                            disasterType: widget.disasterType,
+                            state: widget.selectedState,
+                            district: widget.selectedDistrict,
+                            location: [
+                              _selectedLocation!.latitude,
+                              _selectedLocation!.longitude
+                            ],
+                            agencies: [],
+                          ));
+                          showAdaptiveDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Room Created'),
+                                  content: const Text(
+                                      'Room has been created successfully'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                      ),
+                    ),
                   ),
-                ),
-                Slider(
-                    value: radius,
-                    onChanged: (value) {
-                      setState(() {
-                        radius = value;
-                      });
-                    },
-                    min: 100,
-                    max: 1000),
-                Text('selected radius: ${radius.ceil()} Meters'),
-                const SizedBox(height: 30.0),
-                Text(
-                  'Selected Location: ${_selectedAddress!.street},  ${_selectedAddress!.locality},${_selectedAddress!.administrativeArea}, ${_selectedAddress!.country}',
-                  textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10.0),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    width: double.maxFinite,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.deepPurpleAccent,
-                        shape: const StadiumBorder(),
-                      ),
-                      onPressed: () {
-                        firebaseService.pushRoomData(Room(
-                          radius: radius,
-                          createdOn: Timestamp.now(),
-                          roomName: widget.roomName,
-                          disasterType: widget.disasterType,
-                          state: widget.selectedState,
-                          district: widget.selectedDistrict,
-                          location: [
-                            _selectedLocation!.latitude,
-                            _selectedLocation!.longitude
-                          ],
-                          agencies: [],
-                        ));
-                        showAdaptiveDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: const Text('Room Created'),
-                                content: const Text(
-                                    'Room has been created successfully'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text('OK'),
-                                  ),
-                                ],
-                              );
-                            });
-                      },
-                      child: const Text(
-                        'Create Room',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10.0)
               ],
             ),
     );

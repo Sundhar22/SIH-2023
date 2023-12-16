@@ -26,6 +26,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'SIH-23',
         theme: buildTheme(),
-        home: Home);
+        home: HomeScreen());
   }
 }
