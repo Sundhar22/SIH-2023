@@ -86,7 +86,7 @@ class FileTypeSelectionDialog extends StatelessWidget {
               },
               child: MediaButton(
                 icon: Icons.menu_sharp,
-                name: 'Chat Layouts',
+                name: 'Layout',
               ),
             ),
           ],
@@ -108,7 +108,7 @@ class MediaButton extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: const Color.fromRGBO(0, 39, 136, 1),
           child: Icon(
             icon,
             color: Colors.white,

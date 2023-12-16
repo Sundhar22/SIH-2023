@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sih_2023/features/ui/agency/expanded_agency_screen.dart';
-// import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
+import 'package:sih_2023/features/ui/community/auth_controller.dart';
+import 'package:sih_2023/features/ui/community/social.dart';
+import 'package:sih_2023/features/ui/community/view/comm_posts.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
-import 'package:sih_2023/features/ui/home/view/weather_alerts.dart';
 import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
 import 'package:sih_2023/features/ui/responsehub/view/response_hub.dart';
-import 'package:sih_2023/test.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const HomeState(),
     const FinalAgencyMapScreen(),
     const ResponseHub(),
+    const SocialPage(),
     const ResponseHub(),
   ];
   late int curPage;
@@ -30,8 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     curPage = 0;
     super.initState();
-    Get.put(AgencyController());
-    Get.put(FilterController());
   }
 
   @override
@@ -66,6 +64,10 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "Hub",
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.keyboard_command_key_sharp),
+            label: "Social",
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: "Profile",
           ),
@@ -81,13 +83,12 @@ class HomeState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const GreetMessage(),
-          WeatherAlerts(),
-          const Expanded(
+          GreetMessage(),
+          Expanded(
             child: AgencyComponent(),
           ),
         ],

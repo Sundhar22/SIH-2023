@@ -46,8 +46,8 @@ class ChatMessageLayout extends StatelessWidget {
                     chatMsg,
                     style: TextStyle(
                       fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: isSentByMe ? Colors.black : Colors.white,
+                      fontWeight: FontWeight.w100,
+                      color: !isSentByMe ? Colors.black : Colors.white,
                     ),
                   ),
                 ],
@@ -57,7 +57,7 @@ class ChatMessageLayout extends StatelessWidget {
             Text(
               returnTime(msgTime),
               style: TextStyle(
-                color: isSentByMe ? Colors.black : Colors.white,
+                color: !isSentByMe ? Colors.black : Colors.white,
                 fontSize: 12,
               ),
             ),

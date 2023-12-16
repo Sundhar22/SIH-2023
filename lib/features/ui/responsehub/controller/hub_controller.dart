@@ -20,6 +20,5 @@ class ResponseHubController extends GetxController {
       fetchResults.add(roomData);
     }
     roomsData.value = fetchResults;
-    print(roomsData);
   }
 }
