@@ -13,13 +13,13 @@ class AgencyDescription extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ExpansionTile(
-        initiallyExpanded: false,
-        childrenPadding: const EdgeInsets.all(10),
+        tilePadding: const EdgeInsets.symmetric(horizontal: 10),
+        initiallyExpanded: true,
+        childrenPadding: const EdgeInsets.symmetric(horizontal: 10),
         title: const Text("Agency Description"),
         children: [
           Text(
             agencyDescription,
-            // overflow: TextOverflow.ellipsis,
             style: const TextStyle(fontSize: 16),
           ),
         ],

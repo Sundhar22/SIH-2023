@@ -16,9 +16,12 @@ class FileTypeSelectionDialog extends StatelessWidget {
       insetPadding: const EdgeInsets.only(bottom: 20),
       alignment: Alignment.bottomCenter,
       child: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.symmetric(
+          vertical: 15,
+          horizontal: 20,
+        ),
         child: Wrap(
-          spacing: 20.0,
+          spacing: 30.0,
           runSpacing: 20.0,
           children: [
             InkWell(
@@ -75,7 +78,7 @@ class FileTypeSelectionDialog extends StatelessWidget {
                   context: context,
                   builder: (context) {
                     return const AlertDialog(
-                      title: Text("Choose Layouts"),
+                      title: Text("Layouts"),
                       content: ChooseLayout(),
                     );
                   },
@@ -83,7 +86,7 @@ class FileTypeSelectionDialog extends StatelessWidget {
               },
               child: MediaButton(
                 icon: Icons.menu_sharp,
-                name: 'Chat Layouts',
+                name: 'Layout',
               ),
             ),
           ],
@@ -105,7 +108,7 @@ class MediaButton extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 30,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: const Color.fromRGBO(0, 39, 136, 1),
           child: Icon(
             icon,
             color: Colors.white,

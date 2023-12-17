@@ -21,9 +21,10 @@ class _MessageTileState extends State<MessageTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 2),
       alignment: widget.sentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 2),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -58,9 +59,6 @@ class _MessageTileState extends State<MessageTile> {
                         topRight: Radius.circular(15),
                         bottomRight: Radius.circular(15),
                       ),
-                color: widget.sentByMe
-                    ? Colors.greenAccent.shade100
-                    : Colors.white,
               ),
               child: widget.message,
             ),

@@ -14,7 +14,7 @@ class AgencyImageHolder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
       child: Container(
-        height: 500,
+        height: 600,
         width: double.maxFinite,
         decoration: BoxDecoration(
           image: DecorationImage(
