@@ -12,7 +12,7 @@ class AgencyController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // await fetchAgency();
+    await fetchAgency();
     locationData = await locationInstance.getLocation();
     defaultLatitude = locationData.latitude ?? 0.0;
     defaultLatitude = locationData.longitude ?? 0.0;
