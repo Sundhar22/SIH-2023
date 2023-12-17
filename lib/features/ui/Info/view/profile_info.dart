@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/ui/employee/employee_signin.dart';
 import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';

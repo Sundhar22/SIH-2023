@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MediaPage extends StatefulWidget {
   final String roomName;
 
-  MediaPage({required this.roomName});
+  const MediaPage({super.key, required this.roomName});
 
   @override
   _MediaPageState createState() => _MediaPageState();

@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:sih_2023/features/functions/get_logo_text.dart';
+import 'package:sih_2023/features/ui/call/videocall/groupcall.dart';
+import 'package:sih_2023/features/ui/call/voicecall/voicecall.dart';
 import 'package:sih_2023/features/ui/chat/view/chat_messenger.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/message_tile.dart';
@@ -55,11 +58,27 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
         leadingWidth: MediaQuery.of(context).size.width / 4.9,
         actions: [
+          GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return VoiceCall('');
+                }));
+              },
+              child: const Icon(CupertinoIcons.phone)),
+          SizedBox(
+            width: 10,
+          ),
+          GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const GroupCall()));
+              },
+              child: const Icon(CupertinoIcons.video_camera)),
           IconButton(
               onPressed: () {},
               icon: const Icon(
                 Icons.more_vert,
-              ))
+              )),
         ],
       ),
       bottomSheet: ChatMessenger(roomId: widget.roomId),

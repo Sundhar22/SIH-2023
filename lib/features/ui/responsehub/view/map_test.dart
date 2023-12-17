@@ -6,7 +6,7 @@ import 'package:sih_2023/features/functions/dialogs/show_dialog.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
 class FinalAgencyMapScreen extends StatefulWidget {
-  const FinalAgencyMapScreen({Key? key}) : super(key: key);
+  const FinalAgencyMapScreen({super.key});
 
   @override
   State<FinalAgencyMapScreen> createState() => _FinalAgencyMapScreenState();

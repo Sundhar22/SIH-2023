@@ -6,7 +6,7 @@ import 'package:sih_2023/features/functions/dialogs/show_dialog.dart';
 import 'package:sih_2023/features/ui/home/model/agency_model.dart';
 
 class SortMapScreen extends StatefulWidget {
-  const SortMapScreen({Key? key, required this.sortAgencies}) : super(key: key);
+  const SortMapScreen({super.key, required this.sortAgencies});
 
   @override
   State<SortMapScreen> createState() => _SortMapScreenState();
