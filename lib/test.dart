@@ -86,12 +86,13 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
                     child: Container(
                       height: 900,
                       decoration: const BoxDecoration(
-                          image: DecorationImage(
-                        fit: BoxFit.fitWidth,
-                        alignment: FractionalOffset.topCenter,
-                        image: NetworkImage(
-                            'https://66.media.tumblr.com/c063f0b98040e8ec4b07547263b8aa15/tumblr_inline_ppignaTjX21s9on4d_540.jpg'),
-                      )),
+                        image: DecorationImage(
+                          fit: BoxFit.fitWidth,
+                          alignment: FractionalOffset.topCenter,
+                          image: NetworkImage(
+                              'https://66.media.tumblr.com/c063f0b98040e8ec4b07547263b8aa15/tumblr_inline_ppignaTjX21s9on4d_540.jpg'),
+                        ),
+                      ),
                     ),
                   ),
                 ],

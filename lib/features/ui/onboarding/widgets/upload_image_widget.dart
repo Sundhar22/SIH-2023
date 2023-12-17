@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 
 class UploadImageWidget extends StatefulWidget {
-  const UploadImageWidget({super.key});
+  const UploadImageWidget({Key? key}) : super(key: key);
 
   @override
   State<UploadImageWidget> createState() => _UploadImageWidgetState();
@@ -11,6 +11,7 @@ class UploadImageWidget extends StatefulWidget {
 
 class _UploadImageWidgetState extends State<UploadImageWidget> {
   File? image;
+
   Future<void> pickImageFromGallery() async {
     try {
       final result = await FilePicker.platform.pickFiles(type: FileType.image);
@@ -28,33 +29,39 @@ class _UploadImageWidgetState extends State<UploadImageWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CircleAvatar(
-          radius: 75,
-          backgroundColor: Colors.grey,
-          backgroundImage: image != null ? FileImage(image!) : null,
-        ),
-        SizedBox(
-          height: 65,
-          width: 160,
-          child: TextButton(
-            style: ButtonStyle(
-              overlayColor: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-                  return Colors.white;
+        Stack(
+          children: [
+            CircleAvatar(
+              radius: 75,
+              backgroundImage: image != null ? FileImage(image!) : null,
+              child: const Icon(Icons.person_outline_rounded, size: 40,),
+              // backgroundColor: const Color.fromRGBO(249, 249, 249, 1),
+            ),
+            Positioned(
+              bottom: 5,
+              right: 5,
+              child: GestureDetector(
+                onTap: () {
+                  pickImageFromGallery();
                 },
+                child: Container(
+                  padding: const EdgeInsets.all(7),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    // color: Colors.lightBlue[100]
+                  ),
+                  child:  Icon(
+                    Icons.add_a_photo_rounded,
+                    size: 25,
+                    color: Colors.grey[800],
+                  ),
+                ),
               ),
             ),
-            onPressed: pickImageFromGallery,
-            child: const Text(
-              "Upload your logo",
-              style: TextStyle(
-                color: Colors.lightBlue,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-              ),
-            ),
-          ),
+          ],
         ),
       ],
     );

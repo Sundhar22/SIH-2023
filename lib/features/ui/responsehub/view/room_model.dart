@@ -32,7 +32,6 @@ class Room {
       'district': district,
       'location': location,
       'agencies': agencies,
-      
       'createdOn': createdOn,
     };
   }
