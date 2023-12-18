@@ -1,8 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class VerificationPage extends StatefulWidget {
-  const VerificationPage({super.key});
+  VerificationPage(
+      {super.key,
+      required this.roomId,
+      required this.roomName,
+      required this.disasterType,
+      required this.state,
+      required this.district,
+      required this.reportedBy,
+      required this.mapLocation});
+  String roomName;
+  String disasterType;
+  String roomId;
+  String state;
+  String district;
+  String reportedBy;
+  LatLng mapLocation;
 
   @override
   State<VerificationPage> createState() => _VerificationPageState();
@@ -26,14 +43,15 @@ class _VerificationPageState extends State<VerificationPage> {
               children: [
                 ContainerWidget(
                   heading: "Emergency Room Name",
-                  data: "Madurai Fire Accident",
+                  data: widget.roomName,
                 ),
-                ContainerWidget(heading: "Disaster Type", data: "Manmade"),
+                // ContainerWidget(heading: "Disaster Type", data: "Manmade"),
                 ContainerWidget(
-                    heading: "Disaster Name", data: "Fire Accident"),
-                ContainerWidget(heading: "State", data: "Tamil Nadu"),
-                ContainerWidget(heading: "District", data: "Chennai"),
-                ContainerWidget(heading: "Reported By", data: "Ram"),
+                    heading: "Disaster Name", data: widget.disasterType),
+                ContainerWidget(heading: "State", data: widget.state),
+                ContainerWidget(heading: "District", data: widget.district),
+                ContainerWidget(
+                    heading: "Reported By", data: widget.reportedBy),
                 const Text(
                   "Map Location",
                   style: TextStyle(fontSize: 17),
@@ -45,8 +63,8 @@ class _VerificationPageState extends State<VerificationPage> {
                   height: 177,
                   width: double.infinity,
                   child: GoogleMap(
-                    initialCameraPosition: const CameraPosition(
-                        target: LatLng(37.7749, -122.4194), zoom: 12.0),
+                    initialCameraPosition:
+                        CameraPosition(target: widget.mapLocation, zoom: 12.0),
                     markers: {
                       const Marker(
                         markerId: MarkerId('marker_1'),
@@ -74,7 +92,25 @@ class _VerificationPageState extends State<VerificationPage> {
                           backgroundColor: Colors.red,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {},
+                      onPressed: () {
+                        deleteRoom(widget.roomId);
+                        Get.dialog(
+                          AlertDialog(
+                            title: const Text('Room Declined'),
+                            content: const Text(
+                                'The room has been declined successfully!'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                       child: const Text(
                         "Decline",
                         style: TextStyle(color: Colors.white),
@@ -88,7 +124,25 @@ class _VerificationPageState extends State<VerificationPage> {
                           backgroundColor: Colors.green,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
-                      onPressed: () {},
+                      onPressed: () {
+                        updateRoomStatus(widget.roomId, 1);
+                        Get.dialog(
+                          AlertDialog(
+                            title: const Text('Room Approved'),
+                            content: const Text(
+                                'The room has been approved successfully!'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                  Get.back();
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                       child: const Text(
                         "Approve",
                         style: TextStyle(color: Colors.white),
@@ -151,6 +205,29 @@ class ContainerWidget extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+Future<void> updateRoomStatus(String roomId, int newStatus) async {
+  try {
+    await FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(roomId)
+        .update({'status': newStatus});
+
+    print('Status updated successfully!');
+  } catch (e) {
+    print('Error updating status: $e');
+  }
+}
+
+Future<void> deleteRoom(String roomId) async {
+  try {
+    await FirebaseFirestore.instance.collection('rooms').doc(roomId).delete();
+
+    print('Status updated successfully!');
+  } catch (e) {
+    print('Error updating status: $e');
   }
 }
 

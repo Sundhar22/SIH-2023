@@ -154,6 +154,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                           firebaseService.pushRoomData(Room(
                             radius: radius,
                             createdOn: Timestamp.now(),
+                            status:0,
                             roomName: widget.roomName,
                             disasterType: widget.disasterType,
                             state: widget.selectedState,

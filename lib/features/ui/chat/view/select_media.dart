@@ -1,19 +1,23 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart' as picker;
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/chat/view/filetype.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
+import 'package:http/http.dart' as http;
 
 class SelectMedia extends StatelessWidget {
-  const SelectMedia({
+   SelectMedia({
     super.key,
     required this.roomId,
   });
 
   final String roomId;
+  final dio = Dio();
   @override
   Widget build(BuildContext context) {
     ProgressDialog pd = ProgressDialog(context: context);
@@ -70,7 +74,9 @@ class SelectMedia extends StatelessWidget {
       picker.PlatformFile file, FileType type, ProgressDialog pd) async {
     try {
       Reference storageReference =
-          FirebaseStorage.instance.ref().child('${type.name}/${file.name}');
+          FirebaseStorage.instance.ref().child('${file.name}');
+      // Reference storageReference =
+      //     FirebaseStorage.instance.ref().child('${type.name}/${file.name}');
       UploadTask uploadTask = storageReference.putData(file.bytes!);
 
       await uploadTask.whenComplete(
@@ -82,6 +88,8 @@ class SelectMedia extends StatelessWidget {
           pd.close();
           uploadTask.snapshot.ref.getDownloadURL().then(
             (value) {
+              fetchData(value).then((value) => print(value));
+
               Message message = Message(
                 type: type.name,
                 content: value,
@@ -94,6 +102,20 @@ class SelectMedia extends StatelessWidget {
         },
       );
     } catch (e) {}
+  }
+
+  Future<List<dynamic>> fetchData(String imageUrl) async {
+    print('https://mitti-server.onrender.com/image?image_url=$imageUrl}');
+
+    final response = await dio.get('https://mitti-server.onrender.com/image?image_url=$imageUrl}');
+  print(response);
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('Failed to load album');
+    }
+   
+  
   }
 
   Future<void> sendMessageToRoom(String roomId, Message message) async {

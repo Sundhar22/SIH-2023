@@ -8,7 +8,8 @@ class Room {
   String district;
   List location;
   List<String> agencies;
- 
+  int status;
+
   Timestamp createdOn;
 
   Room({
@@ -19,7 +20,7 @@ class Room {
     required this.district,
     required this.location,
     required this.agencies,
-   
+    required this.status,
     required this.createdOn,
   });
 
@@ -33,6 +34,7 @@ class Room {
       'location': location,
       'agencies': agencies,
       'createdOn': createdOn,
+      'status': status,
     };
   }
 }
