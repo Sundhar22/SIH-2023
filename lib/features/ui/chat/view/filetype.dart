@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
-import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
 import 'package:sih_2023/main.dart';
 
 enum FileType { photo, document, video, audio, resource }
@@ -197,7 +196,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                           Message textMessage = Message(
                             type: 'Text',
                             content:
-                                'Resource Required :  ${selectedResourceType} \n No of Resource needed : ${resourceController.text} \n Description : ${descriptionController.text} ',
+                                'Resource Required :  $selectedResourceType \n No of Resource needed : ${resourceController.text} \n Description : ${descriptionController.text} ',
                             time: Timestamp.now(),
                             sender: userData,
                           );
@@ -206,7 +205,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                           Navigator.pop(context);
                           Navigator.pop(context);
                         },
-                        child: Text('ACCEPT'),
+                        child: const Text('ACCEPT'),
                       ),
                     ],
                   ),
@@ -248,24 +247,24 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                 name: 'Audio',
               ),
             ),
-            InkWell(
-              onTap: () {
-                Navigator.pop(context);
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const AlertDialog(
-                      title: Text("Layouts"),
-                      content: ChooseLayout(),
-                    );
-                  },
-                );
-              },
-              child: MediaButton(
-                icon: Icons.menu_sharp,
-                name: 'Layout',
-              ),
-            ),
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.pop(context);
+            //     showDialog(
+            //       context: context,
+            //       builder: (context) {
+            //         return const AlertDialog(
+            //           title: Text("Layouts"),
+            //           content: ChooseLayout(),
+            //         );
+            //       },
+            //     );
+            //   },
+            //   child: MediaButton(
+            //     icon: Icons.menu_sharp,
+            //     name: 'Layout',
+            //   ),
+            // ),
           ],
         ),
       ),

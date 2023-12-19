@@ -55,7 +55,6 @@ class _ChatMessengerState extends State<ChatMessenger> {
                       border: InputBorder.none,
                     ),
                   );
-
                 }),
               ),
             ),
@@ -97,18 +96,17 @@ class _ChatMessengerState extends State<ChatMessenger> {
       ),
     );
   }
-
-  
 }
+
 Future<void> sendMessageToRoom(String roomId, Message message) async {
-    try {
-      // Reference the room's "chatData" subcollection and add the message
-      await FirebaseFirestore.instance
-          .collection('rooms')
-          .doc(roomId)
-          .collection('chatData')
-          .add(message.toMap());
-    } catch (error) {
-      showToast("Please connect to internt");
-    }
+  try {
+    // Reference the room's "chatData" subcollection and add the message
+    await FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(roomId)
+        .collection('chatData')
+        .add(message.toMap());
+  } catch (error) {
+    showToast("Please connect to internt");
   }
+}

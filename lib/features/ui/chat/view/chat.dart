@@ -46,8 +46,12 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: const Icon(Icons.arrow_back),
             ),
             CircleAvatar(
-              radius: 15,
-              child: Text(getLogoText(widget.roomName)),
+              radius: 12,
+              child: Center(
+                child: Text(
+                  getLogoText(widget.roomName),
+                ),
+              ),
             ),
           ],
         ),

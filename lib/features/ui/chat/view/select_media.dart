@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart' as picker;
@@ -9,10 +9,9 @@ import 'package:sih_2023/features/ui/chat/view/filetype.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
-import 'package:http/http.dart' as http;
 
 class SelectMedia extends StatelessWidget {
-   SelectMedia({
+  SelectMedia({
     super.key,
     required this.roomId,
   });
@@ -27,110 +26,109 @@ class SelectMedia extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.attach_file),
       onPressed: () async {
-        FileType.resource == 'resource' ? showDialog(
-                  builder: (context) => AlertDialog(
-                    title: const Text("Resource Sharing"),
-                    content: const SingleChildScrollView(
-                      child:  Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ResourceType(),
-                          SizedBox(
-                            height: 14,
+        FileType.resource == 'resource'
+            ? showDialog(
+                builder: (context) => AlertDialog(
+                  title: const Text("Resource Sharing"),
+                  content: const SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ResourceType(),
+                        SizedBox(
+                          height: 14,
+                        ),
+                        Text(
+                          "Resources",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.normal,
                           ),
-                          Text(
-                            "Resources",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.normal,
-                            ),
+                        ),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        FormWidget(hinttext: "Amount of Resources"),
+                        SizedBox(
+                          height: 14,
+                        ),
+                        Text(
+                          "Description",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.normal,
                           ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          FormWidget(hinttext: "Amount of Resources"),
-                          SizedBox(
-                            height: 14,
-                          ),
-                          Text(
-                            "Description",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 7,
-                          ),
-                          FormWidget(hinttext: "Describe here")
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 7,
+                        ),
+                        FormWidget(hinttext: "Describe here")
+                      ],
                     ),
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('CANCEL'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text('ACCEPT'),
-                      ),
-                    ],
                   ),
-                  context: context,
-                ) : showDialog(
-          context: context,
-          builder: (context) {
-            return FileTypeSelectionDialog(
-              onTypeSelected: (type) {
-                selectedFileType = type;
-              },
-              roomID: roomId,
-            );
-          },
-        ).then((_) async {
-          if (selectedFileType != null) {
-            List<String> allowedExtensions = [];
-            switch (selectedFileType) {
-              case FileType.photo:
-                allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-                break;
-              case FileType.document:
-                allowedExtensions = ['pdf', 'doc', 'docx', 'txt'];
-                break;
-              case FileType.video:
-                allowedExtensions = ['mp4', 'avi', 'mkv'];
-                break;
-              case FileType.audio:
-                allowedExtensions = ['mp3', 'wav'];
-                break;
-              case FileType.resource:
-                break;
-                
-              
-            
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('CANCEL'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('ACCEPT'),
+                    ),
+                  ],
+                ),
+                context: context,
+              )
+            : showDialog(
+                context: context,
+                builder: (context) {
+                  return FileTypeSelectionDialog(
+                    onTypeSelected: (type) {
+                      selectedFileType = type;
+                    },
+                    roomID: roomId,
+                  );
+                },
+              ).then((_) async {
+                if (selectedFileType != null) {
+                  List<String> allowedExtensions = [];
+                  switch (selectedFileType) {
+                    case FileType.photo:
+                      allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                      break;
+                    case FileType.document:
+                      allowedExtensions = ['pdf', 'doc', 'docx', 'txt'];
+                      break;
+                    case FileType.video:
+                      allowedExtensions = ['mp4', 'avi', 'mkv'];
+                      break;
+                    case FileType.audio:
+                      allowedExtensions = ['mp3', 'wav'];
+                      break;
+                    case FileType.resource:
+                      break;
 
-              case null:
-            }
-            picker.PlatformFile? file =
-                await pickFileWithTypeFilter(allowedExtensions);
-            if (file != null) {
-              pd.show(
-                max: 100,
-                msg: 'Sending ${file.name}',
-                msgMaxLines: 2,
-                progressType: ProgressType.valuable,
-              );
-              uploadFileToFirebase(file, selectedFileType!, pd);
-            } else {}
-          }
-        });
+                    case null:
+                  }
+                  picker.PlatformFile? file =
+                      await pickFileWithTypeFilter(allowedExtensions);
+                  if (file != null) {
+                    pd.show(
+                      max: 100,
+                      msg: 'Sending ${file.name}',
+                      msgMaxLines: 2,
+                      progressType: ProgressType.valuable,
+                    );
+                    uploadFileToFirebase(file, selectedFileType!, pd);
+                  } else {}
+                }
+              });
       },
     );
   }
@@ -139,7 +137,7 @@ class SelectMedia extends StatelessWidget {
       picker.PlatformFile file, FileType type, ProgressDialog pd) async {
     try {
       Reference storageReference =
-          FirebaseStorage.instance.ref().child('${file.name}');
+          FirebaseStorage.instance.ref().child(file.name);
       // Reference storageReference =
       //     FirebaseStorage.instance.ref().child('${type.name}/${file.name}');
       UploadTask uploadTask = storageReference.putData(file.bytes!);
@@ -172,15 +170,14 @@ class SelectMedia extends StatelessWidget {
   Future<List<dynamic>> fetchData(String imageUrl) async {
     print('https://mitti-server.onrender.com/image?image_url=$imageUrl}');
 
-    final response = await dio.get('https://mitti-server.onrender.com/image?image_url=$imageUrl}');
-  print(response);
+    final response = await dio
+        .get('https://mitti-server.onrender.com/image?image_url=$imageUrl}');
+    print(response);
     if (response.statusCode == 200) {
       return response.data;
     } else {
       throw Exception('Failed to load album');
     }
-   
-  
   }
 
   Future<void> sendMessageToRoom(String roomId, Message message) async {
