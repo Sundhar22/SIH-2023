@@ -141,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
           return Scrollbar(
             thickness: .6,
             child: ListView.builder(
-              reverse: true,
+              reverse: false,
               padding: const EdgeInsets.only(bottom: 70, top: 10),
               itemCount: messages.length,
               itemBuilder: (context, index) {

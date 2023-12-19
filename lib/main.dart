@@ -145,6 +145,7 @@ Future<void> sendMessageToRoom(String roomId, Message message) async {
         .doc(roomId)
         .collection('chatData')
         .add(message.toMap());
+    print("yeah");
   } catch (error) {
     print(error.toString());
     showToast(error.toString());

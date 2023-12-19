@@ -91,6 +91,7 @@ class SelectMedia extends StatelessWidget {
               onTypeSelected: (type) {
                 selectedFileType = type;
               },
+              roomID: roomId,
             );
           },
         ).then((_) async {
