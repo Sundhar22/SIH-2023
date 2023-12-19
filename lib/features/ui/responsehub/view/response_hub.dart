@@ -107,6 +107,7 @@ class _ResponseHubState extends State<ResponseHub> {
 
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
+      backgroundColor: Colors.white,
       context: context,
       shape: BeveledRectangleBorder(),
       builder: (BuildContext builderContext) {

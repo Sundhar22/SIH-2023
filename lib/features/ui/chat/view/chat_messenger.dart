@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/chat/controller/messgae_controller.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
@@ -54,6 +55,7 @@ class _ChatMessengerState extends State<ChatMessenger> {
                       border: InputBorder.none,
                     ),
                   );
+
                 }),
               ),
             ),
@@ -72,7 +74,7 @@ class _ChatMessengerState extends State<ChatMessenger> {
                             type: 'Text',
                             content: messageController.value.text,
                             time: Timestamp.now(),
-                            sender: 'test',
+                            sender: userData,
                           );
                           sendMessageToRoom(widget.roomId, textMessage);
                           messageController.clear();

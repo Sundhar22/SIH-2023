@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/ui/responsehub/view/push_room_data.dart';
 import 'package:sih_2023/features/ui/responsehub/view/room_model.dart';
 import 'package:swipeable_button_view/swipeable_button_view.dart';
@@ -151,7 +152,9 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         },
                         // onFinish: () {},
                         onFinish: () async {
-                          firebaseService.pushRoomData(Room(
+                          firebaseService.pushRoomData(
+                            
+                            Room(
                             radius: radius,
                             createdOn: Timestamp.now(),
                             roomName: widget.roomName,
@@ -162,8 +165,13 @@ class _PinMapScreenState extends State<PinMapScreen> {
                               _selectedLocation!.latitude,
                               _selectedLocation!.longitude
                             ],
-                            agencies: [],
-                          ));
+                            agencies: <String>[
+                              userData,
+                            ],
+                          )
+                          
+                          
+                          );
                           showAdaptiveDialog(
                               context: context,
                               builder: (context) {

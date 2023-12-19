@@ -1,6 +1,10 @@
+import 'package:agora_uikit/models/agora_rtm_mute_request.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
@@ -43,8 +47,8 @@ class _SignInPageState extends State<SignInPage> {
                 const SizedBox(height: 20),
                 ListTile(
                   onTap: () async {
-                    if (await signInWithGoogle() != null) {
-                      // ignore: use_build_context_synchronously
+                    String? userEmail = await signInWithGoogle();
+                    if (userEmail != null) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -127,13 +131,49 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 
-  signInWithGoogle() async {
-    GoogleSignInAccount? googleuser = await GoogleSignIn().signIn();
-    GoogleSignInAuthentication? googleAuth = await googleuser?.authentication;
-    AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-    UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
-    return userCredential.user?.displayName;
+Future<String?> signInWithGoogle() async {
+  GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+  AuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+  UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+  String? userEmail = userCredential.user?.email;
+  print(userEmail);
+
+  try {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // Retrieve the document snapshot
+    DocumentSnapshot documentSnapshot = await firestore
+        .collection("agencies")
+        .doc(userEmail)
+        .get();
+
+    print(documentSnapshot.id);
+
+    // Check if the document exists
+    if (documentSnapshot.exists) {
+      // Access the data from the document
+      Map<String, dynamic> data =
+          documentSnapshot.data() as Map<String, dynamic>;
+
+      // Print or use the data as needed
+      print("Document data: $data");
+
+      // Set the user email in the UserData class
+      userData = userEmail!;
+      return userEmail;
+    } else {
+      showToast("Not Registered");
+      return null;
+    }
+  } catch (e) {
+    print("Error retrieving document: $e");
+    return null;
   }
+}
 }

@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sih_2023/features/ui/onboarding/view/signin.dart';
+import 'package:sih_2023/features/ui/onboarding/widgets/gSignInEmployee.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
@@ -34,8 +35,8 @@ class FirstPage extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () {
-              signInWithGoogle();
+            onTap: () async {
+              await employeeGSignin(context);
             },
             contentPadding: const EdgeInsets.all(10),
             leading: const CircleAvatar(

@@ -19,7 +19,6 @@ class Room {
     required this.district,
     required this.location,
     required this.agencies,
-   
     required this.createdOn,
   });
 

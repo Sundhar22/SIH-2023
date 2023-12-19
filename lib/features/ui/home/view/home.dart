@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:sih_2023/features/ui/community/auth_controller.dart';
 import 'package:sih_2023/features/ui/community/social.dart';
 import 'package:sih_2023/features/ui/community/view/comm_posts.dart';
+import 'package:sih_2023/features/ui/employee/employee_signin.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
@@ -23,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const FinalAgencyMapScreen(),
     const ResponseHub(),
     const SocialPage(),
-    const ResponseHub(),
+    const EmployeeSignIn(),
   ];
   late int curPage;
   @override

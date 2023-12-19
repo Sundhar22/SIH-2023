@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
+import 'package:sih_2023/features/ui/employee/employee_db.dart';
 import 'package:sih_2023/features/ui/responsehub/view/room_model.dart';
 
 class FirebaseService {
@@ -36,4 +37,25 @@ class FirebaseService {
       return [];
     }
   }
+
+   Future<void> pushEmployeeData(Employee employee, String customEmployeeId) async {
+    try {
+      // Reference to the specific document using the custom ID
+      DocumentReference employeeDocRef = _firestore.collection('employees').doc(customEmployeeId);
+
+      // Set the document data
+      await employeeDocRef.set(employee.toJson());
+
+      // Update the document with additional data, if needed
+      await employeeDocRef.update(
+        {
+          'employeeID': customEmployeeId,
+        },
+      );
+    } catch (error) {
+      showToast("Error Adding Employee");
+    }
+  }
+
+  
 }

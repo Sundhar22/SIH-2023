@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import 'package:sih_2023/features/ui/onboarding/view/signin.dart';
@@ -18,74 +19,123 @@ class _SignUpPageState extends State<SignUpPage> {
     double size = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Create Account"),
+          centerTitle: true,
+          elevation: 1,
+        ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(25),
-            child: SizedBox(
-              width: double.infinity,
-              height: size * 0.9,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  const Row(
-                    children: [
-                      Text(
-                        "Create \nAccount",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.start,
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const UploadImageWidget(),
+                const SizedBox(
+                  height: 30,
+                ),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Name",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
                       ),
-                      SizedBox(
-                        width: 25,
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    FormWidget(hinttext: "Name of Agency"),
+                    SizedBox(
+                      height: 22,
+                    ),
+                    Text(
+                      "Head",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
                       ),
-                      SignInUpload()
-                    ],
-                  ),
-                  const Column(
-                    children: [
-                      FormWidget(hinttext: "Name of Agency"),
-                      SizedBox(
-                        height: 15,
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    FormWidget(hinttext: "Name of Head"),
+                    SizedBox(
+                      height: 22,
+                    ),
+                    Text(
+                      "Phone Number",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
                       ),
-                      FormWidget(hinttext: "Name of Head"),
-                      SizedBox(
-                        height: 15,
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    FormWidget(hinttext: "Phone Number"),
+                    SizedBox(
+                      height: 22,
+                    ),
+                    Text(
+                      "Area Of Expertise",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
                       ),
-                      FormWidget(hinttext: "Phone Number"),
-                      SizedBox(
-                        height: 15,
+                    ),
+                    SizedBox(
+                      height: 7,
+                    ),
+                    AreaOfExpertise(),
+                    SizedBox(
+                      height: 22,
+                    ),
+                    Text(
+                      "Location",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
                       ),
-                      AreaOfExpertise(),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      LocationContainer(),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("Register",
-                          style: TextStyle(color: Colors.black, fontSize: 30)),
-                      FloatingActionButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SignInPage(),
-                            ),
-                          );
-                        },
-                        shape: const CircleBorder(),
-                        child: const Icon(Icons.arrow_forward_rounded),
-                      )
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    LocationContainer(),
+                    SizedBox(
+                      height: 25,
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Register",
+                        style: TextStyle(color: Colors.black, fontSize: 30)),
+                    FloatingActionButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignInPage(),
+                          ),
+                        );
+                      },
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.arrow_forward_rounded),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
         ),
@@ -102,53 +152,37 @@ class AreaOfExpertise extends StatefulWidget {
 }
 
 class _AreaOfExpertiseState extends State<AreaOfExpertise> {
+  String selectedExpertise = 'Select Expertise';
+  List<String> expertise = [
+    'Select Expertise',
+    'Food',
+    'Medical',
+    'Clothing',
+    'Fire',
+    'Air force'
+  ];
   String? dropdownvalue;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.transparent, width: 0),
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(27),
-      ),
-      child: DropdownButtonFormField(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(40),
-          ),
-        ),
-        hint: const Padding(
-          padding: EdgeInsets.only(left: 5, top: 3),
-          child: Text(
-            "Area of Expertise",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-        isExpanded: true,
-        iconEnabledColor: Colors.black,
-        value: dropdownvalue,
-        icon: const Padding(
-          padding: EdgeInsets.only(left: 20),
-          child: Icon(
-            Icons.arrow_circle_down_sharp,
-            size: 30,
-          ),
-        ),
-        onChanged: (String? newValue) {
-          setState(
-            () {
-              dropdownvalue = newValue!;
-            },
-          );
+          border: Border.all(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(5)),
+      child: DropdownButtonFormField<String>(
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(borderSide: BorderSide.none)),
+        value: selectedExpertise,
+        hint: const Text('Selected Position'),
+        onChanged: (newValue) {
+          setState(() {
+            selectedExpertise = newValue!;
+          });
         },
-        items: <String>['Food', 'Health', 'Emergency', 'Fire', 'Police']
-            .map<DropdownMenuItem<String>>((String value) {
+        items: expertise.map((expertise) {
           return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
+            value: expertise,
+            child: Text(expertise),
           );
         }).toList(),
       ),
@@ -164,69 +198,126 @@ class LocationContainer extends StatefulWidget {
 }
 
 class _LocationContainerState extends State<LocationContainer> {
+  LatLng? currentLocation;
+  GoogleMapController? mapController;
   String locationMessage = 'Location';
   bool isLocationUpdated = false;
 
-  void _getLocation() async {
-    var location = Location();
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> getCurrentLocation() async {
+    Location location = Location();
 
     try {
-      var currentLocation = await location.getLocation();
+      LatLng _currentLocation = await location
+          .getLocation()
+          .then((value) => LatLng(value.latitude!, value.longitude!));
       setState(() {
-        locationMessage = "Your Location is Updated";
+        currentLocation = _currentLocation;
         isLocationUpdated = true;
+        locationMessage = "Your Location is Updated";
       });
+
+      if (mapController != null) {
+        mapController!.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+              target: currentLocation!,
+              zoom: 15.0,
+            ),
+          ),
+        );
+        print(currentLocation);
+      }
     } catch (e) {
-      setState(() {
-        locationMessage = "Could not fetch location.";
-      });
+      print("Error getting location: $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 70,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.transparent, width: 0),
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(27),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15, top: 1),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
+    return Column(
+      children: [
+        Container(
+          height: 177,
+          width: double.infinity,
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+          child: GoogleMap(
+            mapToolbarEnabled: false,
+            mapType: MapType.normal,
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(37.7749, -122.4194),
+              zoom: 12.0,
+            ),
+            markers: currentLocation != null
+                ? {
+                    Marker(
+                      markerId: const MarkerId('selected_location'),
+                      position: currentLocation!,
+                      draggable: false,
+                      onDrag: (newPosition) {
+                        setState(() {
+                          currentLocation = newPosition;
+                        });
+                      },
+                      onDragEnd: (value) {},
+                    ),
+                  }
+                : {},
+            onMapCreated: (GoogleMapController controller) {
+              mapController = controller;
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        Container(
+          height: 60,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey, width: 0.5),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15, top: 1),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  isLocationUpdated ? locationMessage : 'Location',
-                  style: const TextStyle(fontSize: 15),
+                Row(
+                  children: [
+                    Text(
+                      isLocationUpdated ? locationMessage : 'Location',
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+                TextButton(
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        return Colors.white;
+                      },
+                    ),
+                  ),
+                  onPressed: getCurrentLocation,
+                  child: const Text(
+                    'Get Location',
+                    style: TextStyle(
+                        color: Colors.lightBlue,
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal),
+                  ),
                 ),
               ],
             ),
-            TextButton(
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    return Colors.white;
-                  },
-                ),
-              ),
-              onPressed: _getLocation,
-              child: const Text(
-                'Get Location',
-                style: TextStyle(
-                    color: Colors.lightBlue,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }

@@ -188,7 +188,6 @@ class _CreateRoomState extends State<CreateRoom> {
 
   FilePickerResult? _result;
 
-  // Function to pick multiple files
   void _pickFiles() async {
     print('picking files');
     FilePickerResult? result =
@@ -468,7 +467,7 @@ class _CreateRoomState extends State<CreateRoom> {
                                     roomName: roomNameController.value.text,
                                     disasterType: selectedDisaster,
                                     selectedState: selectedState,
-                                    selectedDistrict: selectedDistrict),
+                                    selectedDistrict: selectedDistrict,),
                               ),
                             );
                           });
