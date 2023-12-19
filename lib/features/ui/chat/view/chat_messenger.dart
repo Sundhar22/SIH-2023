@@ -96,7 +96,9 @@ class _ChatMessengerState extends State<ChatMessenger> {
     );
   }
 
-  Future<void> sendMessageToRoom(String roomId, Message message) async {
+  
+}
+Future<void> sendMessageToRoom(String roomId, Message message) async {
     try {
       // Reference the room's "chatData" subcollection and add the message
       await FirebaseFirestore.instance
@@ -108,4 +110,3 @@ class _ChatMessengerState extends State<ChatMessenger> {
       showToast("Please connect to internt");
     }
   }
-}

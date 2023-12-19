@@ -10,15 +10,14 @@ import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/functions/notification/notifiction.dart';
 import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
-import 'package:sih_2023/features/ui/chatsonic/ui/chatsonic.dart';
 import 'package:sih_2023/features/ui/community/auth_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
-import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
 import 'package:workmanager/workmanager.dart';
 
 import 'features/ui/chat/view/message_model.dart';
 import 'features/ui/home/controller/filter_controller.dart';
+import 'features/ui/home/view/home.dart';
 import 'firebase_options.dart';
 
 final navigationKey = GlobalKey<NavigatorState>();
@@ -26,16 +25,19 @@ final navigationKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FirebaseApi().initNotification();
+
   Workmanager().initialize(
     callbackDispatcher,
     isInDebugMode: false,
   );
-  Workmanager().registerOneOffTask(
-    "1",
-    "simplePeriodicTask",
-    // frequency: Duration(minutes: 15),
-  );
+  initialize();
+
+  // Workmanager().registerOneOffTask(
+  //   "1",
+  //   "simplePeriodicTask",
+  //   // frequency: Duration(minutes: 15),
+  // );
+
   AwesomeNotifications().initialize(
     // set the icon to null if you want to use the default app icon
     null,
@@ -91,10 +93,26 @@ class _MyAppState extends State<MyApp> {
     Get.put(NewPostController());
 
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'SIH-23',
-        theme: buildTheme(),
-        home:  HomeScreen());
+      debugShowCheckedModeBanner: false,
+      title: 'SIH-23',
+      theme: buildTheme(),
+      home: const HomeScreen(),
+      // home: Center(
+      //     child: TextButton(
+      //   onPressed: () async {
+      //     DocumentSnapshot snapshot = await FirebaseFirestore.instance
+      //         .collection('userTokens')
+      //         .doc('users')
+      //         .get();
+      //     print("\x1B[31m fcToken - ${snapshot['token'].toString()}\x1B[0m");
+      //     FirebaseApi().sendPushNotification(
+      //         'cUeB-tLiTVOtZXevUs8oaa:APA91bGc-3yM6Wwtn15GZBFqYpQYIA0Junxs8O_tAMjmrXntKeOR2X-HVi5P56ra34nN4fTe1HpmYw8sVLL_7GTLQq--uvBkzjxinCUob-idFXgzaxc1GgVqmaqa-0Xr0CX0wT6j0Yro',
+      //         "Message sending bro...",
+      //         "Hello guys");
+      //   },
+      //   child: const Text("SendMessage"),
+      // )),
+    );
   }
 }
 
