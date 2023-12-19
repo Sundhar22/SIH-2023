@@ -45,7 +45,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose Location'),
+        title: const Text('Choose Location'),
         centerTitle: true,
       ),
       body: _selectedAddress == null
@@ -104,12 +104,12 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       '${radius.ceil()} M',
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     Slider(
                         activeColor: Colors.red,
@@ -126,7 +126,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                     Text(
                         '${_selectedAddress!.street},  ${_selectedAddress!.locality},${_selectedAddress!.administrativeArea}, ${_selectedAddress!.country}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18)),
+                        style: const TextStyle(fontSize: 18)),
                   ],
                 ),
                 Center(
@@ -136,7 +136,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                       child: SwipeableButtonView(
                         buttonText: 'SLIDE TO CREATE ROOM',
                         buttonWidget: Container(
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: Colors.grey,
                           ),
@@ -144,7 +144,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         activeColor: Colors.red,
                         isFinished: isFinished,
                         onWaitingProcess: () {
-                          Future.delayed(Duration(seconds: 2), () {
+                          Future.delayed(const Duration(seconds: 2), () {
                             setState(() {
                               isFinished = true;
                             });
@@ -152,12 +152,10 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         },
                         // onFinish: () {},
                         onFinish: () async {
-                          firebaseService.pushRoomData(
-                            
-                            Room(
+                          firebaseService.pushRoomData(Room(
                             radius: radius,
                             createdOn: Timestamp.now(),
-                            status:0,
+                            status: 0,
                             roomName: widget.roomName,
                             disasterType: widget.disasterType,
                             state: widget.selectedState,
@@ -169,10 +167,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                             agencies: <String>[
                               userData,
                             ],
-                          )
-                          
-                          
-                          );
+                          ));
                           showAdaptiveDialog(
                               context: context,
                               builder: (context) {

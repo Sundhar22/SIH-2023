@@ -3,6 +3,7 @@ import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/firebase/delete_document.dart';
 import 'package:sih_2023/features/ui/chat/view/chat.dart';
 import 'package:sih_2023/features/ui/responsehub/view/hub_info.dart';
+import 'package:sih_2023/features/ui/share_location/share_location.dart';
 import 'package:sih_2023/features/ui/user/user.dart';
 
 Future<dynamic> showQuickActions(
@@ -59,26 +60,22 @@ Future<dynamic> showQuickActions(
                       Icons.delete_outline_sharp,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.person_add_alt),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      targetUserRoomId = roomID;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserRequestScreen(
-                            roomId: roomID,
-                          ),
-                        ),
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.emoji_people_sharp,
-                    ),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     targetUserRoomId = roomID;
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => UserRequestScreen(
+                  //           roomId: roomID,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.emoji_people_sharp,
+                  //   ),
+                  // ),
                   IconButton(
                     onPressed: () {
                       Navigator.push(
@@ -102,6 +99,21 @@ Future<dynamic> showQuickActions(
                       );
                     },
                     icon: const Icon(Icons.info_outlined),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ShareMyLocation(
+                            roomId: roomID,
+                          ),
+                        ),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.location_history_rounded,
+                    ),
                   ),
                 ],
               ),

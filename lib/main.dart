@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,7 +13,6 @@ import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
 import 'package:workmanager/workmanager.dart';
-
 import 'features/ui/chat/view/message_model.dart';
 import 'features/ui/home/controller/filter_controller.dart';
 import 'firebase_options.dart';
@@ -92,26 +90,10 @@ class _MyAppState extends State<MyApp> {
     Get.put(NewPostController());
 
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SIH-23',
-      theme: buildTheme(),
-      home: const HomeScreen(),
-      // home: Center(
-      //     child: TextButton(
-      //   onPressed: () async {
-      //     DocumentSnapshot snapshot = await FirebaseFirestore.instance
-      //         .collection('userTokens')
-      //         .doc('users')
-      //         .get();
-      //     print("\x1B[31m fcToken - ${snapshot['token'].toString()}\x1B[0m");
-      //     FirebaseApi().sendPushNotification(
-      //         'cUeB-tLiTVOtZXevUs8oaa:APA91bGc-3yM6Wwtn15GZBFqYpQYIA0Junxs8O_tAMjmrXntKeOR2X-HVi5P56ra34nN4fTe1HpmYw8sVLL_7GTLQq--uvBkzjxinCUob-idFXgzaxc1GgVqmaqa-0Xr0CX0wT6j0Yro',
-      //         "Message sending bro...",
-      //         "Hello guys");
-      //   },
-      //   child: const Text("SendMessage"),
-      // )),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'SIH-23',
+        theme: buildTheme(),
+        home: const HomeScreen());
   }
 }
 
@@ -151,7 +133,6 @@ Future<void> sendMessageToRoom(String roomId, Message message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   try {
-    // Reference the room's "chatData" subcollection and add the message
     await FirebaseFirestore.instance
         .collection('rooms')
         .doc(roomId)
