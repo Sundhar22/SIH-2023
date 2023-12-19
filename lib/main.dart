@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/functions/notification/notifiction.dart';
-
 import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
-
 import 'package:sih_2023/features/ui/community/auth_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
@@ -24,16 +22,19 @@ final navigationKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FirebaseApi().initNotification();
+
   Workmanager().initialize(
     callbackDispatcher,
     isInDebugMode: false,
   );
-  Workmanager().registerOneOffTask(
-    "1",
-    "simplePeriodicTask",
-    // frequency: Duration(minutes: 15),
-  );
+  initialize();
+
+  // Workmanager().registerOneOffTask(
+  //   "1",
+  //   "simplePeriodicTask",
+  //   // frequency: Duration(minutes: 15),
+  // );
+
   AwesomeNotifications().initialize(
     // set the icon to null if you want to use the default app icon
     null,
@@ -137,6 +138,7 @@ Future<void> sendMessageToRoom(String roomId, Message message) async {
         .doc(roomId)
         .collection('chatData')
         .add(message.toMap());
+    print("yeah");
   } catch (error) {
     print(error.toString());
     showToast(error.toString());

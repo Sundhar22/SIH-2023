@@ -15,7 +15,7 @@ class MessageLayout extends StatelessWidget {
       children: [
         widget,
         Padding(
-          padding: const EdgeInsets.only(top: 10, left: 10),
+          padding: const EdgeInsets.only(top: 3, left: 10),
           child: Text(
             returnTime(dateTime),
             style: const TextStyle(

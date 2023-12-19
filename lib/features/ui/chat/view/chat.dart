@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/functions/get_logo_text.dart';
 import 'package:sih_2023/features/ui/call/videocall/groupcall.dart';
-import 'package:sih_2023/features/ui/call/voicecall/voicecall.dart';
 import 'package:sih_2023/features/ui/chat/view/chat_messenger.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/message_tile.dart';
@@ -13,54 +12,13 @@ import 'package:sih_2023/features/ui/chat/view/widgets/chat_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/document_layout.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/emergency_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/image_layout.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/message_layout.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/progress_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/request_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/resource_widget.dart';
 
 class ChatScreen extends StatefulWidget {
-  const 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  ChatScreen({super.key, required this.roomId, required this.roomName});
+  const ChatScreen({super.key, required this.roomId, required this.roomName});
   final String roomId;
   final String roomName;
 
@@ -88,8 +46,12 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: const Icon(Icons.arrow_back),
             ),
             CircleAvatar(
-              radius: 15,
-              child: Text(getLogoText(widget.roomName)),
+              radius: 12,
+              child: Center(
+                child: Text(
+                  getLogoText(widget.roomName),
+                ),
+              ),
             ),
           ],
         ),
@@ -102,20 +64,23 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return VoiceCall('');
-                }));
+                sendMessageToRoom(
+                    widget.roomId,
+                    Message(
+                        type: 'videoCall',
+                        content: "Tap to join",
+                        time: Timestamp.now(),
+                        sender: ''));
               },
               child: const Icon(CupertinoIcons.phone)),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
-          GestureDetector(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const GroupCall()));
-              },
-              child: const Icon(CupertinoIcons.video_camera)),
+          // GestureDetector(
+          //     onTap: () {
+
+          //     },
+          //     child: const Icon(CupertinoIcons.video_camera)),
           IconButton(
               onPressed: () {},
               icon: const Icon(
@@ -141,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
           return Scrollbar(
             thickness: .6,
             child: ListView.builder(
-              reverse: true,
+              reverse: false,
               padding: const EdgeInsets.only(bottom: 70, top: 10),
               itemCount: messages.length,
               itemBuilder: (context, index) {
@@ -150,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   case 'photo':
                     return ImageLayout(
                       imageLink: message.content,
-                      isSentByMe: false,
+                      isSentByMe: true,
                       messageTime: message.time.toDate(),
                     );
                   case 'document':
@@ -167,14 +132,14 @@ class _ChatScreenState extends State<ChatScreen> {
                         ),
                       ),
                       sender: widget.roomName,
-                      sentByMe: false,
+                      sentByMe: true,
                     );
 
                   case 'Text':
                     return ChatMessageLayout(
                       chatMsg: message.content,
                       msgTime: message.time.toDate(),
-                      isSentByMe: false,
+                      isSentByMe: true,
                     );
 
                   case 'Request':
@@ -207,6 +172,34 @@ class _ChatScreenState extends State<ChatScreen> {
                       msgTime: message.time.toDate(),
                     );
 
+                  case 'videoCall':
+                    return MessageLayout(
+                        widget: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const GroupCall()));
+                          },
+                          child: Container(
+                            width: 125,
+                            height: 50,
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            decoration: BoxDecoration(
+                              color: Colors.lightGreenAccent.shade100,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(message.content),
+                                const Icon(CupertinoIcons.phone)
+                              ],
+                            ),
+                          ),
+                        ),
+                        dateTime: message.time.toDate());
                   default:
                     return SizedBox(
                       child: Text(
