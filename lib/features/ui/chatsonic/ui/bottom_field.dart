@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sih_2023/features/ui/chatsonic/controller/ai_controlller.dart';
 
+import '../../chat_summarizer/chat_summarizer.dart';
+
 class CustomInputField extends StatefulWidget {
   const CustomInputField({
     super.key,
@@ -59,7 +61,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
                     child: GetX<AiController>(builder: (controller) {
                       return IconButton(
                         onPressed: () {
-                          // Send the query request
+                          print(textEditingController.text);
+                          fetchData(textEditingController.text).then((value) {
+                            print(value[0]['summary']);
+                            controller.reply.value = value[0]['summary'];
+                          });
+                          
+                          
                           controller.aiChatReply.value =
                               !controller.aiChatReply.value;
                         },
@@ -77,5 +85,21 @@ class _CustomInputFieldState extends State<CustomInputField> {
         ),
       ),
     );
+  }
+}
+
+Future<List<dynamic>> fetchData(String question) async {
+  // print(
+  //     'https://mitti-server.onrender.com/summary?chat_history=$chat_hisotry}');
+
+  final response = await dio.get(
+      'https://mitti-server.onrender.com/query?question=$question}');
+
+  print(response.statusCode);
+
+  if (response.statusCode == 200) {
+    return response.data;
+  } else {
+    throw Exception('Failed to load album');
   }
 }
