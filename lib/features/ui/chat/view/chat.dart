@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sih_2023/features/functions/get_logo_text.dart';
 import 'package:sih_2023/features/ui/call/videocall/groupcall.dart';
 import 'package:sih_2023/features/ui/call/voicecall/voicecall.dart';
@@ -17,50 +18,10 @@ import 'package:sih_2023/features/ui/chat/view/widgets/progress_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/request_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/resource_widget.dart';
 
+import '../../chat_summarizer/rescue_summary_screen.dart';
+
 class ChatScreen extends StatefulWidget {
-  const 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  ChatScreen({super.key, required this.roomId, required this.roomName});
+  const ChatScreen({super.key, required this.roomId, required this.roomName});
   final String roomId;
   final String roomName;
 
@@ -117,7 +78,13 @@ class _ChatScreenState extends State<ChatScreen> {
               },
               child: const Icon(CupertinoIcons.video_camera)),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                fetchDataAndConcatenate(widget.roomId).then((value) {
+                  Get.to(() => RescueSummaryscreen(
+                        chat_history: value,
+                      ));
+                });
+              },
               icon: const Icon(
                 Icons.more_vert,
               )),
@@ -220,6 +187,30 @@ class _ChatScreenState extends State<ChatScreen> {
         },
       ),
     );
+  }
+
+  Future<String> fetchDataAndConcatenate(String roomId) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    try {
+      String resultString = '';
+
+      // Fetch chat data using the room ID
+      QuerySnapshot chatSnapshot =
+          await _firestore.collection('rooms/$roomId/chatData').get();
+
+      // Concatenate sender and content for each chat document
+      for (QueryDocumentSnapshot chatDoc in chatSnapshot.docs) {
+        String sender = chatDoc['sender'];
+        String content = chatDoc['content'];
+        resultString += '$sender: $content\n';
+      }
+
+      // Return the final concatenated string
+      return resultString;
+    } catch (e) {
+      print('Error fetching data: $e');
+      return 'Error fetching data';
+    }
   }
 
   Stream<List<Message>> getRoomChatStream(String roomId) {
