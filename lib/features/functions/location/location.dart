@@ -77,13 +77,11 @@ Future<void> fetchLocation(String docId) async {
       print("Loop Initialised array initialised");
 
       if (locations[i].docId == userData) {
-        updateLocation.add(
-          LocationModel(
-            latitude: locationData.latitude!,
-            longitude: locationData.longitude!,
-            docId: docId,
-          ),
-        );
+        updateLocation.add({
+          'latitude': locationData.latitude!,
+          'longitude': locationData.longitude!,
+          'docId': docId,
+        });
       } else {
         updateLocation.add(locations[i]);
       }

@@ -123,9 +123,8 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
             }
             return GoogleMap(
               initialCameraPosition: const CameraPosition(
-                target: LatLng(18.657871, 79.711575),
+                target: LatLng(13.216487, 79.100448),
                 zoom: 10,
-                bearing: 20,
               ),
               markers: markers,
               onMapCreated: (GoogleMapController controller) {
@@ -143,7 +142,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
         ? const Column(
             children: [
               CircleAvatar(
-                radius: 10,
+                radius: 13,
                 backgroundColor: Colors.red,
                 child: Icon(
                   Icons.emergency,
@@ -152,7 +151,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
               ),
               SizedBox(height: 1),
               CircleAvatar(
-                radius: 2,
+                radius: 3,
                 backgroundColor: Colors.red,
               )
             ],
@@ -160,7 +159,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
         : const Column(
             children: [
               CircleAvatar(
-                radius: 12,
+                radius: 13,
                 backgroundColor: Colors.amber,
                 child: Icon(
                   Icons.emergency,
@@ -169,7 +168,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
               ),
               SizedBox(height: 1),
               CircleAvatar(
-                radius: 2,
+                radius: 3,
                 backgroundColor: Colors.amber,
               )
             ],
