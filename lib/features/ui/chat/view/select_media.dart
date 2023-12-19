@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/ui/chat/view/filetype.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
+import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 
 class SelectMedia extends StatelessWidget {
@@ -22,7 +23,64 @@ class SelectMedia extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.attach_file),
       onPressed: () async {
-        showDialog(
+        FileType.resource == 'resource' ? showDialog(
+                  builder: (context) => AlertDialog(
+                    title: const Text("Resource Sharing"),
+                    content: const SingleChildScrollView(
+                      child:  Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ResourceType(),
+                          SizedBox(
+                            height: 14,
+                          ),
+                          Text(
+                            "Resources",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          FormWidget(hinttext: "Amount of Resources"),
+                          SizedBox(
+                            height: 14,
+                          ),
+                          Text(
+                            "Description",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          FormWidget(hinttext: "Describe here")
+                        ],
+                      ),
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('CANCEL'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text('ACCEPT'),
+                      ),
+                    ],
+                  ),
+                  context: context,
+                ) : showDialog(
           context: context,
           builder: (context) {
             return FileTypeSelectionDialog(
@@ -47,6 +105,12 @@ class SelectMedia extends StatelessWidget {
               case FileType.audio:
                 allowedExtensions = ['mp3', 'wav'];
                 break;
+              case FileType.resource:
+                break;
+                
+              
+            
+
               case null:
             }
             picker.PlatformFile? file =
@@ -123,5 +187,53 @@ class SelectMedia extends StatelessWidget {
       // User canceled the file picker
       return null;
     }
+  }
+}
+
+class ResourceType extends StatefulWidget {
+  const ResourceType({super.key});
+
+  @override
+  State<ResourceType> createState() => _ResourceTypeState();
+}
+
+class _ResourceTypeState extends State<ResourceType> {
+  String selectedResourceType = 'Select resources';
+  List<String> expertise = [
+    'Select resources',
+    'Food',
+    'Medical',
+    'Clothing',
+    'Fire',
+    'Air force'
+  ];
+  String? dropdownvalue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: 220,
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(5)),
+      child: DropdownButtonFormField<String>(
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(borderSide: BorderSide.none)),
+        value: selectedResourceType,
+        hint: const Text('Selected resources'),
+        onChanged: (newValue) {
+          setState(() {
+            selectedResourceType = newValue!;
+          });
+        },
+        items: expertise.map((expertise) {
+          return DropdownMenuItem<String>(
+            value: expertise,
+            child: Text(expertise),
+          );
+        }).toList(),
+      ),
+    );
   }
 }

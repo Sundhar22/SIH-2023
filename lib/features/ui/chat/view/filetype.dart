@@ -3,7 +3,7 @@ import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
 
-enum FileType { photo, document, video, audio }
+enum FileType { photo, document, video, audio, resource}
 
 class FileTypeSelectionDialog extends StatelessWidget {
   final Function(FileType) onTypeSelected;
