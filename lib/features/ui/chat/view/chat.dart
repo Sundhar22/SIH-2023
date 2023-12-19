@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/functions/get_logo_text.dart';
 import 'package:sih_2023/features/ui/call/videocall/groupcall.dart';
 import 'package:sih_2023/features/ui/call/voicecall/voicecall.dart';
@@ -16,6 +17,7 @@ import 'package:sih_2023/features/ui/chat/view/widgets/image_layout.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/progress_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/request_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/resource_widget.dart';
+import 'package:sih_2023/features/ui/map/view/scenario_map.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key, required this.roomId, required this.roomName});
@@ -60,12 +62,17 @@ class _ChatScreenState extends State<ChatScreen> {
         actions: [
           GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return VoiceCall('');
-                }));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return VoiceCall('');
+                    },
+                  ),
+                );
               },
               child: const Icon(CupertinoIcons.phone)),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           GestureDetector(
@@ -75,10 +82,22 @@ class _ChatScreenState extends State<ChatScreen> {
               },
               child: const Icon(CupertinoIcons.video_camera)),
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert,
-              )),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ScenarioMapScreen(
+                    initialLocation: LatLng(10.415793, 77.897006),
+                    radius: 2000,
+                    roomId: "wPspbEzkXUNJYrZL7MG7",
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.more_vert,
+            ),
+          ),
         ],
       ),
       bottomSheet: ChatMessenger(roomId: widget.roomId),

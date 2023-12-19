@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:sih_2023/features/ui/Info/post/view/new_post.dart';
 import 'package:sih_2023/features/ui/community/view/post_component.dart';
 import 'package:sih_2023/features/ui/community/view/post_skeleton.dart';
-import 'package:sih_2023/features/ui/post/view/new_post.dart';
 
 class CommunityPostScreen extends StatefulWidget {
   const CommunityPostScreen({super.key});

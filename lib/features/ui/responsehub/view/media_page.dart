@@ -6,10 +6,11 @@ class MediaPage extends StatefulWidget {
   const MediaPage({super.key, required this.roomName});
 
   @override
-  _MediaPageState createState() => _MediaPageState();
+  State createState() => _MediaPageState();
 }
 
-class _MediaPageState extends State<MediaPage> with SingleTickerProviderStateMixin {
+class _MediaPageState extends State<MediaPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -55,9 +56,9 @@ class _MediaPageState extends State<MediaPage> with SingleTickerProviderStateMix
       body: TabBarView(
         controller: _tabController,
         children: const [
-           Center(child: Text('Medias')),
-           Center(child: Text('Docs')),
-           Center(child: Text('Links')),
+          Center(child: Text('Medias')),
+          Center(child: Text('Docs')),
+          Center(child: Text('Links')),
         ],
       ),
     );

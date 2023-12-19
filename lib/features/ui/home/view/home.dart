@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sih_2023/features/ui/community/auth_controller.dart';
+import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
 import 'package:sih_2023/features/ui/community/social.dart';
-import 'package:sih_2023/features/ui/community/view/comm_posts.dart';
-import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
-import 'package:sih_2023/features/ui/home/controller/filter_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
-import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
+import 'package:sih_2023/features/ui/home/view/sort.dart';
 import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
 import 'package:sih_2023/features/ui/responsehub/view/response_hub.dart';
+import 'package:sih_2023/features/ui/search/view/search.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const FinalAgencyMapScreen(),
     const ResponseHub(),
     const SocialPage(),
-    const ResponseHub(),
+    const ProfileInfo(),
   ];
   late int curPage;
   @override
@@ -83,15 +80,46 @@ class HomeState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          GreetMessage(),
-          Expanded(
-            child: AgencyComponent(),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 2,
+        elevation: 1,
+        title: const Text("Welcome Back !"),
+        actions: [
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.search),
+              ),
+              IconButton(
+                onPressed: () {
+                  sortBottomSheet(
+                    context,
+                  );
+                },
+                icon: const Icon(Icons.sort),
+              ),
+            ],
+          )
         ],
+      ),
+      body: const SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: AgencyComponent(),
+            ),
+          ],
+        ),
       ),
     );
   }

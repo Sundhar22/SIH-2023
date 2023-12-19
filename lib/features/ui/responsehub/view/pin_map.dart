@@ -44,7 +44,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Choose Location'),
+        title: const Text('Choose Location'),
         centerTitle: true,
       ),
       body: _selectedAddress == null
@@ -103,12 +103,12 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(
                       '${radius.ceil()} M',
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
                     Slider(
                         activeColor: Colors.red,
@@ -125,7 +125,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                     Text(
                         '${_selectedAddress!.street},  ${_selectedAddress!.locality},${_selectedAddress!.administrativeArea}, ${_selectedAddress!.country}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18)),
+                        style: const TextStyle(fontSize: 18)),
                   ],
                 ),
                 Center(
@@ -135,7 +135,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                       child: SwipeableButtonView(
                         buttonText: 'SLIDE TO CREATE ROOM',
                         buttonWidget: Container(
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: Colors.grey,
                           ),
@@ -143,7 +143,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         activeColor: Colors.red,
                         isFinished: isFinished,
                         onWaitingProcess: () {
-                          Future.delayed(Duration(seconds: 2), () {
+                          Future.delayed(const Duration(seconds: 2), () {
                             setState(() {
                               isFinished = true;
                             });
@@ -152,18 +152,19 @@ class _PinMapScreenState extends State<PinMapScreen> {
                         // onFinish: () {},
                         onFinish: () async {
                           firebaseService.pushRoomData(Room(
-                            radius: radius,
-                            createdOn: Timestamp.now(),
-                            roomName: widget.roomName,
-                            disasterType: widget.disasterType,
-                            state: widget.selectedState,
-                            district: widget.selectedDistrict,
-                            location: [
-                              _selectedLocation!.latitude,
-                              _selectedLocation!.longitude
-                            ],
-                            agencies: [],
-                          ));
+                              radius: radius,
+                              createdOn: Timestamp.now(),
+                              roomName: widget.roomName,
+                              disasterType: widget.disasterType,
+                              state: widget.selectedState,
+                              district: widget.selectedDistrict,
+                              location: [
+                                _selectedLocation!.latitude,
+                                _selectedLocation!.longitude
+                              ],
+                              agencies: [],
+                              status: 0,
+                              employeeLocation: []));
                           showAdaptiveDialog(
                               context: context,
                               builder: (context) {
@@ -195,7 +196,6 @@ class _PinMapScreenState extends State<PinMapScreen> {
   }
 
   Future<void> _fetchAddress(LatLng coordinates) async {
-    print('fetching....');
     List<Placemark> placemarks = await placemarkFromCoordinates(
         coordinates.latitude, coordinates.longitude,
         localeIdentifier: "en");

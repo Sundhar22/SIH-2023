@@ -7,7 +7,7 @@ class HomePcreen extends StatefulWidget {
   const HomePcreen({Key? key}) : super(key: key);
 
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomePcreen> {
@@ -27,17 +27,15 @@ class _HomeScreenState extends State<HomePcreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: SwipeableButtonView(
                   buttonText: 'CREATE ROOM',
-                  buttonWidget: Container(
-                    child: Icon(
-                      Icons.arrow_forward_ios_rounded,
-                      color: Colors.grey,
-                    ),
+                  buttonWidget: const Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: Colors.grey,
                   ),
                   activeColor: Colors.blue,
                   isFinished: isFinished,
                   onWaitingProcess: () {
                     Future.delayed(
-                      Duration(seconds: 1),
+                      const Duration(seconds: 1),
                       () {
                         setState(
                           () {
@@ -52,7 +50,7 @@ class _HomeScreenState extends State<HomePcreen> {
                       context,
                       PageTransition(
                         type: PageTransitionType.fade,
-                        child: HomeScreen(),
+                        child: const HomeScreen(),
                       ),
                     );
                     setState(

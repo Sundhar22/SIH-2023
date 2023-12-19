@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sih_2023/features/ui/community/alert_notifications.dart';
 import 'package:sih_2023/features/ui/community/view/comm_posts.dart';
 
 class SocialPage extends StatefulWidget {
@@ -37,7 +38,7 @@ class _SocialPageState extends State<SocialPage>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          Center(child: Text('Nothing to show up here')),
+          AlertNotification(),
           CommunityPostScreen(),
         ],
       ),

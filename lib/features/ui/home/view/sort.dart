@@ -7,8 +7,6 @@ import 'package:sih_2023/features/ui/home/view/filter_widget.dart';
 import 'package:sih_2023/features/ui/sort/sort_page.dart';
 
 void sortBottomSheet(BuildContext context) {
-  debugPrint(allAgencyModels.toString());
-
   final List<String> filterName = [
     "Location",
     "Expertise",
@@ -20,8 +18,9 @@ void sortBottomSheet(BuildContext context) {
   ];
 
   showModalBottomSheet(
+    backgroundColor: Colors.white,
     isDismissible: true,
-    shape: Border.all(color: Colors.transparent),
+    shape: Border.all(color: Colors.white),
     context: context,
     builder: (BuildContext context) {
       sortModel.defaultLocation = "Null";

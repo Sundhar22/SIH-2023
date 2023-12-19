@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sih_2023/features/ui/post/view/new_post.dart';
+import 'package:sih_2023/features/ui/Info/post/view/new_post.dart';
 
 class TopBar extends StatelessWidget {
   const TopBar({
@@ -26,10 +26,11 @@ class TopBar extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NewPostScreen(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NewPostScreen(),
+                ),
+              );
             },
             child: const Text(
               "Share your thoughts...",

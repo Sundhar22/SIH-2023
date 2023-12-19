@@ -10,32 +10,26 @@ class ImageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Image"),
+        elevation: 1,
+        title: const Text("Image View"),
+        centerTitle: true,
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage("assets/images/chat_bg.jpg"),
-          ),
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Container(
-              decoration: const BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    spreadRadius: .1,
-                    blurRadius: .1,
-                  ),
-                ],
-              ),
-              height: MediaQuery.of(context).size.height / 1.5,
-              child: CachedNetworkImage(
-                imageUrl: imageLink,
-              ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Container(
+            decoration: const BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black,
+                  spreadRadius: .1,
+                  blurRadius: .1,
+                ),
+              ],
+            ),
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: CachedNetworkImage(
+              imageUrl: imageLink,
             ),
           ),
         ),

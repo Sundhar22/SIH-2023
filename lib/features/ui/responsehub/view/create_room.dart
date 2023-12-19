@@ -223,7 +223,7 @@ class _CreateRoomState extends State<CreateRoom> {
                   height: 60,
                   child: TextField(
                     controller: roomNameController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(),
                         ),
@@ -308,7 +308,8 @@ class _CreateRoomState extends State<CreateRoom> {
                                 borderSide: BorderSide(),
                               ),
                             ),
-                            style: TextStyle(fontSize: 15, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.black),
                             value: selectedState,
                             hint: const Text('Select State'),
                             onChanged: (newValue) {
@@ -330,7 +331,7 @@ class _CreateRoomState extends State<CreateRoom> {
                         const SizedBox(height: 25),
                       ],
                     )),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
@@ -344,7 +345,8 @@ class _CreateRoomState extends State<CreateRoom> {
                         SizedBox(
                           height: 70,
                           child: DropdownButtonFormField<String>(
-                            style: TextStyle(fontSize: 15, color: Colors.black),
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.black),
                             decoration: const InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(),
@@ -381,7 +383,7 @@ class _CreateRoomState extends State<CreateRoom> {
                   onTap: _pickFiles,
                   child: DottedBorder(
                     color: Colors.red,
-                    radius: Radius.circular(12),
+                    radius: const Radius.circular(12),
                     dashPattern: const [8, 4],
                     borderType: BorderType.RRect,
                     child: Container(
@@ -410,7 +412,7 @@ class _CreateRoomState extends State<CreateRoom> {
                                   child: Text(
                                     _result!.files.map((file) => file.name).join(
                                         ', '), // Join the file names with commas
-                                    style: TextStyle(fontSize: 16.0),
+                                    style: const TextStyle(fontSize: 16.0),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -434,25 +436,25 @@ class _CreateRoomState extends State<CreateRoom> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 Center(
-                  child: Container(
+                  child: SizedBox(
                     width: 300,
                     child: Center(
                       child: SwipeableButtonView(
                         activeColor: Colors.red,
                         buttonText: 'SLIDE TO CREATE ROOM',
                         buttonWidget: Container(
-                          child: Icon(
+                          child: const Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: Colors.grey,
                           ),
                         ),
                         isFinished: isFinished,
                         onWaitingProcess: () {
-                          Future.delayed(Duration(seconds: 2), () {
+                          Future.delayed(const Duration(seconds: 2), () {
                             setState(() {
                               isFinished = true;
                             });

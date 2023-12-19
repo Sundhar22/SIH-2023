@@ -148,3 +148,5 @@ Map<String, IconData> requestIcons = {
   'Food': Icons.food_bank_outlined,
   'Shelters': Icons.night_shelter_outlined,
 };
+
+bool postAsPost = true;

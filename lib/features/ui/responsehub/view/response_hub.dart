@@ -108,7 +108,7 @@ class _ResponseHubState extends State<ResponseHub> {
   void _showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      shape: BeveledRectangleBorder(),
+      shape: const BeveledRectangleBorder(),
       builder: (BuildContext builderContext) {
         return SizedBox(
           height: 350,
@@ -141,7 +141,8 @@ class _ResponseHubState extends State<ResponseHub> {
 }
 
 class ApprovalWidget extends StatelessWidget {
-  ApprovalWidget({super.key, required this.name, required this.loc, required this.type});
+  ApprovalWidget(
+      {super.key, required this.name, required this.loc, required this.type});
   String name;
   String loc;
   String type;
@@ -155,13 +156,9 @@ class ApprovalWidget extends StatelessWidget {
         ),
         title: Text(name),
         subtitle: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(type),
-            Text(loc)
-          ]
-        ),
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [Text(type), Text(loc)]),
         onTap: () {
           Navigator.push(
             context,
