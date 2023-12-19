@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sih_2023/features/constants/constants.dart';
+import 'package:sih_2023/features/ui/Info/post/controller/new_post_controller.dart';
+import 'package:sih_2023/features/ui/Info/post/view/new_content.dart';
+import 'package:sih_2023/features/ui/Info/post/view/new_document.dart';
+import 'package:sih_2023/features/ui/Info/post/view/newpost_app.dart';
+import 'package:sih_2023/features/ui/Info/post/view/post_button.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
-import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
-import 'package:sih_2023/features/ui/post/view/new_content.dart';
-import 'package:sih_2023/features/ui/post/view/new_document.dart';
-import 'package:sih_2023/features/ui/post/view/newpost_app.dart';
-import 'package:sih_2023/features/ui/post/view/post_button.dart';
+
 import 'package:swipeable_button_view/swipeable_button_view.dart';
 
 class NewPostScreen extends StatelessWidget {

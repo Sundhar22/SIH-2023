@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-
-import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
+import 'package:sih_2023/features/ui/Info/post/controller/new_post_controller.dart';
 
 class PostDocument extends StatelessWidget {
   const PostDocument({

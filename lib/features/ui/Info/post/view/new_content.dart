@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
+import 'package:sih_2023/features/ui/Info/post/controller/new_post_controller.dart';
 
 class PostContent extends StatefulWidget {
   const PostContent({

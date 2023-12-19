@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sih_2023/features/constants/constants.dart';
-import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
-import 'package:sih_2023/features/ui/post/view/succes_screen.dart';
+import 'package:sih_2023/features/ui/Info/post/controller/new_post_controller.dart';
 
 class PostButton extends StatelessWidget {
   const PostButton({
