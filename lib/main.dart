@@ -15,9 +15,9 @@ import 'package:sih_2023/features/ui/community/auth_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
 import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
-import 'package:sih_2023/features/ui/responsehub/view/verification.dart';
 import 'package:workmanager/workmanager.dart';
 
+import 'features/ui/chat/view/message_model.dart';
 import 'features/ui/home/controller/filter_controller.dart';
 import 'firebase_options.dart';
 
@@ -89,11 +89,59 @@ class _MyAppState extends State<MyApp> {
     Get.put(AgencyController());
     Get.put(FilterController());
     Get.put(NewPostController());
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SIH-23',
-      theme: buildTheme(),
-      home: const HomeScreen(),
-    );
+
+    return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'SIH-23',
+        theme: buildTheme(),
+        home:  HomeScreen());
+  }
+}
+
+callbackDispatcher() {
+  Workmanager().executeTask((taskName, inputData) {
+    notify();
+
+    sendMessageToRoom(
+        'wPspbEzkXUNJYrZL7MG7',
+        Message(
+            content: DateTime.now().hour.toString() +
+                DateTime.now().minute.toString() +
+                DateTime.now().second.toString(),
+            type: 'Text',
+            sender: 'test',
+            time: Timestamp.now()));
+    print('\x1B[31mNative called background task: $taskName\x1B[0m');
+    // Firebase.initializeApp();
+
+    return Future.value(true);
+  });
+}
+
+notify() {
+  AwesomeNotifications().createNotification(
+      content: NotificationContent(
+    id: 11,
+    channelKey: 'basic_channel',
+    actionType: ActionType.Default,
+    title: 'Hello World!',
+    body: 'This is my first notification!',
+  ));
+  print('\x1B[31mNative called background task: \x1B[0m');
+}
+
+Future<void> sendMessageToRoom(String roomId, Message message) async {
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  try {
+    // Reference the room's "chatData" subcollection and add the message
+    await FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(roomId)
+        .collection('chatData')
+        .add(message.toMap());
+  } catch (error) {
+    print(error.toString());
+    showToast(error.toString());
   }
 }
