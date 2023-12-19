@@ -1,9 +1,9 @@
 import 'dart:async';
-
-import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:agora_token_service/agora_token_service.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:sih_2023/features/ui/call/voicecall/voicewidget.dart';
 
 import '../value/setting.dart';
@@ -42,14 +42,7 @@ class _VoiceCallState extends State<VoiceCall> {
     setupVoiceSDKEngine();
     // generating Token
     generateToken();
-    tempJoin();
   } // Clean up the resources when you leave
-
-  tempJoin() {
-    setState(() {
-      join();
-    });
-  }
 
   @override
   void dispose() async {
@@ -64,28 +57,24 @@ class _VoiceCallState extends State<VoiceCall> {
         key: scaffoldMessengerKey,
         appBar: AppBar(
           title: Text('${widget.channelId}Voice Call'),
-          centerTitle: true,
-          backgroundColor: Colors.blueAccent.withOpacity(.3),
         ),
-        body: Voice(status: _status, leave: leave)
-        //  Center(
-        //   child: ElevatedButton(
-        //     child: const Text("Make a call"),
-        //     onPressed: () => {
-        //       print("token --------------------> $token"),
-        //       setState(() {
-        //         join();
-        //         Navigator.push(
-        //             context,
-        //             MaterialPageRoute(
-        //               builder: (context) =>
-        //                   Voice(status: _status, leave: leave),
-        //             ));
-        //       })
-        //     },
-        //   ),
-        // )
-        );
+        body: Center(
+          child: ElevatedButton(
+            child: const Text("Make a call"),
+            onPressed: () => {
+              print("token --------------------> $token"),
+              setState(() {
+                join();
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Voice(status: _status, leave: leave),
+                    ));
+              })
+            },
+          ),
+        ));
   }
 
   Widget _status() {

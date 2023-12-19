@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:sih_2023/features/ui/employee/employee_signin.dart';
-import 'package:sih_2023/features/ui/home/view/custom_title_widget.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 
 class ProfileInfo extends StatelessWidget {
@@ -10,50 +10,146 @@ class ProfileInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+          backgroundColor: Colors.grey.shade100,
+          title: const Text(
+            "Agency Profile",
+            style: TextStyle(fontSize: 18),
+          ),
+          centerTitle: true,
+          elevation: 0,
+          actions: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SignUpPage(),
+                  ),
+                );
+              },
+              child: Lottie.asset(
+                "assets/icons/edit.json",
+                height: 30,
+                width: 30,
+              ),
+            )
+          ],
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(1),
+            child: Container(
+              height: 1,
+              decoration: BoxDecoration(color: Colors.grey.shade200),
+            ),
+          )),
       body: SafeArea(
-          child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CustomTitleWidget(titleContent: "Agency Profile"),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignUpPage(),
-                      ),
-                    );
-                  },
-                  child: const Row(
-                    children: [
-                      Text(
-                        "edit",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.blueAccent,
+                Column(
+                  children: [
+                    CircleAvatar(
+                      radius: 50,
+                      // network image
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/1200px-TamilNadu_Logo.svg.png",
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
                         ),
                       ),
-                    ],
-                  ),
-                )
+                    ),
+                    const SizedBox(
+                      height: 13,
+                    ),
+                    const Text('Dindugal Disaster Management Agency'),
+                    Container(
+                      height: 560,
+                      margin: const EdgeInsets.only(top: 50),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.white,
+                      ),
+                      padding:
+                          const EdgeInsets.only(top: 50, left: 20, right: 20),
+                      child: Column(
+                        children: [
+                          customTile(
+                            const Icon(Icons.privacy_tip_outlined),
+                            'Privacy',
+                            () {},
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          customTile(
+                            const Icon(Icons.person_add_alt),
+                            'Add an Employee',
+                            () {},
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          customTile(
+                            const Icon(Icons.help_outline_outlined),
+                            'Help & Support',
+                            () {},
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          customTile(
+                            const Icon(Icons.history),
+                            'Response Hub History',
+                            () {},
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          customTile(
+                            const Icon(Icons.logout),
+                            'Logout',
+                            () {},
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ],
-            ),
-          ),
-          const SizedBox(height: 20),
-          const InfoHeader(
-              agencyName: "Dindugal Disaster Management",
-              agencyLogo:
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/TamilNadu_Logo.svg/1200px-TamilNadu_Logo.svg.png"),
-          const SizedBox(
-            height: 20,
-          ),
-          Option()
-        ],
+            )
+          ],
+        ),
       )),
+    );
+  }
+
+  Widget customTile(Icon icon, String title, Function() onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          icon,
+          Text(title),
+          Icon(
+            Icons.arrow_forward_ios_outlined,
+            color: Colors.grey.shade400,
+            size: 15,
+          ),
+        ],
+      ),
     );
   }
 }

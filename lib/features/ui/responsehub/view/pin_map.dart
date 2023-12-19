@@ -157,6 +157,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                             Room(
                             radius: radius,
                             createdOn: Timestamp.now(),
+                            status:0,
                             roomName: widget.roomName,
                             disasterType: widget.disasterType,
                             state: widget.selectedState,
