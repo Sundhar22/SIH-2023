@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +18,6 @@ import 'package:sih_2023/features/ui/onboarding/view/first.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
 import 'package:workmanager/workmanager.dart';
-
 import 'features/functions/dialogs/show_messgae.dart';
 import 'features/functions/notification/notifiction.dart';
 import 'features/ui/chat/view/message_model.dart';
@@ -99,7 +97,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'SIH-23',
         theme: buildTheme(),
-        home:  HomeScreen());
+        home: const HomeScreen());
   }
 }
 

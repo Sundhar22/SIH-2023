@@ -29,7 +29,7 @@ class HubInfo extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 15,
           ),
           IconButton(
@@ -42,7 +42,11 @@ class HubInfo extends StatelessWidget {
                           )),
                 );
               },
-              icon: const Icon(Icons.image_outlined, size: 27, color: Colors.blue,)),
+              icon: const Icon(
+                Icons.image_outlined,
+                size: 27,
+                color: Colors.blue,
+              )),
           const SizedBox(
             width: 20,
           )
@@ -84,7 +88,10 @@ class HubInfoHeader extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 75,
-          child: Text(getLogoText(roomName), style: TextStyle(fontSize: 30),),
+          child: Text(
+            getLogoText(roomName),
+            style: const TextStyle(fontSize: 30),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10.0, bottom: 3.0),
@@ -126,7 +133,6 @@ class EmployeeListWidget extends StatelessWidget {
                 "Participants",
                 style: TextStyle(fontSize: 20),
               ),
-              
             ],
           ),
           Column(
@@ -155,8 +161,8 @@ class GroupMember extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
-        child: Text(getLogoText(name)),
         radius: 20,
+        child: Text(getLogoText(name)),
       ),
       onTap: () {},
       title: Text(name),

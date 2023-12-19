@@ -4,19 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/location/location.dart';
 
 class ShareMyLocation extends StatefulWidget {
   const ShareMyLocation({
     super.key,
     required this.roomId,
-    required this.initialLocation,
-    required this.radius,
   });
 
-  final LatLng initialLocation;
-  final double radius;
   final String roomId;
 
   @override
@@ -32,27 +27,15 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
   @override
   void initState() {
     super.initState();
-
     setMapStyle();
-
-    // Setting Stream
-    locationPlot = [
-      GeoPoint(
-        widget.initialLocation.latitude,
-        widget.initialLocation.longitude,
-      ),
-      GeoPoint(eLocation.latitude, eLocation.longitude),
-    ];
-
     // Timer
     _timer = Timer.periodic(
       const Duration(seconds: 20),
       (timer) {
-        retrieveEmployeeLocation();
         fetchLocation(widget.roomId);
+        retrieveEmployeeLocation();
       },
     );
-
     //
     _addCustomMarkers();
   }
@@ -75,11 +58,11 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
     // Duplicate Marker for testing
     _customMarkers.add(
       MarkerData(
-        marker: Marker(
-          markerId: const MarkerId("value"),
-          position: widget.initialLocation,
+        marker: const Marker(
+          markerId: MarkerId("value"),
+          position: LatLng(13.217362, 79.095670),
         ),
-        child: generateHelpSymbol(),
+        child: generateHelpSymbol(true),
       ),
     );
 
@@ -96,7 +79,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
                 title: "Rescue Squad",
               ),
             ),
-            child: generateHelpSymbol(),
+            child: generateHelpSymbol(false),
           ),
         );
       }
@@ -124,7 +107,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
             onPressed: () async {
               await fetchLocation(widget.roomId);
             },
-            child: Text("Share My Location")),
+            child: const Text("Share My Location")),
       ),
       body: SafeArea(
         child: CustomGoogleMapMarkerBuilder(
@@ -134,9 +117,9 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
               return const Center(child: CircularProgressIndicator());
             }
             return GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: widget.initialLocation,
-                zoom: 8,
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(18.657871, 79.711575),
+                zoom: 10,
                 bearing: 20,
               ),
               markers: markers,
@@ -150,24 +133,44 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
     );
   }
 
-  generateHelpSymbol() {
-    return const Column(
-      children: [
-        CircleAvatar(
-          radius: 15,
-          backgroundColor: Colors.red,
-          child: Icon(
-            Icons.emergency,
-            color: Colors.white,
-          ),
-        ),
-        SizedBox(height: 1),
-        CircleAvatar(
-          radius: 2,
-          backgroundColor: Colors.red,
-        )
-      ],
-    );
+  generateHelpSymbol(bool isLocation) {
+    // return const
+
+    isLocation
+        ? const Column(
+            children: [
+              CircleAvatar(
+                radius: 10,
+                backgroundColor: Colors.red,
+                child: Icon(
+                  Icons.emergency,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 1),
+              CircleAvatar(
+                radius: 2,
+                backgroundColor: Colors.red,
+              )
+            ],
+          )
+        : const Column(
+            children: [
+              CircleAvatar(
+                radius: 12,
+                backgroundColor: Colors.amber,
+                child: Icon(
+                  Icons.emergency,
+                  color: Colors.white,
+                ),
+              ),
+              SizedBox(height: 1),
+              CircleAvatar(
+                radius: 2,
+                backgroundColor: Colors.amber,
+              )
+            ],
+          );
   }
 
   // Retrieve Employee Location
@@ -190,26 +193,19 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
           _customMarkers = [];
           for (var i = 0; i < location.length; i++) {
             _customMarkers.add(
-                MarkerData(
-                  marker: Marker(
-                    markerId:  MarkerId(location[i].docId),
-                    position: LatLng(location[i].latitude, location[i].longitude),
-                  ),
-                  child: generateHelpSymbol(),
+              MarkerData(
+                marker: Marker(
+                  markerId: MarkerId(location[i].docId),
+                  position: LatLng(location[i].latitude, location[i].longitude),
                 ),
-                );
+                child: generateHelpSymbol(false),
+              ),
+            );
           }
 
           setState(
             () {
               locationPlot = _customMarkers;
-
-              locationPlot.add(
-                GeoPoint(
-                  widget.initialLocation.latitude,
-                  widget.initialLocation.longitude,
-                ),
-              );
               ();
               _addCustomMarkers();
             },

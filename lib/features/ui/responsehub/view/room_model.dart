@@ -35,6 +35,7 @@ class Room {
       'agencies': agencies,
       'createdOn': createdOn,
       'status': status,
+      'eLocation': [],
     };
   }
 }

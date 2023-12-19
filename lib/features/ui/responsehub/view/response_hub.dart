@@ -98,7 +98,7 @@ class _ResponseHubState extends State<ResponseHub> {
                                 integratedReliefLocation:
                                     curRoom['district'] ?? "Tan",
                               )
-                            : SizedBox();
+                            : const SizedBox();
                       },
                     ))
                   : const EmptyScreen(),
@@ -113,7 +113,7 @@ class _ResponseHubState extends State<ResponseHub> {
     showModalBottomSheet(
       backgroundColor: Colors.white,
       context: context,
-      shape: BeveledRectangleBorder(),
+      shape: const BeveledRectangleBorder(),
       builder: (BuildContext builderContext) {
         return GetX<ResponseHubController>(
           builder: (getxController) {
@@ -136,7 +136,7 @@ class _ResponseHubState extends State<ResponseHub> {
                                     curRoom['location'][1]),
                                 reportedBy: '',
                               )
-                            : SizedBox();
+                            : const SizedBox();
                       },
                     ))
                   : const EmptyScreen(),
@@ -181,7 +181,7 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
   @override
   Widget build(BuildContext context) {
     return _selectedAddress == null
-        ? Center(
+        ? const Center(
             child: CircularProgressIndicator(),
           )
         : Padding(
@@ -203,15 +203,16 @@ class _ApprovalWidgetState extends State<ApprovalWidget> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => VerificationPage(
-                            roomId: widget.roomId,
-                            roomName: widget.RoomName,
-                            disasterType: widget.disasterType,
-                            district: widget.district,
-                            state: widget.state,
-                            mapLocation: widget.mapLocation,
-                            reportedBy: '',
-                          )),
+                    builder: (context) => VerificationPage(
+                      roomId: widget.roomId,
+                      roomName: widget.RoomName,
+                      disasterType: widget.disasterType,
+                      district: widget.district,
+                      state: widget.state,
+                      mapLocation: widget.mapLocation,
+                      reportedBy: '',
+                    ),
+                  ),
                 );
               },
               trailing: const Icon(
