@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
+import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
 
-enum FileType { photo, document, video, audio }
+enum FileType { photo, document, video, audio, resource}
 
 class FileTypeSelectionDialog extends StatelessWidget {
   final Function(FileType) onTypeSelected;
@@ -21,7 +22,7 @@ class FileTypeSelectionDialog extends StatelessWidget {
           horizontal: 20,
         ),
         child: Wrap(
-          spacing: 30.0,
+          spacing: 20.0,
           runSpacing: 20.0,
           children: [
             InkWell(
@@ -41,6 +42,16 @@ class FileTypeSelectionDialog extends StatelessWidget {
                 },
                 child: MediaButton(
                     icon: Icons.video_file_outlined, name: 'Video')),
+            InkWell(
+              onTap: () {
+                onTypeSelected(FileType.document);
+                Navigator.pop(context);
+              },
+              child: MediaButton(
+                icon: Icons.water_drop_outlined,
+                name: 'Resource',
+              ),
+            ),
             InkWell(
               onTap: () {
                 onTypeSelected(FileType.document);

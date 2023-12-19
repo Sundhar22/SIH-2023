@@ -1,4 +1,3 @@
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -8,15 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/functions/notification/notifiction.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/model/firebase_api.dart';
 import 'package:sih_2023/features/theme/build_theme.dart';
 import 'package:sih_2023/features/ui/chatsonic/ui/chatsonic.dart';
 import 'package:sih_2023/features/ui/community/auth_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
+import 'package:sih_2023/features/ui/map/view/scenario_map.dart';
+import 'package:sih_2023/features/ui/onboarding/view/first.dart';
+import 'package:sih_2023/features/ui/onboarding/view/register.dart';
 import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
 import 'package:workmanager/workmanager.dart';
 
+import 'features/functions/dialogs/show_messgae.dart';
+import 'features/functions/notification/notifiction.dart';
 import 'features/ui/chat/view/message_model.dart';
 import 'features/ui/home/controller/filter_controller.dart';
 import 'firebase_options.dart';

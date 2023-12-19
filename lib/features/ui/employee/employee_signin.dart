@@ -1,24 +1,32 @@
 import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:http/http.dart";
+import "package:sih_2023/features/constants/constants.dart";
+import "package:sih_2023/features/ui/employee/employee_db.dart";
 import "package:sih_2023/features/ui/home/view/custom_title_widget.dart";
 import "package:sih_2023/features/ui/home/view/home.dart";
 import "package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart";
 import "package:sih_2023/features/ui/onboarding/widgets/upload_image_widget.dart";
+import "package:sih_2023/features/ui/responsehub/view/push_room_data.dart";
 import "package:sih_2023/features/ui/responsehub/view/relay_action.dart";
 
 class EmployeeSignIn extends StatefulWidget {
   const EmployeeSignIn({super.key});
-
   @override
   State<EmployeeSignIn> createState() => _EmployeeSignInState();
 }
 
 class _EmployeeSignInState extends State<EmployeeSignIn> {
+  TextEditingController employeeNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  FirebaseService firebaseService = FirebaseService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        elevation: 1,
         centerTitle: true,
         title: const Text(
           "Employee Details",
@@ -26,52 +34,222 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
             color: Colors.black87,
           ),
         ),
-        
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+          padding:
+              const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
           child: Center(
             child: Column(
               children: [
-                UploadImageWidget(),
-                SizedBox(
+                const UploadImageWidget(),
+                const SizedBox(
                   height: 40,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTitleWidget(titleContent: "Name"),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    FormWidget(hinttext: "Enter Employee Name"),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    CustomTitleWidget(titleContent: "Email"),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    FormWidget(hinttext: "Enter Email"),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    CustomTitleWidget(titleContent: "Phone Number"),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    FormWidget(hinttext: "Enter Phone Number"),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    Position(),
-                    SizedBox(
-                      height: 25,
-                    ),
-                    AddButton()
-                  ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Name",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 60,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 0.5),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 5),
+                          child: TextField(
+                            controller: employeeNameController,
+                            onChanged: (text) {
+                              print("User entered input: $text");
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter Your Name",
+                              hintStyle: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Email",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 60,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 0.5),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 5),
+                          child: TextField(
+                            controller: emailController,
+                            onChanged: (text) {
+                              print("User entered input: $text");
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter Your Email",
+                              hintStyle: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Phone Number",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 60,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 0.5),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 5),
+                          child: TextField(
+                            controller: phoneController,
+                            onChanged: (text) {
+                              print("User entered input: $text");
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter your phone number",
+                              hintStyle: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Text(
+                        "Age",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 7,
+                      ),
+                      Container(
+                        height: 60,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 0.5),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 5),
+                          child: TextField(
+                            controller: ageController,
+                            onChanged: (text) {
+                              print("User entered input: $text");
+                            },
+                            decoration: const InputDecoration(
+                              hintText: "Enter Your age",
+                              hintStyle: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                color: Colors.grey,
+                              ),
+                              border: InputBorder.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 22,
+                      ),
+                      const Position(),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 50,
+                            width: 200,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.blue[900],
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10))),
+                              onPressed: () {
+                                firebaseService.pushEmployeeData(
+                                  Employee(
+                                    name: employeeNameController.text,
+                                    phoneNumber: phoneController.text,
+                                    age: ageController.text,
+                                    agencyDocId: userData,
+                                  ),
+                                  emailController.text
+                                );
+                                Get.snackbar(
+                                  "Employee Added",
+                                  "Employee data has been successfully added.",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  duration: Duration(seconds: 2),
+                                );
+                                Navigator.pop(context);
+                              },
+                              child: const Text(
+                                "Add Employee",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -222,137 +400,111 @@ class _PositionState extends State<Position> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const CustomTitleWidget(titleContent: "State"),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 9),
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 0.5),
-                borderRadius: BorderRadius.circular(5)),
-            child: DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(borderSide: BorderSide.none)),
-              value: selectedState,
-              hint: const Text('Select State'),
-              onChanged: (newValue) {
-                setState(() {
-                  selectedState = newValue!;
-                  districts = stateDistrictMap[selectedState] ?? [];
-                  selectedDistrict = districts[0];
-                });
-              },
-              items: states.map((state) {
-                return DropdownMenuItem<String>(
-                  value: state,
-                  child: Text(state),
-                );
-              }).toList(),
-            ),
+        const Text(
+          "State",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.normal,
           ),
         ),
         const SizedBox(
-          height: 14,
+          height: 7,
         ),
-        const CustomTitleWidget(titleContent: "District"),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 9),
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 0.5),
-                borderRadius: BorderRadius.circular(5)),
-            child: DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(borderSide: BorderSide.none)),
-              value: selectedDistrict,
-              hint: const Text('Select District'),
-              onChanged: (newValue) {
-                setState(() {
-                  selectedDistrict = newValue!;
-                });
-              },
-              items: districts.map((district) {
-                return DropdownMenuItem<String>(
-                  value: district,
-                  child: Text(district),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 14,
-        ),
-        const CustomTitleWidget(titleContent: "Position"),
-        const SizedBox(
-          height: 10,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 9),
-          child: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 0.5),
-                borderRadius: BorderRadius.circular(5)),
-            child: DropdownButtonFormField<String>(
-              decoration: const InputDecoration(
-                  border: OutlineInputBorder(borderSide: BorderSide.none)),
-              value: selectedPosition,
-              hint: const Text('Select Position'),
-              onChanged: (newValue) {
-                setState(() {
-                  selectedPosition = newValue!;
-                });
-              },
-              items: position.map((position) {
-                return DropdownMenuItem<String>(
-                  value: position,
-                  child: Text(position),
-                );
-              }).toList(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class AddButton extends StatelessWidget {
-  const AddButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 50,
-          width: 200,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue[900],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10))),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: ((context) => const RelayAction()),
-                ),
-              );
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 0.5),
+              borderRadius: BorderRadius.circular(5)),
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(borderSide: BorderSide.none)),
+            value: selectedState,
+            hint: const Text('Select State'),
+            onChanged: (newValue) {
+              setState(() {
+                selectedState = newValue!;
+                districts = stateDistrictMap[selectedState] ?? [];
+                selectedDistrict = districts[0];
+              });
             },
-            child: const Text(
-              "Add Employee",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18),
-            ),
+            items: states.map((state) {
+              return DropdownMenuItem<String>(
+                value: state,
+                child: Text(state),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(
+          height: 22,
+        ),
+        const Text(
+          "District",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 0.5),
+              borderRadius: BorderRadius.circular(5)),
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(borderSide: BorderSide.none)),
+            value: selectedDistrict,
+            hint: const Text('Select District'),
+            onChanged: (newValue) {
+              setState(() {
+                selectedDistrict = newValue!;
+              });
+            },
+            items: districts.map((district) {
+              return DropdownMenuItem<String>(
+                value: district,
+                child: Text(district),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(
+          height: 22,
+        ),
+        const Text(
+          "Postion",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+        const SizedBox(
+          height: 7,
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey, width: 0.5),
+              borderRadius: BorderRadius.circular(5)),
+          child: DropdownButtonFormField<String>(
+            decoration: const InputDecoration(
+                border: OutlineInputBorder(borderSide: BorderSide.none)),
+            value: selectedPosition,
+            hint: const Text('Select Position'),
+            onChanged: (newValue) {
+              setState(() {
+                selectedPosition = newValue!;
+              });
+            },
+            items: position.map((position) {
+              return DropdownMenuItem<String>(
+                value: position,
+                child: Text(position),
+              );
+            }).toList(),
           ),
         ),
       ],
