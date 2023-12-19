@@ -40,27 +40,59 @@ Future<void> fetchLocation(String docId) async {
 
   Map<String, dynamic> eLocations = snapshot.data() as Map<String, dynamic>;
 
+  print("Document eLocations Retrieved ");
+
   List locations = eLocations['eLocation'];
+
+  print("List Locations retrieved . The retrieved location is $locations ");
 
   List updateLocation = [];
 
-  for (var i = 0; i < eLocations.length; i++) {
-    if (locations[i].docId == userData) {
-      updateLocation.add(
-        LocationModel(
-          latitude: locationData.latitude!,
-          longitude: locationData.longitude!,
-          docId: docId,
-        ),
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  print("Update Location array initiaised");
+
+  if (locations.isEmpty) {
+    print("It is empty");
+
+    try {
+      await firestore.collection("rooms").doc(docId).update(
+        {
+          "eLocation": [
+            {
+              "docId": docId,
+              "latitude":
+                  locationData.latitude, // Replace with actual latitude value
+              "longitude":
+                  locationData.longitude, // Replace with actual longitude value
+            }
+          ]
+        },
       );
-    } else {
-      updateLocation.add(locations[i]);
+    } catch (e) {
+      print("The error is $e");
+    }
+  } else {
+    for (var i = 0; i < eLocations.length; i++) {
+      print("Loop Initialised array initialised");
+
+      if (locations[i].docId == userData) {
+        updateLocation.add(
+          LocationModel(
+            latitude: locationData.latitude!,
+            longitude: locationData.longitude!,
+            docId: docId,
+          ),
+        );
+      } else {
+        updateLocation.add(locations[i]);
+      }
     }
   }
-
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   await firestore.collection("rooms").doc(docId).update({
     'eLocation': updateLocation,
   });
+
+  print("Updated Location Success");
 }

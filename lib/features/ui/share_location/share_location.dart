@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sih_2023/features/functions/location/location.dart';
 
+late LatLng primaryLocation;
+
 class ShareMyLocation extends StatefulWidget {
   const ShareMyLocation({
     super.key,
@@ -28,6 +30,9 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
   void initState() {
     super.initState();
     setMapStyle();
+
+    getDocumentByDocId(widget.roomId);
+
     // Timer
     _timer = Timer.periodic(
       const Duration(seconds: 20),
@@ -58,9 +63,9 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
     // Duplicate Marker for testing
     _customMarkers.add(
       MarkerData(
-        marker: const Marker(
-          markerId: MarkerId("value"),
-          position: LatLng(13.217362, 79.095670),
+        marker: Marker(
+          markerId: const MarkerId("value"),
+          position: primaryLocation,
         ),
         child: generateHelpSymbol(true),
       ),
@@ -134,9 +139,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
   }
 
   generateHelpSymbol(bool isLocation) {
-    // return const
-
-    isLocation
+    return isLocation
         ? const Column(
             children: [
               CircleAvatar(
@@ -188,15 +191,19 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
         if (data != null) {
           print("Dynamic Location Marker Function  Called");
 
-          final dynamic location = data['employeeLocation'];
+          final dynamic location = data['eLocation'];
+
+          print("The location is $location");
 
           _customMarkers = [];
+
           for (var i = 0; i < location.length; i++) {
             _customMarkers.add(
               MarkerData(
                 marker: Marker(
-                  markerId: MarkerId(location[i].docId),
-                  position: LatLng(location[i].latitude, location[i].longitude),
+                  markerId: MarkerId(location[i]["docId"]),
+                  position:
+                      LatLng(location[i]["latitude"], location[i]["longitude"]),
                 ),
                 child: generateHelpSymbol(false),
               ),
@@ -214,4 +221,30 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
       } else {}
     } catch (error) {}
   }
+}
+
+Future<LatLng?> getDocumentByDocId(String docId) async {
+  try {
+    // Reference to the collection
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('rooms');
+
+    // Reference to the document
+    DocumentSnapshot documentSnapshot = await collection.doc(docId).get();
+
+    if (documentSnapshot.exists) {
+      Map<String, dynamic> documentSnapShot =
+          documentSnapshot.data() as Map<String, dynamic>;
+
+      primaryLocation = LatLng(
+          documentSnapShot["location"][0], documentSnapShot["location"][1]);
+    } else {
+      // Document does not exist
+      return null;
+    }
+  } catch (error) {
+    print("Error getting document: $error");
+    rethrow;
+  }
+  return null;
 }

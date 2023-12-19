@@ -60,26 +60,22 @@ Future<dynamic> showQuickActions(
                       Icons.delete_outline_sharp,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.person_add_alt),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      targetUserRoomId = roomID;
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => UserRequestScreen(
-                            roomId: roomID,
-                          ),
-                        ),
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.emoji_people_sharp,
-                    ),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     targetUserRoomId = roomID;
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => UserRequestScreen(
+                  //           roomId: roomID,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   icon: const Icon(
+                  //     Icons.emoji_people_sharp,
+                  //   ),
+                  // ),
                   IconButton(
                     onPressed: () {
                       Navigator.push(

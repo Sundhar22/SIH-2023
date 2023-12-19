@@ -132,7 +132,6 @@ Future<void> sendMessageToRoom(String roomId, Message message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   try {
-    // Reference the room's "chatData" subcollection and add the message
     await FirebaseFirestore.instance
         .collection('rooms')
         .doc(roomId)
