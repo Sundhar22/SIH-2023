@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 List<List<String>> filterOptionsAvailable = [
@@ -148,3 +149,12 @@ Map<String, IconData> requestIcons = {
   'Food': Icons.food_bank_outlined,
   'Shelters': Icons.night_shelter_outlined,
 };
+
+String userData = 'tempy text';
+
+
+bool isEmployee = false;
+
+
+
+ LatLng eLocation = LatLng( 13.272415, 79.121719);
