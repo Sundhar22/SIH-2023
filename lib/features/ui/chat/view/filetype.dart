@@ -192,11 +192,13 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                         child: const Text('CANCEL'),
                       ),
                       ElevatedButton(
+
                         onPressed: () {
+
                           Message textMessage = Message(
-                            type: 'Text',
+                            type: 'resource_request',
                             content:
-                                'Resource Required :  $selectedResourceType \n No of Resource needed : ${resourceController.text} \n Description : ${descriptionController.text} ',
+                                "${resourceController.text} ${descriptionController.text}",
                             time: Timestamp.now(),
                             sender: userData,
                           );

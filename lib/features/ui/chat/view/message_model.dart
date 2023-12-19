@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
-  final String type;       // Type of message (text, image, video, audio, etc.)
-  final String content;    // Content of the message (text, URL, file path, etc.)
-  final Timestamp time;   // Timestamp of when the message was sent
-  final String sender;    // ID of the sender
+  final String type; // Type of message (text, image, video, audio, etc.)
+  final content; // Content of the message (text, URL, file path, etc.)
+  final Timestamp time; // Timestamp of when the message was sent
+  final String sender; // ID of the sender
 
   Message({
     required this.type,

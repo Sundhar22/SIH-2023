@@ -147,6 +147,8 @@ class _ChatScreenState extends State<ChatScreen> {
                       chatMsg: message.content,
                       msgTime: message.time.toDate(),
                     );
+                  case 'resource_request':
+                  
 
                   case 'Resource':
                     return ResouceLayout(
