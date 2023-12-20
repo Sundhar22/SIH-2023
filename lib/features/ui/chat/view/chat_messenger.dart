@@ -99,13 +99,17 @@ class _ChatMessengerState extends State<ChatMessenger> {
 }
 
 Future<void> sendMessageToRoom(String roomId, Message message) async {
+  Map<String, dynamic> msg = message.toMap();
+  String id = DateTime.now().millisecondsSinceEpoch.toString();
+  msg['id'] = id;
+  print(msg);
   try {
     // Reference the room's "chatData" subcollection and add the message
     await FirebaseFirestore.instance
         .collection('rooms')
         .doc(roomId)
         .collection('chatData')
-        .add(message.toMap());
+        .add(msg);
   } catch (error) {
     showToast("Please connect to internt");
   }

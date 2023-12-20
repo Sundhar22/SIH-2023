@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import 'package:sih_2023/features/ui/chat/view/chat_messenger.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
 import 'package:sih_2023/features/ui/chat/view/message_tile.dart';
 import 'package:sih_2023/features/ui/chat/view/play_video.dart';
+import 'package:sih_2023/features/ui/chat/view/update_resource_dialog.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/announcement_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/chat_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/document_layout.dart';
@@ -91,7 +93,7 @@ class _ChatScreenState extends State<ChatScreen> {
           //     child: const Icon(CupertinoIcons.video_camera)),
           IconButton(
               onPressed: () {
-                Get.to((){
+                Get.to(() {
                   return ChatSonic();
                 });
               },
@@ -115,6 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
       body: StreamBuilder<List<Message>>(
         stream: getRoomChatStream(widget.roomId),
         builder: (context, snapshot) {
+          
           if (!snapshot.hasData) {
             return const Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -189,150 +192,153 @@ class _ChatScreenState extends State<ChatScreen> {
                   case 'resource_request':
                     return GestureDetector(
                       onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  backgroundColor: Colors.greenAccent.shade100,
-                                  title: const Text("Resource Request"),
-                                  content: SingleChildScrollView(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "Resource Type: ${message.content['resource_type']}",
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 7,
-                                        ),
-                                        Text(
-                                          "Resource: ${message.content['resource']}",
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 7,
-                                        ),
-                                        Text(
-                                          "Description: ${message.content['description']}",
-                                          style: const TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Get.back();
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ));
+                        // showDialog(
+                        //     context: context,
+                        //     builder: (context) => AlertDialog(
+                        //           shape: RoundedRectangleBorder(
+                        //               borderRadius: BorderRadius.circular(10)),
+                        //           backgroundColor: Colors.greenAccent.shade100,
+                        //           title: const Text("Resource Request"),
+                        //           content: SingleChildScrollView(
+                        //             child: Column(
+                        //               crossAxisAlignment:
+                        //                   CrossAxisAlignment.start,
+                        //               mainAxisAlignment:
+                        //                   MainAxisAlignment.start,
+                        //               mainAxisSize: MainAxisSize.min,
+                        //               children: [
+                        //                 Text(
+                        //                   "Resource Type: ${message.content['resource_type']}",
+                        //                   style: const TextStyle(
+                        //                     color: Colors.black,
+                        //                     fontSize: 17,
+                        //                     fontWeight: FontWeight.normal,
+                        //                   ),
+                        //                 ),
+                        //                 const SizedBox(
+                        //                   height: 7,
+                        //                 ),
+                        //                 Text(
+                        //                   "Resource: ${message.content['resource']}",
+                        //                   style: const TextStyle(
+                        //                     color: Colors.black,
+                        //                     fontSize: 17,
+                        //                     fontWeight: FontWeight.normal,
+                        //                   ),
+                        //                 ),
+                        //                 const SizedBox(
+                        //                   height: 7,
+                        //                 ),
+                        //                 Text(
+                        //                   "Description: ${message.content['description']}",
+                        //                   style: const TextStyle(
+                        //                     color: Colors.black,
+                        //                     fontSize: 17,
+                        //                     fontWeight: FontWeight.normal,
+                        //                   ),
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //           ),
+                        //           actions: [
+                        //             ElevatedButton(
+                        //               onPressed: () {
+                        //                 Get.back();
+                        //               },
+                        //               child: const Text('OK'),
+                        //             ),
+                        //           ],
+                        //         ));
                       },
                       child: SwipePlus(
                         onDragComplete: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    backgroundColor:
-                                        Colors.greenAccent.shade100,
-                                    title: const Text("SEND RESOURCES"),
-                                    content: SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            "Resource Type: ${message.content['resource_type']}",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 7,
-                                          ),
-                                          Text(
-                                            "Needed Resource: ${message.content['resource']}",
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 7,
-                                          ),
-                                          TextField(
-                                            onChanged: (value) {
-                                              setState(() {
-                                                available_resources = value;
-                                              });
-                                            },
-                                            decoration: const InputDecoration(
-                                                hintText:
-                                                    "Enter the Available of resources"),
-                                          ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
-                                          const MapPreview()
-                                        ],
-                                      ),
-                                    ),
-                                    actions: [
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          Get.back();
-                                        },
-                                        child: const Text('CANCEL'),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          sendMessageToRoom(
-                                              widget.roomId,
-                                              Message(
-                                                  type: 'accepted_request',
-                                                  content: {
-                                                    'response':
-                                                        available_resources,
-                                                    'Lat': 13.272441,
-                                                    'Long': 79.118764,
-                                                  },
-                                                  time: Timestamp.now(),
-                                                  sender: ''));
+                          
+                          // showDialog(
+                          //     context: context,
+                          //     builder: (context) => AlertDialog(
+                          //           shape: RoundedRectangleBorder(
+                          //               borderRadius:
+                          //                   BorderRadius.circular(10)),
+                          //           backgroundColor:
+                          //               Colors.greenAccent.shade100,
+                          //           title: const Text("SEND RESOURCES"),
+                          //           content: SingleChildScrollView(
+                          //             child: Column(
+                          //               crossAxisAlignment:
+                          //                   CrossAxisAlignment.start,
+                          //               mainAxisAlignment:
+                          //                   MainAxisAlignment.start,
+                          //               mainAxisSize: MainAxisSize.min,
+                          //               children: [
+                          //                 Text(
+                          //                   "Resource Type: ${message.content['resource_type']}",
+                          //                   style: const TextStyle(
+                          //                     color: Colors.black,
+                          //                     fontSize: 17,
+                          //                     fontWeight: FontWeight.normal,
+                          //                   ),
+                          //                 ),
+                          //                 const SizedBox(
+                          //                   height: 7,
+                          //                 ),
+                          //                 Text(
+                          //                   "Needed Resource: ${message.content['resource']}",
+                          //                   style: const TextStyle(
+                          //                     color: Colors.black,
+                          //                     fontSize: 17,
+                          //                     fontWeight: FontWeight.normal,
+                          //                   ),
+                          //                 ),
+                          //                 const SizedBox(
+                          //                   height: 7,
+                          //                 ),
+                          //                 TextField(
+                          //                   onChanged: (value) {
+                          //                     setState(() {
+                          //                       available_resources = value;
+                          //                     });
+                          //                   },
+                          //                   decoration: const InputDecoration(
+                          //                       hintText:
+                          //                           "Enter the Available of resources"),
+                          //                 ),
+                          //                 const SizedBox(
+                          //                   height: 10,
+                          //                 ),
+                          //                 const MapPreview()
+                          //               ],
+                          //             ),
+                          //           ),
+                          //           actions: [
+                          //             ElevatedButton(
+                          //               onPressed: () {
+                          //                 Get.back();
+                          //               },
+                          //               child: const Text('CANCEL'),
+                          //             ),
+                          //             ElevatedButton(
+                          //               onPressed: () {
+                          
 
-                                          Get.back();
-                                        },
-                                        child: const Text('ACCEPT'),
-                                      ),
-                                    ],
-                                  ));
+                          //                 Get.back();
+                          //               },
+                          //               child: const Text('ACCEPT'),
+                          //             ),
+                          //           ],
+                          //         ));
+                          print(
+                            message.content['resource_type'],
+                            
+                          );
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return EditPeopleRequestDialog(
+                                roomId: widget.roomId,
+                                resourceType: message.content['resource_type'],
+                              );
+                            },
+                          );
                         },
                         child: MessageLayout(
                           widget: SingleChildScrollView(
@@ -348,44 +354,53 @@ class _ChatScreenState extends State<ChatScreen> {
                                 color: Colors.greenAccent.shade100,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  CircleAvatar(
-                                    radius: 20,
-                                    backgroundColor:
-                                        Colors.greenAccent.shade100,
-                                    child: const Icon(
-                                      Icons.medical_services_rounded,
-                                      color: Colors.green,
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Resource Request",
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700),
                                     ),
-                                  ),
-                                  Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            "${message.content['resource_type']} Requested",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500)),
-                                        Text(
-                                            "${message.content['resource']} of units requested",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500)),
-                                        Text(
-                                          '${message.content['description']}'
-                                                      .length >
-                                                  30
-                                              ? '${message.content['description'].substring(0, 20)}...'
-                                              : '${message.content['description']}',
-                                          style: const TextStyle(),
-                                        ),
-                                      ]),
-                                ],
-                              ),
+                                    // Text(
+                                    //     "${message.content['People']} People requested",
+                                    //     style: const TextStyle(
+                                    //         fontSize: 16,
+                                    //         fontWeight: FontWeight.w500)),
+                                    // for (var i
+                                    //     in message.content['People_Types'])
+                                    //   Text(
+                                    //     '$i',
+                                    //     style: const TextStyle(),
+                                    //   ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    for (var i in message
+                                        .content['resource_type'].keys)
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            '$i : ${message.content['resource_type'][i]['given']} / ${message.content['resource_type'][i]['quantity']}',
+                                            style: const TextStyle(),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: LinearProgressIndicator(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                minHeight: 15,
+                                                value: (message.content[
+                                                            'resource_type'][i]
+                                                        ['given'])
+                                                    .toDouble()),
+                                          )
+                                        ],
+                                      ),
+                                  ]),
                             ),
                           ),
                           dateTime: DateTime.now(),
@@ -610,25 +625,94 @@ class _MapPreviewState extends State<MapPreview> {
 }
 
 Future<String> fetchDataAndConcatenate(String roomId) async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    try {
-      String resultString = '';
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  try {
+    String resultString = '';
 
-      // Fetch chat data using the room ID
-      QuerySnapshot chatSnapshot =
-          await _firestore.collection('rooms/$roomId/chatData').get();
+    // Fetch chat data using the room ID
+    QuerySnapshot chatSnapshot =
+        await _firestore.collection('rooms/$roomId/chatData').get();
 
-      // Concatenate sender and content for each chat document
-      for (QueryDocumentSnapshot chatDoc in chatSnapshot.docs) {
-        String sender = chatDoc['sender'];
-        String content = chatDoc['content'].toString();
-        resultString += '$sender: $content\n';
-      }
+    // Concatenate sender and content for each chat document
+    for (QueryDocumentSnapshot chatDoc in chatSnapshot.docs) {
+      String sender = chatDoc['sender'];
+      String content = chatDoc['content'].toString();
+      resultString += '$sender: $content\n';
+    }
 
-      // Return the final concatenated string
-      return resultString;
-    } catch (e) {
-      print('Error fetching data: $e');
-      return 'Error fetching data';
+    // Return the final concatenated string
+    return resultString;
+  } catch (e) {
+    print('Error fetching data: $e');
+    return 'Error fetching data';
+  }
+}
+
+class EditQuantitiesDialog extends StatefulWidget {
+  final Map<String, dynamic> resources;
+
+  const EditQuantitiesDialog({required this.resources});
+
+  @override
+  _EditQuantitiesDialogState createState() => _EditQuantitiesDialogState();
+}
+
+class _EditQuantitiesDialogState extends State<EditQuantitiesDialog> {
+  late Map<String, TextEditingController> quantityControllers;
+
+  @override
+  void initState() {
+    super.initState();
+    quantityControllers = {};
+    for (var resourceName in widget.resources.keys) {
+      quantityControllers[resourceName] = TextEditingController(
+        text: widget.resources[resourceName]['quantity'].toString(),
+      );
     }
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Edit Quantities'),
+      content: Column(
+        children: widget.resources.keys.map((resourceName) {
+          return TextField(
+            controller: quantityControllers[resourceName],
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(labelText: '$resourceName Quantity'),
+          );
+        }).toList(),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Close the dialog
+          },
+          child: Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            updateQuantitiesInFirebase();
+
+            Navigator.of(context).pop(); // Close the dialog
+          },
+          child: Text('Update'),
+        ),
+      ],
+    );
+  }
+
+  void updateQuantitiesInFirebase() {
+    final DatabaseReference databaseReference =
+        FirebaseDatabase.instance.reference();
+
+    // Update quantities for all resources
+    quantityControllers.forEach((resourceName, controller) {
+      int newQuantity = int.tryParse(controller.text) ?? 0;
+      databaseReference.child(resourceName).update({
+        'quantity': newQuantity,
+      });
+    });
+  }
+}

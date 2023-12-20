@@ -25,11 +25,11 @@ class AgencyController extends GetxController {
       AgencyModel data = AgencyModel(
         agencyName: agencyEntry['agencyName'] ?? '',
         agencyKey: agencyEntry['agencyKey'] ?? '',
-        agencyLogo: agencyEntry['agencyLogo']?? '',
+        agencyLogo: agencyEntry['agencyLogo'] ?? '',
         agencyDescription:
             expertiseDescription[agencyEntry['agencyType']] ?? '',
-        agencyOperatingState: agencyEntry['agencyOperatingState']?? '',
-        agencyOperatingLocation: agencyEntry['agencyOperatingLocation']?? '',
+        agencyOperatingState: agencyEntry['agencyOperatingState'] ?? '',
+        agencyOperatingLocation: agencyEntry['agencyOperatingLocation'] ?? '',
         agencyExpertise: expertiseMapping[agencyEntry['agencyType']] ?? "",
         agencyAssocaites: agencyEntry['agencyAssociates'],
         agencyEmployee: agencyEntry['agencyEmployee'],

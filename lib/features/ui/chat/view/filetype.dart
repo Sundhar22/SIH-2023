@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sih_2023/features/constants/constants.dart';
 import 'package:sih_2023/features/functions/dialogs/show_messgae.dart';
 import 'package:sih_2023/features/ui/chat/view/message_model.dart';
+import 'package:sih_2023/features/ui/chat/view/widgets/request_form.dart';
+import 'package:sih_2023/features/ui/responsehub/view/room_model.dart';
 import 'package:sih_2023/main.dart';
 
 enum FileType { photo, document, video, audio, resource }
@@ -68,164 +71,156 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
             ),
             InkWell(
               onTap: () {
-                showDialog(
-                  builder: (context) => AlertDialog(
-                    title: const Text("Resource Sharing"),
-                    content: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            "Select Type",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            height: 60,
-                            width: 220,
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.5),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: DropdownButtonFormField<String>(
-                              decoration: const InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide.none)),
-                              value: selectedResourceType,
-                              hint: const Text('Selected resources'),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  selectedResourceType = newValue!;
-                                });
-                              },
-                              items: expertise.map((expertise) {
-                                return DropdownMenuItem<String>(
-                                  value: expertise,
-                                  child: Text(expertise),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 14,
-                          ),
-                          const Text(
-                            "Quantity",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          Container(
-                            height: 60,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.5),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 15, top: 5),
-                              child: TextField(
-                                controller: resourceController,
-                                onChanged: (text) {
-                                  print("User entered input: $text");
-                                },
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                  hintText: "No of Resources",
-                                  hintStyle: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.grey,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 14,
-                          ),
-                          const Text(
-                            "Description",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 17,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          Container(
-                            height: 60,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: Colors.grey, width: 0.5),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 15, top: 5),
-                              child: TextField(
-                                controller: descriptionController,
-                                onChanged: (text) {
-                                  print("User entered input: $text");
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: "description",
-                                  hintStyle: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.grey,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('CANCEL'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Message textMessage = Message(
-                            type: 'resource_request',
-                            content: {
-                              'resource': resourceController.text,
-                              'description': descriptionController.text,
-                              'resource_type': selectedResourceType,
-                            },
-                            time: Timestamp.now(),
-                            sender: userData,
-                          );
-                          sendMessageToRoom(widget.roomID, textMessage);
-                          print("working");
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                        },
-                        child: const Text('ACCEPT'),
-                      ),
-                    ],
-                  ),
-                  context: context,
-                );
+                // showDialog(
+                //   builder: (context) => AlertDialog(
+                //     title: const Text("Resource Sharing"),
+                //     content: SingleChildScrollView(
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         mainAxisAlignment: MainAxisAlignment.start,
+                //         mainAxisSize: MainAxisSize.min,
+                //         children: [
+                //           const Text(
+                //             "Select Type",
+                //             style: TextStyle(
+                //               color: Colors.black,
+                //               fontSize: 17,
+                //               fontWeight: FontWeight.normal,
+                //             ),
+                //           ),
+                //           const SizedBox(
+                //             height: 10,
+                //           ),
+                //           Container(
+                //             height: 60,
+                //             width: 220,
+                //             decoration: BoxDecoration(
+                //                 border:
+                //                     Border.all(color: Colors.grey, width: 0.5),
+                //                 borderRadius: BorderRadius.circular(5)),
+                //             child: DropdownButtonFormField<String>(
+                //               decoration: const InputDecoration(
+                //                   border: OutlineInputBorder(
+                //                       borderSide: BorderSide.none)),
+                //               value: selectedResourceType,
+                //               hint: const Text('Selected resources'),
+                //               onChanged: (newValue) {
+                //                 setState(() {
+                //                   selectedResourceType = newValue!;
+                //                 });
+                //               },
+                //               items: expertise.map((expertise) {
+                //                 return DropdownMenuItem<String>(
+                //                   value: expertise,
+                //                   child: Text(expertise),
+                //                 );
+                //               }).toList(),
+                //             ),
+                //           ),
+                //           const SizedBox(
+                //             height: 14,
+                //           ),
+                //           const Text(
+                //             "Quantity",
+                //             style: TextStyle(
+                //               color: Colors.black,
+                //               fontSize: 17,
+                //               fontWeight: FontWeight.normal,
+                //             ),
+                //           ),
+                //           const SizedBox(
+                //             height: 7,
+                //           ),
+                //           Container(
+                //             height: 60,
+                //             width: double.infinity,
+                //             decoration: BoxDecoration(
+                //                 border:
+                //                     Border.all(color: Colors.grey, width: 0.5),
+                //                 borderRadius: BorderRadius.circular(5)),
+                //             child: Padding(
+                //               padding: const EdgeInsets.only(left: 15, top: 5),
+                //               child: TextField(
+                //                 controller: resourceController,
+                //                 onChanged: (text) {
+                //                   print("User entered input: $text");
+                //                 },
+                //                 keyboardType: TextInputType.number,
+                //                 decoration: const InputDecoration(
+                //                   hintText: "No of Resources",
+                //                   hintStyle: TextStyle(
+                //                     fontWeight: FontWeight.normal,
+                //                     color: Colors.grey,
+                //                   ),
+                //                   border: InputBorder.none,
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //           const SizedBox(
+                //             height: 14,
+                //           ),
+                //           const Text(
+                //             "Description",
+                //             style: TextStyle(
+                //               color: Colors.black,
+                //               fontSize: 17,
+                //               fontWeight: FontWeight.normal,
+                //             ),
+                //           ),
+                //           const SizedBox(
+                //             height: 7,
+                //           ),
+                //           Container(
+                //             height: 60,
+                //             width: double.infinity,
+                //             decoration: BoxDecoration(
+                //                 border:
+                //                     Border.all(color: Colors.grey, width: 0.5),
+                //                 borderRadius: BorderRadius.circular(5)),
+                //             child: Padding(
+                //               padding: const EdgeInsets.only(left: 15, top: 5),
+                //               child: TextField(
+                //                 controller: descriptionController,
+                //                 onChanged: (text) {
+                //                   print("User entered input: $text");
+                //                 },
+                //                 decoration: const InputDecoration(
+                //                   hintText: "description",
+                //                   hintStyle: TextStyle(
+                //                     fontWeight: FontWeight.normal,
+                //                     color: Colors.grey,
+                //                   ),
+                //                   border: InputBorder.none,
+                //                 ),
+                //               ),
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //     actions: [
+                //       ElevatedButton(
+                //         onPressed: () {
+                //           Navigator.pop(context);
+                //         },
+                //         child: const Text('CANCEL'),
+                //       ),
+                //       ElevatedButton(
+                //         onPressed: () {
+                        
+                //           print("working");
+                //           Navigator.pop(context);
+                //           Navigator.pop(context);
+                //         },
+                //         child: const Text('ACCEPT'),
+                //       ),
+                //     ],
+                //   ),
+                //   context: context,
+                // );
+
+                Get.to(() => RequestForm(roomID: widget.roomID,));
               },
               child: MediaButton(
                 icon: Icons.water_drop_outlined,
