@@ -52,7 +52,7 @@ class _RelayActionState extends State<RelayAction> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [],
+        actions: const [],
         title: const Text("Relay Action"),
         centerTitle: true,
       ),
@@ -66,7 +66,7 @@ class _RelayActionState extends State<RelayAction> {
               const SizedBox(
                 height: 10,
               ),
-               FormWidget(hinttext: "Enter your name", controller: nameController,),
+              const FormWidget(hinttext: "Enter your name"),
               const SizedBox(
                 height: 14,
               ),
@@ -93,7 +93,7 @@ class _RelayActionState extends State<RelayAction> {
                 },
               ),
               if (selectedSizeType == 'Team')
-                 Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
@@ -105,7 +105,6 @@ class _RelayActionState extends State<RelayAction> {
                     ),
                     FormWidget(
                       hinttext: "Enter team size",
-                      controller: teamSizeController,
                     ),
                     SizedBox(
                       height: 20,
@@ -115,13 +114,12 @@ class _RelayActionState extends State<RelayAction> {
                       height: 10,
                     ),
                     FormWidget(
-                      controller: phoneNumberController,
                       hinttext: "Enter Your Phone Number",
                     ),
                   ],
                 ),
               if (selectedSizeType == 'Solo')
-                 Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomTitleWidget(titleContent: "Number"),
@@ -129,7 +127,6 @@ class _RelayActionState extends State<RelayAction> {
                       height: 10,
                     ),
                     FormWidget(
-                      controller: phoneNumberController,
                       hinttext: "Enter Your Phone number",
                     ),
                   ],
@@ -153,12 +150,12 @@ class _RelayActionState extends State<RelayAction> {
                     ),
                     markers: {
                       Marker(
-                        markerId: MarkerId('marker_1'),
+                        markerId: const MarkerId('marker_1'),
                         position: currentLocation != null
                             ? LatLng(currentLocation!.latitude!,
                                 currentLocation!.longitude!)
-                            : LatLng(37.7749, -122.4194),
-                        infoWindow: InfoWindow(title: 'Marker 1'),
+                            : const LatLng(37.7749, -122.4194),
+                        infoWindow: const InfoWindow(title: 'Marker 1'),
                       )
                     },
                     onMapCreated: (GoogleMapController controller) {
@@ -172,7 +169,7 @@ class _RelayActionState extends State<RelayAction> {
                 children: [
                   TextButton(
                     onPressed: getCurrentLocation,
-                    child: Text(
+                    child: const Text(
                       "Get Location",
                       style: TextStyle(color: Colors.blue),
                     ),

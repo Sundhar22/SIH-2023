@@ -59,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Name of Agency", controller: nameController,),
+                    FormWidget(hinttext: "Name of Agency", ),
                     SizedBox(
                       height: 22,
                     ),
@@ -74,7 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Name of Head", controller: headController,),
+                    FormWidget(hinttext: "Name of Head",),
                     SizedBox(
                       height: 22,
                     ),
@@ -89,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Phone Number", controller: phoneController,),
+                    FormWidget(hinttext: "Phone Number", ),
                     SizedBox(
                       height: 22,
                     ),

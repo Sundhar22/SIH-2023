@@ -4,10 +4,9 @@ class FormWidget extends StatefulWidget {
   const FormWidget({
     super.key,
     required this.hinttext,
-    required this.controller,
+    
   });
   final String hinttext;
-  final TextEditingController controller;
 
   @override
   State<FormWidget> createState() => _FormWidgetState();
