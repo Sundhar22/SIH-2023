@@ -77,6 +77,17 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          const Text(
+                            "Select Type",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Container(
                             height: 60,
                             width: 220,
@@ -107,7 +118,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                             height: 14,
                           ),
                           const Text(
-                            "Resources",
+                            "Quantity",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17,
@@ -133,7 +144,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                                 },
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                  hintText: "resources",
+                                  hintText: "No of Resources",
                                   hintStyle: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: Colors.grey,

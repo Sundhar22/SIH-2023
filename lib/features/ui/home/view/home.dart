@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late int curPage;
   @override
   void initState() {
+    
     curPage = 0;
     super.initState();
   }

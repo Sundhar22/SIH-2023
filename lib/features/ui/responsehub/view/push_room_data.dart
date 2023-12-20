@@ -7,6 +7,7 @@ class FirebaseService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> pushRoomData(Room room) async {
+    
     try {
       String roomId = FirebaseFirestore.instance.collection('rooms').doc().id;
       await _firestore.collection('rooms').doc(roomId).set(room.toJson());

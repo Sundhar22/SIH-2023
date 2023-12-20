@@ -22,6 +22,8 @@ class SelectMedia extends StatelessWidget {
   Widget build(BuildContext context) {
     ProgressDialog pd = ProgressDialog(context: context);
     FileType? selectedFileType;
+    TextEditingController resource = TextEditingController();
+    TextEditingController description = TextEditingController();
 
     return IconButton(
       icon: const Icon(Icons.attach_file),

@@ -11,6 +11,7 @@ import 'package:sih_2023/features/theme/build_theme.dart';
 import 'package:sih_2023/features/ui/community/auth_controller.dart';
 import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/view/home.dart';
+import 'package:sih_2023/features/ui/onboarding/view/first.dart';
 import 'package:sih_2023/features/ui/post/controller/new_post_controller.dart';
 import 'package:workmanager/workmanager.dart';
 import 'features/ui/chat/view/message_model.dart';
@@ -84,11 +85,10 @@ class _MyAppState extends State<MyApp> {
     Get.put(NewPostController());
 
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SIH-23',
-      theme: buildTheme(),
-      home: const HomeScreen(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'SIH-23',
+        theme: buildTheme(),
+        home:  FirstPage());
   }
 }
 

@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:sih_2023/features/ui/home/view/home.dart';
 
 import 'package:sih_2023/features/ui/onboarding/view/signin.dart';
 import 'package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart';
+import 'package:sih_2023/features/widget/swipe_widget.dart';
 import '../widgets/upload_image_widget.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -14,6 +17,12 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController headController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController expertiseController = TextEditingController();
+  TextEditingController locationController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.height;
@@ -35,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 const SizedBox(
                   height: 30,
                 ),
-                const Column(
+                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -50,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Name of Agency"),
+                    FormWidget(hinttext: "Name of Agency", controller: nameController,),
                     SizedBox(
                       height: 22,
                     ),
@@ -65,7 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Name of Head"),
+                    FormWidget(hinttext: "Name of Head", controller: headController,),
                     SizedBox(
                       height: 22,
                     ),
@@ -80,7 +89,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Phone Number"),
+                    FormWidget(hinttext: "Phone Number", controller: phoneController,),
                     SizedBox(
                       height: 22,
                     ),
@@ -123,10 +132,29 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: TextStyle(color: Colors.black, fontSize: 30)),
                     FloatingActionButton(
                       onPressed: () {
+                        print('firebase upload started');
+                        print(nameController.text);
+                        
+                        FirebaseFirestore.instance
+                            .collection('agencies')
+                            .add({
+                          'agencyName': 'Blue Nesh',
+                          'agencyEmployee':[],
+                          'agencyAssociates': [],
+                          'agencyLatitutude': 13.271399137370272,
+                          'agencyLongitude': 79.12041442102053,
+                          'agencyLogo':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdh0M0JLJfntPLVOfy8mjleotBTKjIoAX13nbBN4E&s',
+                          'agencyOperatingLocation': locationController.text,
+                          'agencyOperatingState': 'Andhra Pradesh',
+                          'expertise': 'Area of Expertise',
+                          'agencyType': 1,
+                        }).then((value) => print(value));
+
+                        print('upload end');
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SignInPage(),
+                            builder: (context) => HomeScreen(),
                           ),
                         );
                       },
@@ -143,6 +171,11 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 }
+
+
+
+  
+
 
 class AreaOfExpertise extends StatefulWidget {
   const AreaOfExpertise({super.key});

@@ -20,6 +20,7 @@ void sortBottomSheet(BuildContext context) {
   ];
 
   showModalBottomSheet(
+    backgroundColor: Colors.white,
     isDismissible: true,
     shape: Border.all(color: Colors.transparent),
     context: context,

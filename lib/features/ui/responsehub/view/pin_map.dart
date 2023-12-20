@@ -134,6 +134,7 @@ class _PinMapScreenState extends State<PinMapScreen> {
                     width: 300,
                     child: Center(
                       child: SwipeableButtonView(
+                        
                         buttonText: 'SLIDE TO CREATE ROOM',
                         buttonWidget: Container(
                           child: const Icon(
