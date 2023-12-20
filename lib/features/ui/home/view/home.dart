@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sih_2023/features/ui/Info/view/profile_info.dart';
 import 'package:sih_2023/features/ui/community/social.dart';
+import 'package:sih_2023/features/ui/home/controller/agency_controller.dart';
 import 'package:sih_2023/features/ui/home/view/agency_component.dart';
 import 'package:sih_2023/features/ui/home/view/greet_msg.dart';
 import 'package:sih_2023/features/ui/responsehub/view/map_test.dart';
@@ -24,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
   late int curPage;
   @override
   void initState() {
-    
+    Get.put(AgencyController());
     curPage = 0;
     super.initState();
   }

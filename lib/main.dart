@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     Get.put(AuthController());
-    Get.put(AgencyController());
+    // Get.put(AgencyController());
     Get.put(FilterController());
     Get.put(NewPostController());
 

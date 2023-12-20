@@ -18,10 +18,20 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController headController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  TextEditingController childAgency = TextEditingController();
   TextEditingController expertiseController = TextEditingController();
   TextEditingController locationController = TextEditingController();
+    String selectedExpertise = 'Select Expertise';
+  List<String> expertise = [
+    'Select Expertise',
+    'Food',
+    'Medical',
+    'Clothing',
+    'Fire',
+    'Air force'
+  ];
+  String? dropdownvalue;
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +69,37 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Name of Agency", ),
+                    TextField(
+                      controller: nameController,
+                      decoration: InputDecoration(
+                        hintText: "Name",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    
                     SizedBox(
                       height: 22,
                     ),
                     Text(
-                      "Head",
+                      "Description",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 17,
@@ -74,12 +109,42 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Name of Head",),
+                    TextField(
+                      controller: descriptionController,
+                      decoration: InputDecoration(
+                        hintText: "Description",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    
+
+                    SizedBox(
+                      height: 7,
+                    ),
+                    
                     SizedBox(
                       height: 22,
                     ),
                     Text(
-                      "Phone Number",
+                      "child Agency",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 17,
@@ -89,7 +154,36 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    FormWidget(hinttext: "Phone Number", ),
+                    
+                    SizedBox(
+                      height: 7,
+                    ),
+                    TextField(
+                      controller: childAgency,
+                      decoration: InputDecoration(
+                        hintText: "child Agency",
+                        hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            width: 0.5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    
                     SizedBox(
                       height: 22,
                     ),
@@ -104,7 +198,28 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 7,
                     ),
-                    AreaOfExpertise(),
+                    Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey, width: 0.5),
+          borderRadius: BorderRadius.circular(5)),
+      child: DropdownButtonFormField<String>(
+        decoration: const InputDecoration(
+            border: OutlineInputBorder(borderSide: BorderSide.none)),
+        value: selectedExpertise,
+        hint: const Text('Selected Position'),
+        onChanged: (newValue) {
+          setState(() {
+            selectedExpertise = newValue!;
+          });
+        },
+        items: expertise.map((expertise) {
+          return DropdownMenuItem<String>(
+            value: expertise,
+            child: Text(expertise),
+          );
+        }).toList(),
+      ),
+    ),
                     SizedBox(
                       height: 22,
                     ),
@@ -138,19 +253,20 @@ class _SignUpPageState extends State<SignUpPage> {
                         FirebaseFirestore.instance
                             .collection('agencies')
                             .add({
-                          'agencyName': 'Blue Nesh',
-                          'agencyEmployee':[],
-                          'agencyAssociates': [],
+                          'agencyName': nameController.text,
+                          'agencyEmployee':[''],
+                          'agencyAssociates': [childAgency.text],
                           'agencyLatitutude': 13.271399137370272,
                           'agencyLongitude': 79.12041442102053,
-                          'agencyLogo':'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdh0M0JLJfntPLVOfy8mjleotBTKjIoAX13nbBN4E&s',
+                          'agencyLogo':'',
                           'agencyOperatingLocation': locationController.text,
                           'agencyOperatingState': 'Andhra Pradesh',
-                          'expertise': 'Area of Expertise',
+                          'expertise':selectedExpertise,
                           'agencyType': 1,
                         }).then((value) => print(value));
 
                         print('upload end');
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(
