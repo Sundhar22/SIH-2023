@@ -131,6 +131,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                                 onChanged: (text) {
                                   print("User entered input: $text");
                                 },
+                                keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                   hintText: "resources",
                                   hintStyle: TextStyle(
@@ -192,13 +193,14 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                         child: const Text('CANCEL'),
                       ),
                       ElevatedButton(
-
                         onPressed: () {
-
                           Message textMessage = Message(
                             type: 'resource_request',
-                            content:
-                                "${resourceController.text} ${descriptionController.text}",
+                            content: {
+                              'resource': resourceController.text,
+                              'description': descriptionController.text,
+                              'resource_type': selectedResourceType,
+                            },
                             time: Timestamp.now(),
                             sender: userData,
                           );
