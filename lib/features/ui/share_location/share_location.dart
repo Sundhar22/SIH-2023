@@ -91,16 +91,6 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: ElevatedButton(
-            onPressed: () async {
-              setState(() {});
-
-              // await fetchLocation(widget.roomId);
-            },
-            child: const Text("Share My Location")),
-      ),
       body: SafeArea(
         child: CustomGoogleMapMarkerBuilder(
           customMarkers: _customMarkers,
@@ -149,7 +139,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
                 radius: 13,
                 backgroundColor: Colors.amber,
                 child: Icon(
-                  Icons.emergency,
+                  Icons.person_pin_circle_sharp,
                   color: Colors.white,
                 ),
               ),
