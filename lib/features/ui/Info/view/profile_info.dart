@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sih_2023/features/ui/employee/employee_signin.dart';
 import 'package:sih_2023/features/ui/onboarding/view/register.dart';
@@ -96,7 +97,9 @@ class ProfileInfo extends StatelessWidget {
                           customTile(
                             const Icon(Icons.person_add_alt),
                             'Add an Employee',
-                            () {},
+                            () {
+                              Get.to(()=> EmployeeSignIn());
+                            },
                           ),
                           const SizedBox(
                             height: 35,

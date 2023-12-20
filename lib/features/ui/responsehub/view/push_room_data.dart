@@ -54,7 +54,7 @@ class FirebaseService {
         },
       );
     } catch (error) {
-      showToast("Error Adding Employee");
+      
     }
   }
 
