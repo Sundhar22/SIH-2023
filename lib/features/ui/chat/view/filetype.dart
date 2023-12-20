@@ -78,6 +78,17 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          const Text(
+                            "Select Type",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                           Container(
                             height: 60,
                             width: 220,
@@ -108,7 +119,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                             height: 14,
                           ),
                           const Text(
-                            "Resources",
+                            "Quantity",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 17,
@@ -133,7 +144,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                                   print("User entered input: $text");
                                 },
                                 decoration: const InputDecoration(
-                                  hintText: "resources",
+                                  hintText: "No of Resources",
                                   hintStyle: TextStyle(
                                     fontWeight: FontWeight.normal,
                                     color: Colors.grey,
@@ -197,7 +208,7 @@ class _FileTypeSelectionDialogState extends State<FileTypeSelectionDialog> {
                           Message textMessage = Message(
                             type: 'Text',
                             content:
-                                'Resource Required :  ${selectedResourceType} \n No of Resource needed : ${resourceController.text} \n Description : ${descriptionController.text} ',
+                                'Resource:  ${selectedResourceType} \n quantity : ${resourceController.text} \n Description : ${descriptionController.text} ',
                             time: Timestamp.now(),
                             sender: userData,
                           );

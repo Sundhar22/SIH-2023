@@ -23,6 +23,8 @@ class SelectMedia extends StatelessWidget {
   Widget build(BuildContext context) {
     ProgressDialog pd = ProgressDialog(context: context);
     FileType? selectedFileType;
+    TextEditingController resource = TextEditingController();
+    TextEditingController description = TextEditingController();
 
     return IconButton(
       icon: const Icon(Icons.attach_file),
@@ -30,7 +32,7 @@ class SelectMedia extends StatelessWidget {
         FileType.resource == 'resource' ? showDialog(
                   builder: (context) => AlertDialog(
                     title: const Text("Resource Sharing"),
-                    content: const SingleChildScrollView(
+                    content:  SingleChildScrollView(
                       child:  Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -51,7 +53,7 @@ class SelectMedia extends StatelessWidget {
                           SizedBox(
                             height: 7,
                           ),
-                          FormWidget(hinttext: "Amount of Resources"),
+                          FormWidget(hinttext: "Amount of Resources", controller: resource,),
                           SizedBox(
                             height: 14,
                           ),
@@ -66,7 +68,7 @@ class SelectMedia extends StatelessWidget {
                           SizedBox(
                             height: 7,
                           ),
-                          FormWidget(hinttext: "Describe here")
+                          FormWidget(hinttext: "Describe here", controller:  description,)
                         ],
                       ),
                     ),

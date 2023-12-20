@@ -99,7 +99,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'SIH-23',
         theme: buildTheme(),
-        home:  HomeScreen());
+        home:  FirstPage());
   }
 }
 

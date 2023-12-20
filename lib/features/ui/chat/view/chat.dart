@@ -18,49 +18,7 @@ import 'package:sih_2023/features/ui/chat/view/widgets/request_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/resource_widget.dart';
 
 class ChatScreen extends StatefulWidget {
-  const 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  ChatScreen({super.key, required this.roomId, required this.roomName});
+  const ChatScreen({super.key, required this.roomId, required this.roomName});
   final String roomId;
   final String roomName;
 

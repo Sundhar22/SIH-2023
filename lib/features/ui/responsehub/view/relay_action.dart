@@ -66,7 +66,7 @@ class _RelayActionState extends State<RelayAction> {
               const SizedBox(
                 height: 10,
               ),
-              const FormWidget(hinttext: "Enter your name"),
+               FormWidget(hinttext: "Enter your name", controller: nameController,),
               const SizedBox(
                 height: 14,
               ),
@@ -93,7 +93,7 @@ class _RelayActionState extends State<RelayAction> {
                 },
               ),
               if (selectedSizeType == 'Team')
-                const Column(
+                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
@@ -105,6 +105,7 @@ class _RelayActionState extends State<RelayAction> {
                     ),
                     FormWidget(
                       hinttext: "Enter team size",
+                      controller: teamSizeController,
                     ),
                     SizedBox(
                       height: 20,
@@ -114,12 +115,13 @@ class _RelayActionState extends State<RelayAction> {
                       height: 10,
                     ),
                     FormWidget(
+                      controller: phoneNumberController,
                       hinttext: "Enter Your Phone Number",
                     ),
                   ],
                 ),
               if (selectedSizeType == 'Solo')
-                const Column(
+                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomTitleWidget(titleContent: "Number"),
@@ -127,6 +129,7 @@ class _RelayActionState extends State<RelayAction> {
                       height: 10,
                     ),
                     FormWidget(
+                      controller: phoneNumberController,
                       hinttext: "Enter Your Phone number",
                     ),
                   ],

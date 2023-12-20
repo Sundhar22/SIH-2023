@@ -12,7 +12,7 @@ class AgencyController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    // await fetchAgency();
+    await fetchAgency();
     locationData = await locationInstance.getLocation();
     defaultLatitude = locationData.latitude ?? 0.0;
     defaultLatitude = locationData.longitude ?? 0.0;
@@ -23,13 +23,13 @@ class AgencyController extends GetxController {
     List curData = await retrieveCollection("agencies");
     for (var agencyEntry in curData) {
       AgencyModel data = AgencyModel(
-        agencyName: agencyEntry['agencyName'],
-        agencyKey: agencyEntry['agencyKey'],
-        agencyLogo: agencyEntry['agencyLogo'],
+        agencyName: agencyEntry['agencyName'] ?? '',
+        agencyKey: agencyEntry['agencyKey'] ?? '',
+        agencyLogo: agencyEntry['agencyLogo']?? '',
         agencyDescription:
             expertiseDescription[agencyEntry['agencyType']] ?? '',
-        agencyOperatingState: agencyEntry['agencyOperatingState'],
-        agencyOperatingLocation: agencyEntry['agencyOperatingLocation'],
+        agencyOperatingState: agencyEntry['agencyOperatingState']?? '',
+        agencyOperatingLocation: agencyEntry['agencyOperatingLocation']?? '',
         agencyExpertise: expertiseMapping[agencyEntry['agencyType']] ?? "",
         agencyAssocaites: agencyEntry['agencyAssociates'],
         agencyEmployee: agencyEntry['agencyEmployee'],
