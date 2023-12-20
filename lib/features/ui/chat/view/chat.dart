@@ -20,6 +20,8 @@ import 'package:sih_2023/features/ui/chat/view/widgets/message_layout.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/progress_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/request_widget.dart';
 import 'package:sih_2023/features/ui/chat/view/widgets/resource_widget.dart';
+import 'package:sih_2023/features/ui/chat_summarizer/rescue_summary_screen.dart';
+import 'package:sih_2023/features/ui/chatsonic/ui/chatsonic.dart';
 import 'package:swipe_plus/swipe_plus.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -88,9 +90,24 @@ class _ChatScreenState extends State<ChatScreen> {
           //     },
           //     child: const Icon(CupertinoIcons.video_camera)),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to((){
+                  return ChatSonic();
+                });
+              },
               icon: const Icon(
-                Icons.more_vert,
+                Icons.rocket,
+              )),
+          IconButton(
+              onPressed: () {
+                fetchDataAndConcatenate(widget.roomId).then((value) {
+                  Get.to(() => RescueSummaryscreen(
+                        chat_history: value,
+                      ));
+                });
+              },
+              icon: const Icon(
+                Icons.summarize,
               )),
         ],
       ),
@@ -591,3 +608,27 @@ class _MapPreviewState extends State<MapPreview> {
     );
   }
 }
+
+Future<String> fetchDataAndConcatenate(String roomId) async {
+    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+    try {
+      String resultString = '';
+
+      // Fetch chat data using the room ID
+      QuerySnapshot chatSnapshot =
+          await _firestore.collection('rooms/$roomId/chatData').get();
+
+      // Concatenate sender and content for each chat document
+      for (QueryDocumentSnapshot chatDoc in chatSnapshot.docs) {
+        String sender = chatDoc['sender'];
+        String content = chatDoc['content'].toString();
+        resultString += '$sender: $content\n';
+      }
+
+      // Return the final concatenated string
+      return resultString;
+    } catch (e) {
+      print('Error fetching data: $e');
+      return 'Error fetching data';
+    }
+  }
