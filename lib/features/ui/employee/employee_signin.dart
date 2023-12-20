@@ -1,14 +1,9 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
-import "package:http/http.dart";
 import "package:sih_2023/features/constants/constants.dart";
 import "package:sih_2023/features/ui/employee/employee_db.dart";
-import "package:sih_2023/features/ui/home/view/custom_title_widget.dart";
-import "package:sih_2023/features/ui/home/view/home.dart";
-import "package:sih_2023/features/ui/onboarding/widgets/form_widgets.dart";
 import "package:sih_2023/features/ui/onboarding/widgets/upload_image_widget.dart";
 import "package:sih_2023/features/ui/responsehub/view/push_room_data.dart";
-import "package:sih_2023/features/ui/responsehub/view/relay_action.dart";
 
 class EmployeeSignIn extends StatefulWidget {
   const EmployeeSignIn({super.key});
@@ -221,19 +216,18 @@ class _EmployeeSignInState extends State<EmployeeSignIn> {
                                       borderRadius: BorderRadius.circular(10))),
                               onPressed: () {
                                 firebaseService.pushEmployeeData(
-                                  Employee(
-                                    name: employeeNameController.text,
-                                    phoneNumber: phoneController.text,
-                                    age: ageController.text,
-                                    agencyDocId: userData,
-                                  ),
-                                  emailController.text
-                                );
+                                    Employee(
+                                      name: employeeNameController.text,
+                                      phoneNumber: phoneController.text,
+                                      age: ageController.text,
+                                      agencyDocId: userData,
+                                    ),
+                                    emailController.text);
                                 Get.snackbar(
                                   "Employee Added",
                                   "Employee data has been successfully added.",
                                   snackPosition: SnackPosition.BOTTOM,
-                                  duration: Duration(seconds: 2),
+                                  duration: const Duration(seconds: 2),
                                 );
                                 Navigator.pop(context);
                               },

@@ -29,12 +29,6 @@ Future<void> main() async {
   );
   initialize();
 
-  // Workmanager().registerOneOffTask(
-  //   "1",
-  //   "simplePeriodicTask",
-  //   // frequency: Duration(minutes: 15),
-  // );
-
   AwesomeNotifications().initialize(
     // set the icon to null if you want to use the default app icon
     null,
@@ -90,10 +84,11 @@ class _MyAppState extends State<MyApp> {
     Get.put(NewPostController());
 
     return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'SIH-23',
-        theme: buildTheme(),
-        home: const HomeScreen());
+      debugShowCheckedModeBanner: false,
+      title: 'SIH-23',
+      theme: buildTheme(),
+      home: const HomeScreen(),
+    );
   }
 }
 

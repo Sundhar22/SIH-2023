@@ -150,11 +150,8 @@ Map<String, IconData> requestIcons = {
   'Shelters': Icons.night_shelter_outlined,
 };
 
-String userData = 'tempy text';
-
+String userData = 'sanjaiofficial02@gmail.com';
 
 bool isEmployee = false;
 
-
-
- LatLng eLocation = LatLng( 13.272415, 79.121719);
+LatLng eLocation = const LatLng(13.272415, 79.121719);

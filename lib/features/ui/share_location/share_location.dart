@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_map_markers/custom_map_markers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:sih_2023/features/functions/location/location.dart';
 
 late LatLng primaryLocation;
 
@@ -29,19 +28,8 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
   @override
   void initState() {
     super.initState();
-    setMapStyle();
+    // setMapStyle();
 
-    getDocumentByDocId(widget.roomId);
-
-    // Timer
-    _timer = Timer.periodic(
-      const Duration(seconds: 20),
-      (timer) {
-        fetchLocation(widget.roomId);
-        retrieveEmployeeLocation();
-      },
-    );
-    //
     _addCustomMarkers();
   }
 
@@ -57,42 +45,39 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
 
 //
   void _addCustomMarkers() async {
-    print("Custom Marker Function  Called");
     _customMarkers = [];
 
-    // Duplicate Marker for testing
+    List<LatLng> markers = await createLocationCordinates();
+
+    print("Marker Length  is ${markers.length}");
+
     _customMarkers.add(
       MarkerData(
-        marker: Marker(
-          markerId: const MarkerId("value"),
-          position: primaryLocation,
+        marker: const Marker(
+          markerId: MarkerId("value"),
+          position: LatLng(13.218636, 79.100619),
         ),
         child: generateHelpSymbol(true),
       ),
     );
 
-    // LocationPlot
-    if (locationPlot.isNotEmpty) {
-      for (var i = 0; i < locationPlot.length; i++) {
-        _customMarkers.add(
-          MarkerData(
-            marker: Marker(
-              markerId: MarkerId("Marker $i"),
-              position:
-                  LatLng(locationPlot[i].latitude, locationPlot[i].longitude),
-              infoWindow: const InfoWindow(
-                title: "Rescue Squad",
-              ),
-            ),
-            child: generateHelpSymbol(false),
+    for (int i = 0; i < markers.length; i++) {
+      _customMarkers.add(
+        MarkerData(
+          marker: Marker(
+            markerId: MarkerId(i.toString()),
+            position: markers[i],
           ),
-        );
-      }
+          child: generateHelpSymbol(false),
+        ),
+      );
     }
 
-    if (mounted) {
-      setState(() {});
-    }
+    setState(() {});
+
+    print("Custom Marker Length is ${_customMarkers.length}");
+
+    // LocationPlot
   }
 
   void setMapStyle() {
@@ -106,14 +91,6 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: ElevatedButton(
-            onPressed: () async {
-              await fetchLocation(widget.roomId);
-            },
-            child: const Text("Share My Location")),
-      ),
       body: SafeArea(
         child: CustomGoogleMapMarkerBuilder(
           customMarkers: _customMarkers,
@@ -162,7 +139,7 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
                 radius: 13,
                 backgroundColor: Colors.amber,
                 child: Icon(
-                  Icons.emergency,
+                  Icons.person_pin_circle_sharp,
                   color: Colors.white,
                 ),
               ),
@@ -176,74 +153,63 @@ class _ShareMyLocationState extends State<ShareMyLocation> {
   }
 
   // Retrieve Employee Location
-  Future<void> retrieveEmployeeLocation() async {
-    try {
-      final DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
-          .collection('rooms')
-          .doc(widget.roomId)
-          .get();
-
-      if (docSnapshot.exists) {
-        final Map<String, dynamic>? data =
-            docSnapshot.data() as Map<String, dynamic>?;
-
-        if (data != null) {
-          print("Dynamic Location Marker Function  Called");
-
-          final dynamic location = data['eLocation'];
-
-          print("The location is $location");
-
-          _customMarkers = [];
-
-          for (var i = 0; i < location.length; i++) {
-            _customMarkers.add(
-              MarkerData(
-                marker: Marker(
-                  markerId: MarkerId(location[i]["docId"]),
-                  position:
-                      LatLng(location[i]["latitude"], location[i]["longitude"]),
-                ),
-                child: generateHelpSymbol(false),
-              ),
-            );
-          }
-
-          setState(
-            () {
-              locationPlot = _customMarkers;
-              ();
-              _addCustomMarkers();
-            },
-          );
-        }
-      } else {}
-    } catch (error) {}
-  }
 }
 
-Future<LatLng?> getDocumentByDocId(String docId) async {
+Future<dynamic> getDocValue(String docId, String employeeId) async {
   try {
-    // Reference to the collection
-    CollectionReference collection =
-        FirebaseFirestore.instance.collection('rooms');
-
     // Reference to the document
-    DocumentSnapshot documentSnapshot = await collection.doc(docId).get();
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection("employees").doc(employeeId);
 
-    if (documentSnapshot.exists) {
-      Map<String, dynamic> documentSnapShot =
-          documentSnapshot.data() as Map<String, dynamic>;
+    // Get the document
+    DocumentSnapshot docSnapshot = await docRef.get();
 
-      primaryLocation = LatLng(
-          documentSnapShot["location"][0], documentSnapShot["location"][1]);
+    print("The docSnapshot recieved  : $docSnapshot.data()");
+
+    if (docSnapshot.exists) {
+      // Document exists, return its data
+      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
+
+      print(
+          "The location of lat & long ${data['location'].longitude} ${data['location'].longitude}");
+
+      return LatLng(data['location'].latitude, data['location'].longitude);
     } else {
-      // Document does not exist
       return null;
     }
   } catch (error) {
-    print("Error getting document: $error");
+    // Handle errors
     rethrow;
   }
-  return null;
+}
+
+Future<List<LatLng>> createLocationCordinates() async {
+  // Example usage
+  List<String> employeeIds = [
+    "mitunpokkisham@gmail.com",
+    "sanjaiofficial02@gmail.com",
+    "thenmozhi09@gmail.com",
+    "harinishivani2004@gmail.com"
+  ];
+
+  List<LatLng> locaCord = [];
+
+  for (var employeeId in employeeIds) {
+    try {
+      dynamic value = await getDocValue("employees", employeeId);
+
+      print("The value in the createLocation is is $value");
+
+      if (value != null) {
+        // Do something with the retrieved value
+        locaCord.add(value);
+      }
+    } catch (error) {
+      // Handle errors
+      print("The error caught $error");
+    }
+  }
+
+  print("Loca Cord is $locaCord");
+  return locaCord;
 }
